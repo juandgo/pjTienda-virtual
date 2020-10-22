@@ -1,0 +1,6 @@
+.app-sidebar__user-avatar {
+    width: 60px;
+    /* height: 80px; */
+    background: gray;
+    padding: 6px;
+}
