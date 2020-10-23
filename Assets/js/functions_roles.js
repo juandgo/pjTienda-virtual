@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         //NUEVO ROL
         //envio de datos por ajax 
-        var format = document.querySelector("#formRol");//se coloca # por que es un id . es para una clase
+        var formRol = document.querySelector("#formRol");//se coloca # por que es un id . es para una clase
         formRol.onsubmit = function(e){
             e.preventDefault();//previene de que se recarge el formularion con la pagina
 
@@ -39,9 +39,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Atención","Todos los campos son obligatorios.", "error");
                 return false;
             }
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");//Valida si es un vegador Chrome o firefox y se obtiene cada uno de los objetos de acuerdo al navegador 
-            var ajaxUrl = base_url+'Roles/setRol'; 
-            
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene cada uno de los objetos de acuerdo al navegador 
+            var ajaxUrl = base_url+'/Roles/setRol'; 
+            var formData = new FormData(formRol);
+            request.open("POST",ajaxUrl,true);
+            request.send(formData); 
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+
+                    var objData = JSON.parse(request.responseText);//Se crea un objeto 
+
+                    if (objData.status) {
+                        $('#modalFormRol').modal('hide');
+                        formElement.reset();
+                        swal("Roles de usuarios",objData.msg,"success");
+                        tableRoles.api().reload(function(){
+                            ftnEditRole();
+                            ftnDelRol();
+                            ftnPermisos();
+                        });
+                    }else{
+                        swal("Error", objData.msg,"error");
+                    }
+                }
+            }
         }
     });
 
