@@ -31,8 +31,17 @@ document.addEventListener('DOMContentLoaded', function() {
         var format = document.querySelector("#formRol");//se coloca # por que es un id . es para una clase
         formRol.onsubmit = function(e){
             e.preventDefault();//previene de que se recarge el formularion con la pagina
-            var strnombre = document.querySelector("#txtnombre").value;
 
+            var strNombre = document.querySelector("#txtNombre").value;
+            var strDescripcion = document.querySelector("#txtDescripcion").value;
+            var intStatus = document.querySelector("#listStatus").value;
+            if (strNombre == '' || strDescripcion == '' || intStatus == '') {
+                swal("Atención","Todos los campos son obligatorios.", "error");
+                return false;
+            }
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");//Valida si es un vegador Chrome o firefox y se obtiene cada uno de los objetos de acuerdo al navegador 
+            var ajaxUrl = base_url+'Roles/setRol'; 
+            
         }
     });
 
