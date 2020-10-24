@@ -47,19 +47,19 @@ document.addEventListener('DOMContentLoaded', function() {
             request.onreadystatechange = function () {
                 if (request.readyState == 4 && request.status == 200) {
 
-                    var objData = JSON.parse(request.responseText);//Se crea un objeto 
+                    var objData = JSON.parse(request.responseText);
 
                     if (objData.status) {
-                        $('#modalFormRol').modal('hide');
-                        formElement.reset();
-                        swal("Roles de usuarios",objData.msg,"success");
-                        tableRoles.api().reload(function(){
-                            ftnEditRole();
-                            ftnDelRol();
-                            ftnPermisos();
+                        $('#modalFormRol').modal('hide');//Cierra el modal
+                        formRol.reset();//limpia los campos
+                        swal("Roles de usuarios", objData.msg ,"success");
+                        tableRoles.api().ajax.reload(function(){
+                            // ftnEditRole();
+                            // ftnDelRol();
+                            // ftnPermisos();
                         });
                     }else{
-                        swal("Error", objData.msg,"error");
+                        swal("Error", objData.msg,"error");//muestra mensaje de error segun el controlador
                     }
                 }
             }

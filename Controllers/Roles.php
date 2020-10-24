@@ -37,17 +37,17 @@
         public function setRol(){
             //la funcion strClean limpa los campos
             $strRol = strClean($_POST['txtNombre']);
-            $strDescrition = strClean($_POST['txtDescripcion']);
-            $strStatus = intVal($_POST['listStatus']);
+            $strDescripcion = strClean($_POST['txtDescripcion']);
+            $intStatus = intVal($_POST['listStatus']);
             //Se envia la informacion al modelo 
-            $request_rol = $this->model->insertRole($strRol, $strDescrition, $intStatus);
+            $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
 
             if ($request_rol > 0) {
                 $arrResponse = array('status'=> true, 'msg'=>'Datos guardados correctamente');
             }else if($request_rol == 'exist'){
-                $arrResponse = array('status'=> true, 'msg'=>'¡Atención! El Rol ya existe.');
+                $arrResponse = array('status'=> false, 'msg'=>'¡Atención! El Rol ya existe.');
             }else {
-                $arrResponse = array('status'=> true, 'msg'=>'No es posible almacenar los datos.');
+                $arrResponse = array('status'=> false, 'msg'=>'No es posible almacenar los datos.');
             }
             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
             die();//Se detiene el proceso.

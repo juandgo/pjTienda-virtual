@@ -28,9 +28,9 @@
             $request = $this->select_all($sql);
             //Si la consulta no exite  se puede insertar 
             if (empty($request)) {
-                $query_insert = "INSERT INTO rol(nombrerol,descripcion,status) values(?,?,?)";
+                $query_insert = "INSERT INTO rol(nombrerol, descripcion, status) values(?,?,?)";
                 $arrData = array($this->strRol,$this->strDescripcion,$this->intStatus);
-                $request_insert = $this->insert($query_insert,arrData);
+                $request_insert = $this->insert($query_insert,$arrData);
                 $return = $request_insert;
             }else{
                 $return = "exist";
