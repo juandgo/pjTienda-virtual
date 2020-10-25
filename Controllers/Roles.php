@@ -34,6 +34,21 @@
             // dep($arrData);
         }
 
+        public function getRol(int $idrol){
+
+            $intIdRol = intval(strClean($idrol));//se convierte a int con intval y el strClean limpia en caso de que sea un string o inyeccion sql
+            if ($intIdRol > 0) {
+                $arrData = $this->model->selectRol($intIdRol);
+                if (empty($arrData)) {
+                    $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+                }else {
+                    $arrResponse = array('status' => true, 'data' => $arrData);
+                }
+                echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);//da la respuesta
+            }
+            die();
+        }
+
         public function setRol(){
             //la funcion strClean limpa los campos
             $strRol = strClean($_POST['txtNombre']);

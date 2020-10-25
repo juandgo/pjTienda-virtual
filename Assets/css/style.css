@@ -14,3 +14,7 @@
   background: #007bff;
   color: #fff;
 }
+
+.notBlock{
+    display: none;
+}
