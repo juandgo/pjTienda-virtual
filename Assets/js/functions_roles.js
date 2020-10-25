@@ -28,10 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         //NUEVO ROL
         //envio de datos por ajax 
-        var formRol = document.querySelector("#formRol");//se coloca # por que es un id . es para una clase
+        var formRol = document.querySelector("#formRol");//se coloca # por que es un id  el . es para una clase
         formRol.onsubmit = function(e){
             e.preventDefault();//previene de que se recarge el formularion con la pagina
 
+            var intIdRol = document.querySelector('#idRol').value;//evita que no se abra otro boton
             var strNombre = document.querySelector("#txtNombre").value;
             var strDescripcion = document.querySelector("#txtDescripcion").value;
             var intStatus = document.querySelector("#listStatus").value;
@@ -80,6 +81,7 @@ function openModal() {
 
 window.addEventListener('load', function(){//cuando se carge todo el documento va a cargar la funcion
     fntEditRol();
+    fntDelRol();
 }, false);
 
 function fntEditRol(){
@@ -123,6 +125,42 @@ function fntEditRol(){
                     }
                 }
             }
+        });
+    });
+}
+
+function fntDelRol() {
+    var btnDelRol = document.querySelectorAll(".btnDelRol");//se refiere a todos los elementos que tengan esta clase del rol 
+    btnDelRol.forEach(function(btnDelRol){
+        btnDelRol.addEventListener("click", function(){
+            var idrol = this.getAttribute("rl");//Se obtiene el id del rol
+
+            swal({
+                title: "Eliminar Rol",
+                text: "¿Realmente quiere eliminar el rol?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, eliminar!", 
+                cancelButtonText: "No, cancelar!",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function(isConfirm) {
+
+                if (isConfirm) {
+                    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+                    var ajaxDelRol = 'base_url+/Roles/delRol/';
+                    var strData = "idrol="+idrol;
+                    request.open("POST", ajaxDelRol, true);
+                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    request.send(strData);
+                    request.onreadystatechange = function () {
+                        if (request.readyState = = 4 && request.status == 200) {
+                            
+                        }
+                    }
+                }
+
+            });
         });
     });
 }
