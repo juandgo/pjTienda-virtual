@@ -54,12 +54,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         formRol.reset();//limpia los campos
                         swal("Roles de usuarios", objData.msg ,"success");
                         tableRoles.api().ajax.reload(function(){
-                            // ftnEditRole();
-                            // ftnDelRol();
-                            // ftnPermisos();
+                            // fntEditRole();
+                            // fntDelRol();
+                            // fntPermisos();
                         });
                     }else{
-                        swal("Error", objData.msg,"error");//muestra mensaje de error segun el controlador
+                        swal("Error", objData.msg,"error");//muestra mensaje de error segun  la opcion dada por el controlador
                     }
                 }
             }
@@ -70,5 +70,28 @@ $('#tableRoles').DataTable();
 
 //funcion que abre modales por su nombre
 function openModal() {
+    document.querySelector('#titleModal').innerHTML = "Nuevo Rol";
+    document.querySelector('#idRol').value="";//Es el id del input tipo hiden que resetea la modal
+    document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
+    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");//cambia 
+    document.querySelector('#btnText').innerHTML = "Guardar";
     $('#modalFormRol').modal('show');
 } 
+
+window.addEventListener('load', function(){//cuando se carge todo el documento va a cargar la funcion
+    fntEditRol();
+}, false);
+
+function fntEditRol(){
+    var btnEditRol = document.querySelectorAll(".btnEditRol");//Selecciona todos los elementos que tienenla clase btnEditRol
+    btnEditRol.forEach(function(btnEditRol){//la variable se recorre con el ciclo foreach
+        btnEditRol.addEventListener('click', function(){//agrega el evento listener que se activa con un click
+            document.querySelector('#titleModal').innerHTML = "Actualizar Rol";//cambia nombre de la modal
+            document.querySelector('.modal-header').classList.replace("headerRegister", "headerUpdate");//cambia la clase de registrar a actualizar
+            document.querySelector('#btnActionForm').classList.replace('btn-primary', 'btn-info');//cambia 
+            document.querySelector('#btnText').innerHTML = "Actualizar";//cambia el nombre del boton Guardar a actualizar 
+
+            $('#modalFormRol').modal('show');//muestra modal
+        });
+    });
+}
