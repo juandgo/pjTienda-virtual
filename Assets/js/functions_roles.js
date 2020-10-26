@@ -189,9 +189,10 @@ function fntPermisos() {
             request.onreadystatechange = function(){
                 if (request.status == 200) {
                     console.log(request.responseText);
+                    $('.modalPermisos').modal('show');
                 }
             }
-            $('.modalPermisos').modal('show');
+            
         });
     });
 }
