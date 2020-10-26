@@ -16,6 +16,14 @@
                 $arrPermisos = array('r' => 0, 'w' => 0, 'u' => 0, 'd' => 0);
                 $arrPermisosRol = array('idrol' => $rolid);
 
+                if (empty($arrPermisosRol)) {
+                    
+                    for ($i=0; $i < count($arrModulos) ; $i++) { 
+
+                        $arrModulos[$i]['permisos'] = $arrPermisos;
+                    }
+                }
+
             }
         }
         
