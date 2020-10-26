@@ -10,11 +10,12 @@
             if ($rolid > 0) {
                 $arrModulos = $this->model->selectModulos();
                 $arrPermisosRol = $this->model->selectPermisosRol($rolid);
+                $arrPermisos = array('r' => 0, 'w' => 0, 'u' => 0, 'd' => 0);
+                $arrPermisosRol = array('idrol' => $rolid);
                 //dep sirve para depurar y visualizar en consola los array
                 // dep($arrModulos);
                 // dep($arrPermisosRol);
-                $arrPermisos = array('r' => 0, 'w' => 0, 'u' => 0, 'd' => 0);
-                $arrPermisosRol = array('idrol' => $rolid);
+               
 
                 if (empty($arrPermisosRol)) {
                     
