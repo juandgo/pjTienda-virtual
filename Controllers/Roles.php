@@ -51,7 +51,7 @@
 
         public function setRol(){
 
-            $intIdRol = intval($_POST['idRol']);
+            $intIdRol = intval($_POST['idRol']);// Este es el idRol del modal
             //la funcion strClean limpa los campos
             $strRol = strClean($_POST['txtNombre']);
             $strDescripcion = strClean($_POST['txtDescripcion']);
@@ -80,6 +80,23 @@
                 $arrResponse = array('status'=> false, 'msg'=>'No es posible almacenar los datos.');
             }
             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            die();//Se detiene el proceso.
+        }
+
+        public function delRol(){
+
+            if ($_POST) {
+                $intIdRol = intval($_POST['idrol']);//Este es el idrol del dato
+                $requestDelete = $this->model->deleteRol($intIdRol);
+                if ($requestDelete == 'ok'){
+                    $arrResponse = array('status'=> true, 'msg'=>'Se ha eliminado el Rol.');
+                }else if($requestDelete == 'exist'){
+                    $arrResponse = array('status'=> false, 'msg'=>'No es posible eliminar un Rol asociado a usuarios.');
+                }else {
+                    $arrResponse = array('status'=> false, 'msg'=>'Error al elimnar el Rol.');
+                }
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            }
             die();//Se detiene el proceso.
         }
     }

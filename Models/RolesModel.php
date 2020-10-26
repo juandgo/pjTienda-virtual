@@ -34,7 +34,7 @@
 
             $sql = "SELECT * FROM rol WHERE nombrerol = '{$this->strRol}'";
             $request = $this->select_all($sql);
-            //Si la consulta no exite  se puede insertar 
+            //Sí la consulta no exite  se puede insertar 
             if (empty($request)) {
                 $query_insert = "INSERT INTO rol(nombrerol, descripcion, status) values(?,?,?)";
                 $arrData = array($this->strRol,$this->strDescripcion,$this->intStatus);
@@ -60,6 +60,28 @@
                 $request = $this->update($sql, $arrData);
             }else {
                 $request = "exist";
+            }
+            return $request;
+        }
+
+        public function deleteRol(int $idrol){
+            $this->intIdRol = $idrol;
+            //Se busca si el rol esta asociado a un usuario y  sí ya lo esta no se debe permitir la eliminacion     
+            $sql = "SELECT * FROM persona WHERE rolid = $this->intIdRol";
+            $request = $this->select_all($sql);
+            //sí no existe el usuario  ejecutael query  
+            if (empty($request)) {
+                //No se elimina si no que actualiza, por que es recomendable no eliminar los registros de una base de datos  
+                $sql = "UPDATE rol SET status = ? WHERE idrol = $this->intIdRol";// es estado va a ser 0
+                $arrData = array(0);
+                $request = $this->update($sql, $arrData);
+                if ($request) {
+                    $request = 'ok';
+                }else{
+                    $request = 'exist';
+                }
+            }else{
+                $request = 'exist';
             }
             return $request;
         }

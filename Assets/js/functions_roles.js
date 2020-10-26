@@ -147,20 +147,38 @@ function fntDelRol() {
             }, function(isConfirm) {
 
                 if (isConfirm) {
-                    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-                    var ajaxDelRol = 'base_url+/Roles/delRol/';
+                    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                    var ajaxUrl = base_url+'/Roles/delRol/';
                     var strData = "idrol="+idrol;
-                    request.open("POST", ajaxDelRol, true);
+                    request.open("POST", ajaxUrl , true);
                     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                     request.send(strData);
-                    request.onreadystatechange = function () {
-                        if (request.readyState = = 4 && request.status == 200) {
-                            
+                    request.onreadystatechange = function() {
+                        if (request.readyState == 4 && request.status == 200) {
+                            var objData = JSON.parse(request.responseText);
+                            if (objData.status) {
+                                swal("Eliminar!", objData.msg ,"success");
+                                tableRoles.api().ajax.reload(function(){
+                                    fntEditRol();
+                                    fntDelRol();
+                                });
+                            }else{
+                                swal("Atención!", objData.msg, "error");
+                            }
                         }
                     }
                 }
 
             });
+        });
+    });
+}
+
+function fntPermisos() {
+    var btnPermisosRol = document.querySelectorAll(".btnPermisosRol");//se dirige a todos los elementos que tiene la clase btnPermisosRol
+    btnPermisosRol.forEach(function(btnPermisosRol){
+        btnPermisosRol.addEventListener("click", function() {
+            $('.modalPermisos').modal('show');
         });
     });
 }
