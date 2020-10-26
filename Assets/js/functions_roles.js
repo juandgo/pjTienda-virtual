@@ -82,6 +82,7 @@ function openModal() {
 window.addEventListener('load', function(){//cuando se carge todo el documento va a cargar la funcion
     fntEditRol();
     fntDelRol();
+    fntPermisos();
 }, false);
 
 function fntEditRol(){

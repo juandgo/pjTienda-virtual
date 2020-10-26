@@ -62,12 +62,52 @@
 </div>
 
 <!-- Small modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
+<div class="modal fade modalPermisos" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
-      ...
+      
+      <div class="modal-header">
+          <h5 class="modal-title h4">Permisos Roles de Usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span>
+          </button>
+      </div>
+      <div class="modal-body">
+      <div class="col-md-12">
+          <div class="tile">
+            <h3 class="tile-title">Responsive Table</h3>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Módulo</th>
+                    <th>Leer</th>
+                    <th>Escribir</th>
+                    <th>Actualizar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Usuario</td>
+                    <td><div class="toggle-flip">
+                  <label>
+                    <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                  </label>
+                </div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
