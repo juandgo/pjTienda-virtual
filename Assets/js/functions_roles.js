@@ -181,7 +181,7 @@ function fntPermisos() {
         btnPermisosRol.addEventListener("click", function() {
 
             var idrol = this.getAttribute("rl");
-            var request = (window.XMLHttpRequest) ?XMLHttpRequest() : ActiveXObject('Microsoft.XMLHTTP');
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Permisos/getPermisosRol'+idrol;
             request.open("GET", ajaxUrl, true);
             request.send();
