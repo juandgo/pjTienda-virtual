@@ -19,6 +19,14 @@
             $request = $this->select_all($sql);
             return $request;
         }
+
+        public function selectPermisosRol(int $idrol){
+
+            $this->intRolId = $idrol;
+            $sql = "SELECT * FROM permisos WHERE rolid = $this->intRolId";
+            $request = $this->select_all($sql);
+            return $request;
+        }
     }
 
 ?>
