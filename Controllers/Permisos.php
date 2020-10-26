@@ -11,7 +11,7 @@
                 $arrModulos = $this->model->selectModulos();
                 $arrPermisosRol = $this->model->selectPermisosRol();
 
-                dep()
+                dep($arrModulos);
             }
         }
         
