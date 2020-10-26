@@ -182,7 +182,7 @@ function fntPermisos() {
 
             var idrol = this.getAttribute("rl");
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url+'/Permisos/getPermisosRol'+idrol;
+            var ajaxUrl = base_url+'/Permisos/getPermisosRol/'+idrol;
             request.open("GET", ajaxUrl, true);
             request.send();
 

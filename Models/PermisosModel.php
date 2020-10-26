@@ -6,7 +6,7 @@
         public $intRolId;
         public $intModuloId;
         public $r;
-        public $w;
+        public $w; 
         public $u;
         public $d;
 
