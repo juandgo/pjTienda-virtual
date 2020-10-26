@@ -16,7 +16,7 @@
 
         public function selectModulos(){
             $sql = "SELECT * FROM modulo WHERE status != 0";
-            $request = $this->select_all($sql);
+            $request = $this->select_all($sql);//ejecuta la instruccion sql
             return $request;
         }
 
@@ -24,7 +24,7 @@
 
             $this->intRolId = $idrol;
             $sql = "SELECT * FROM permisos WHERE rolid = $this->intRolId";
-            $request = $this->select_all($sql);
+            $request = $this->select_all($sql);//ejecuta la instrucion sql
             return $request;
         }
     }

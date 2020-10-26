@@ -9,9 +9,11 @@
             $rolid = intval($idrol);
             if ($rolid > 0) {
                 $arrModulos = $this->model->selectModulos();
-                $arrPermisosRol = $this->model->selectPermisosRol();
-
+                $arrPermisosRol = $this->model->selectPermisosRol($rolid);
+                //dep sirve para depurar
                 dep($arrModulos);
+                dep($arrPermisosRol);
+
             }
         }
         
