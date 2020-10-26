@@ -5,7 +5,7 @@
         public function __construct(){
             parent::__construct();
         }
-            //   Me gusta aprender
+        
         // public function setUser(string $nombre, int $edad){
         //     $query_insert = "INSERT INTO usuario(nombre,edad) VALUES(?,?)";
         //     $arrData = array($nombre, $edad);
