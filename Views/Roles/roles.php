@@ -2,6 +2,7 @@
   headerAdmin($data); 
   getModal('modalRoles', $data);//los datos de la modal se envian por parametro a la funcion getmodals ubicada en  helpers
 ?>
+  <div id="contentAjax"></div>
     <main class="app-content">
       <div class="app-title">
         <div>

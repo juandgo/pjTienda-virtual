@@ -51,6 +51,9 @@
         </button>
       </div>
       <div class="modal-body">
+      <?php
+        dep($data);
+        ?>
         <div class="col-md-12">
           <div class="tile">
             <form action="" id="formPermisos" name="formPermisos">
