@@ -175,19 +175,19 @@ function fntDelRol() {
     });
 }
 
-function fntPermisos() {
-    var btnPermisosRol = document.querySelectorAll(".btnPermisosRol");//se dirige a todos los elementos que tiene la clase btnPermisosRol
-    btnPermisosRol.forEach(function(btnPermisosRol){
-        btnPermisosRol.addEventListener("click", function() {
+function fntPermisos(){
+    var btnPermisosRol = document.querySelectorAll(".btnPermisosRol");
+    btnPermisosRol.forEach(function(btnPermisosRol) {
+        btnPermisosRol.addEventListener('click', function(){
 
             var idrol = this.getAttribute("rl");
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Permisos/getPermisosRol/'+idrol;
-            request.open("GET", ajaxUrl, true);
+            request.open("GET",ajaxUrl,true);
             request.send();
 
             request.onreadystatechange = function(){
-                if (request.status == 200) {
+                if(request.readyState == 4 && request.status == 200){
                     console.log(request.responseText);
                     $('.modalPermisos').modal('show');
                 }
