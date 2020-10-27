@@ -30,52 +30,52 @@
                   </thead>
                   <tbody>
                     <?php
+                    //Esto chequea los permisos del usuario
+                    //Y les asigna un valor de chekeo  depediendo del numero binario
                         $no = 1;
                         $modulos = $data['modulos'];
-                        for ($i=0; $i < count($mosulos); $i++) { 
+                        for ($i=0; $i < count($modulos); $i++) { 
                             $permisos = $modulos[$i]['permisos'];
                             $rCheck = $permisos['r'] == 1 ? " checked " : "";
-                            $rCheck = $permisos['r'] == 1 ? " checked " : "";
-                            $rCheck = $permisos['r'] == 1 ? " checked " : "";
-                            $rCheck = $permisos['r'] == 1 ? " checked " : "";
+                            $wCheck = $permisos['r'] == 1 ? " checked " : "";
+                            $uCheck = $permisos['r'] == 1 ? " checked " : "";
+                            $dCheck = $permisos['r'] == 1 ? " checked " : "";
 
-                            $idmod = $mdoudlos[$i]['idmodulo'];
+                            $idmod = $modulos[$i]['idmodulo'];
                         }
                     ?>
                     <tr>
-                      <td>Usuario</td>
+                      <td>
+                        <?= $no; ?>
+                            <input type="hidden" name="modulos[<?= $i; ?>][idmodulo]" value="<?= $idmod ?>" require="">
+                      </td>
+                      <td>
+                        <?= $modulos[$i]['titulo']; ?>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="mosulos[<?= $i; ?>][r]" <?= $rCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="mosulos[<?= $i; ?>][w]" <?= $wCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="mosulos[<?= $i; ?>][u]" <?= $uCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
-                          </label>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="toggle-flip">
-                          <label>
-                            <input type="checkbox"><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="mosulos[<?= $i; ?>][d]" <?= $dCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
