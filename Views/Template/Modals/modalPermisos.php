@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
       <?php
-        dep($data);
+        // dep($data);
         ?>
         <div class="col-md-12">
           <div class="tile">
@@ -42,7 +42,7 @@
                             $dCheck = $permisos['r'] == 1 ? " checked " : "";
 
                             $idmod = $modulos[$i]['idmodulo'];
-                        }
+                        
                     ?>
                     <tr>
                       <td>
@@ -80,6 +80,10 @@
                         </div>
                       </td>
                     </tr>
+                    <?php
+                        $no++;
+                    }
+                    ?>
                   </tbody>
                 </table>
               </div>
