@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
      tableRoles = $('#tableRoles').dataTable({
          "aProcessing":true,
          "aServerSide":true,
-         "languages":{
+         "language":{
              "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"//fromato json con configuracion del lenguaje
          },
          "ajax":{
@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         $('#modalFormRol').modal('hide');//Cierra el modal
                         formRol.reset();//limpia los campos
                         swal("Roles de usuarios", objData.msg ,"success");
-                        tableRoles.api().ajax.reload(function(){
-                            // fntEditRole();
-                            // fntDelRol();
-                            // fntPermisos();
+                        tableRoles.api().ajax.reload(function(){//esto me permite segir usando las difentes opcinones que 
+                            fntEditRol();
+                            fntDelRol();
+                            fntPermisos();
                         });
                     }else{
                         swal("Error", objData.msg,"error");//muestra mensaje de error segun  la opcion dada por el controlador
@@ -162,6 +162,7 @@ function fntDelRol() {
                                 tableRoles.api().ajax.reload(function(){
                                     fntEditRol();
                                     fntDelRol();
+                                    fntPermisos();
                                 });
                             }else{
                                 swal("Atención!", objData.msg, "error");
