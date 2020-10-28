@@ -43,7 +43,28 @@
 		}
 		
 		public function setPermisosRol(){
-			dep($_POST);
+			// dep($_POST);
+			// die();
+			if ($_POST) {
+				$intIdrol = intval($_POST['idrol']);
+				$modulos = $_POST['idmodulo'];
+
+				$this->model->deletePermisos($intIdrol);
+				foreach($modulos as $modulo){
+					$idModulo = $modulo['idmodulo'];
+					$r = empty($modulo['r']) ? 0 : 1;
+					$w = empty($modulo['w']) ? 0 : 1;
+					$u = empty($modulo['u']) ? 0 : 1;
+					$d = empty($modulo['d']) ? 0 : 1;
+					$requestPermiso = $this->model->insertPermisos($intIdrol, $idModulo, $r, $w, $u, $d);
+				}
+				if($requestPermiso > 0){
+                    $arrResponse = array('status'=> true, 'msg'=>'Permisos asignados correctamente');
+				}else{
+                    $arrResponse = array('status'=> false, 'msg'=>'No es posible asignar permisos');
+				}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			}
 			die();
 		}
         
