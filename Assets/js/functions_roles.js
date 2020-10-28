@@ -188,9 +188,9 @@ function fntPermisos(){
 
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    console.log(request.responseText);
                     document.querySelector('#contentAjax').innerHTML = request.responseText;
                     $('.modalPermisos').modal('show');
+                    document.querySelector('#formPermisos').addEventListener('sumbit', fntSavePermisos, false);
                 }
             }
             
