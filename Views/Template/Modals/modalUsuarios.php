@@ -19,6 +19,46 @@
                     <input type="text" class="form-control" id="textIdentificacion" name="textIdentificacion" required="">
                 </div>
               </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="textNombre">Nombres</label>s
+                    <input type="text" class="form-control" id="textNombre" name="textNombre" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="textApellido">Apellidos</label>s
+                    <input type="text" class="form-control" id="textApellido" name="textApellido" required="">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="textTelefono">Telefono</label>s
+                    <input type="text" class="form-control" id="textTelefono" name="textTelefono" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="textEmail">Email</label>s
+                    <input type="text" class="form-control" id="textEmail" name="textEmail" required="">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="listRolid">Tipo usuario</label>s
+                    <select type="text" class="form-control" id="listRolid" name="listRolid" required="">
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="listStatus">Status</label>s
+                    <select class="form-control" id="listStatus" name="listStatus" required="">
+                        <option value="1">Activo</option>
+                        <option value="2">Inactivo</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="textPassword">Password</label>s
+                    <input type="text" class="form-control" id="textPassword" name="textPassword" required="">
+                </div>
+              </div>
               
               <div class="tile-footer">
                 <button id="btnActionForm" class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;<a class="btn btn-secondary" href="#" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-times-circle"></i>Cancelar</a>
