@@ -15,7 +15,7 @@
         <div class="col-md-12">
           <div class="tile">
             <form action="" id="formPermisos" name="formPermisos">
-              <input type="hidden" id="idrol" name="idrol" value="<?= $data['idrol']; ?>" required="">
+            <input type="hidden" id="idrol" name="idrol" value="<?= $data['idrol']; ?>" required="">
               <div class="table-responsive">
                 <table class="table">
                   <thead>
@@ -54,28 +54,28 @@
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][r]" <?= $rCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][r]" <?= $rCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][w]" <?= $wCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][w]" <?= $wCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][u]" <?= $uCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][u]" <?= $uCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][d]" <?= $dCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][d]" <?= $dCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>

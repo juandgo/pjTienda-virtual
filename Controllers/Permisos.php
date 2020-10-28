@@ -30,19 +30,22 @@
 											 'u' => $arrPermisosRol[$i]['u'], 
 											 'd' => $arrPermisosRol[$i]['d'] 
 											);
-						if($arrModulos[$i]['idmodulo'] == $arrPermisosRol[$i]['moduloid'])
-						{
+						if($arrModulos[$i]['idmodulo'] == $arrPermisosRol[$i]['moduloid']){
 							$arrModulos[$i]['permisos'] = $arrPermisos;
 						}
                     }
                 }
-				$arrPermisoRols['modulos'] = $arrModulos;
-				$html = getModal('modalPermisos',$arrPermisoRols);
+				$arrPermisoRol['modulos'] = $arrModulos;
+				$html = getModal('modalPermisos',$arrPermisoRol);
                 // dep($arrPermisoRol);
-
-
-            }
-        }
+			}
+			die();
+		}
+		
+		public function setPermisosRol(){
+			dep($_POST);
+			die();
+		}
         
         
     }

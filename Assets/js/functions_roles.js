@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Atención","Todos los campos son obligatorios.", "error");
                 return false;
             }
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene cada uno de los objetos de acuerdo al navegador 
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
             var ajaxUrl = base_url+'/Roles/setRol'; 
             var formData = new FormData(formRol);
             request.open("POST",ajaxUrl,true);
@@ -190,10 +190,22 @@ function fntPermisos(){
                 if(request.readyState == 4 && request.status == 200){
                     document.querySelector('#contentAjax').innerHTML = request.responseText;
                     $('.modalPermisos').modal('show');
-                    document.querySelector('#formPermisos').addEventListener('sumbit', fntSavePermisos, false);
+                    document.querySelector('#formPermisos').addEventListener('submit',fntSavePermisos,false);
                 }
             }
             
         });
     });
+}
+
+function fntSavePermisos(evnet){
+    evnet.preventDefault();//previene que se recarge toda la pagina cuando se preciona el boton guardar
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url+'/Permisos/setPermisosRol/';
+    var formElement = document.querySelector("#formPermisos");
+    var formData = new FormData(formElement);
+    request.open("POST", ajaxUrl,true);
+    request.send(formData);
+
+
 }
