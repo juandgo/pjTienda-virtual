@@ -89,7 +89,7 @@
               </div>
               
               <div class="text-center">
-                <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i>Guardar</button>
+                <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="app-menu_icon fas fa-sign-out-alt" aria-hidden="true"></i> Salir</button>
               </div>
             </form> 
