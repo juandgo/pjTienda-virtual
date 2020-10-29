@@ -1,6 +1,6 @@
 <!-- modalRoles -->
 <div class="modal fade" id="modalFormUsuario" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header headerRegister">
         <h5 class="modal-title" id="titleModal">Nuevo Usuario</h5>
@@ -60,8 +60,8 @@
                 </div>
               </div>
               
-              <div class="text-center">
-              <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
+              <div class="tile-footer">
+              <button  id="btnActionForm"class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i> Cerrar</button>
               </div>
             </form>
