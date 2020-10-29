@@ -1,4 +1,8 @@
 
+document.addEventListener('DOMContentLoaded', function () {
+    var formUsuario = documet.querySelector('#formUsuario'); 
+}, false);
+
 window.addEventListener('load', function(){//Esta es la funcion que ejecuta  la funcion fntRolesUsuario();
         fntRolesUsuario();
 }, false);
@@ -11,7 +15,7 @@ function fntRolesUsuario() {
 
     request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
         if (request.readyState == 4 && request.status == 200) {
-            document.querySelector('#listRolid').innerHTML == request.responseText;//Esto le da respuesta  del getSlectRoles del controlador Roles.php
+            document.querySelector('#listRolid').innerHTML = request.responseText;//Esto le da respuesta  del getSlectRoles del controlador Roles.php
             document.querySelector('#listRolid').value = 1;
             $('#listRolid').selectpicker('render');
         }
