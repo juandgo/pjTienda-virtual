@@ -34,6 +34,18 @@
             // dep($arrData);
         }
 
+        public function getSelectRoles(){
+            $htmlOptions= "";
+            $arrData = $this->model->selectRoles();
+            if(count($arrData) > 0){
+                for ($i=0; $i < count($arrData); $i++) { 
+                    $htmlOptions .= '<option value="'.$arrData[$i]['idrol'].'">'.$arrData[$i]['nombrerol'].'</option>';
+                }
+            }
+            echo $htmlOptions;
+            die();
+        }
+
         public function getRol(int $idrol){
 
             $intIdRol = intval(strClean($idrol));//se convierte a int con intval y el strClean limpia en caso de que sea un string o inyeccion sql

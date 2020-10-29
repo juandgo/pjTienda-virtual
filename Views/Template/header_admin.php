@@ -11,7 +11,8 @@
     <title><?= $data['page_tag'] ?></title>
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main.css"><!-- orden 1 -->
-    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css"><!-- orden 2 -->
+    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/bootstrap-select.min.css"><!-- orden 2 -->
+    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css"><!-- orden 3 -->
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->
