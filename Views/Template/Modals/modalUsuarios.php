@@ -42,12 +42,12 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="listRolid">Tipo usuario</label>s
-                    <select type="text" class="form-control" id="listRolid" name="listRolid" required="">
+                    <select class="form-control" data-live-search="true" id="listRolid" name="listRolid" required="">
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="listStatus">Status</label>s
-                    <select class="form-control" id="listStatus" name="listStatus" required="">
+                    <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
                     </select>
