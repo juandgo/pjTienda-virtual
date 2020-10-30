@@ -11,6 +11,16 @@
             $this->views->getView($this,'usuarios',$data);
     
         }
+
+        public function setUsuario(){
+            if ($_POST) {
+                dep($_POST);
+
+            echo $_POST['listRolid'];
+            }
+            die();
+
+        }
     }
 
 ?>

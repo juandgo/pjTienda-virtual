@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    var formUsuario = documet.querySelector('#formUsuario'); 
+    var formUsuario = document.querySelector('#formUsuario'); 
     formUsuario.onsubmit = function(e){
         e.preventDefault();
         var strIdentificacion = document.querySelector('#txtIdentificacion');
@@ -10,14 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
         var intTelefono = document.querySelector('#txtTelefono');
         var intTipoUsuario = document.querySelector('#listRolid');
         var strPassword = document.querySelector('#txtPassword');
-        //Esto probablemento no se va a usar debido a que los campos en html son requeridos
-        if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario) {
+        //Esto probablemente no se va a usar debido a que los campos en html son requeridos
+        if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario =='') {
             swal("Atención", "Todos los campos son obligatorios.", "error");
             return false;
         }
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         var ajaxUrl = base_url+'/Usuarios/setUsuario';
-        var formData = FormData(formUsuario);
+        var formData = new FormData(formUsuario);
         request.open("POST",ajaxUrl,true);
         request.send(formData); 
     }

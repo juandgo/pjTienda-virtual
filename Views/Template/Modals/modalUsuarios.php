@@ -14,8 +14,8 @@
               <p class="text-primary">Todos los campos son obligatorios.</p>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textIdentificacion">Identificación</label>
-                    <input type="text" class="form-control" id="textIdentificacion" name="textIdentificacion" required="">
+                    <label for="txtIdentificacion">Identificación</label>
+                    <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
                 </div>
               </div>
               <div class="form-row">
@@ -55,7 +55,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="txtPassword">Password</label>
-                    <input type="text" class="form-control" id="txtPassword" name="txtPassword" required="">
+                    <input type="password" class="form-control" id="txtPassword" name="txtPassword" required="">
                 </div>
               </div>
               
