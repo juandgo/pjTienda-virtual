@@ -15,15 +15,15 @@
         <div class="col-md-12">
           <div class="tile">
             <form action="" id="formPermisos" name="formPermisos">
-
+            <input type="hidden" id="idrol" name="idrol" value="<?= $data['idrol']; ?>" required="">
               <div class="table-responsive">
                 <table class="table">
                   <thead>
                     <tr>
                       <th>#</th>
                       <th>Módulo</th>
-                      <th>Leer</th>
-                      <th>Escribir</th>
+                      <th>Ver</th>
+                      <th>Crear</th>
                       <th>Actualizar</th>
                       <th>Eliminar</th>
                     </tr>
@@ -54,28 +54,28 @@
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][r]" <?= $rCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][r]" <?= $rCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][w]" <?= $wCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][w]" <?= $wCheck ?> ><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][u]" <?= $uCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][u]" <?= $uCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
                       <td>
                         <div class="toggle-flip">
                           <label>
-                            <input type="checkbox" name="mosulos[<?= $i; ?>][d]" <?= $dCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
+                            <input type="checkbox" name="modulos[<?= $i; ?>][d]" <?= $dCheck ?>><span class="flip-indecator" data-toggle-on="ON" data-toggle-off="OFF"></span>
                           </label>
                         </div>
                       </td>
@@ -89,7 +89,7 @@
               </div>
               
               <div class="text-center">
-                <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i>Guardar</button>
+                <button class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="app-menu_icon fas fa-sign-out-alt" aria-hidden="true"></i> Salir</button>
               </div>
             </form> 

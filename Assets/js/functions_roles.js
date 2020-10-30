@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
      tableRoles = $('#tableRoles').dataTable({
          "aProcessing":true,
          "aServerSide":true,
-         "languages":{
+         "language":{
              "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"//fromato json con configuracion del lenguaje
          },
          "ajax":{
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Atención","Todos los campos son obligatorios.", "error");
                 return false;
             }
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene cada uno de los objetos de acuerdo al navegador 
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
             var ajaxUrl = base_url+'/Roles/setRol'; 
             var formData = new FormData(formRol);
             request.open("POST",ajaxUrl,true);
@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         $('#modalFormRol').modal('hide');//Cierra el modal
                         formRol.reset();//limpia los campos
                         swal("Roles de usuarios", objData.msg ,"success");
-                        tableRoles.api().ajax.reload(function(){
-                            // fntEditRole();
-                            // fntDelRol();
-                            // fntPermisos();
+                        tableRoles.api().ajax.reload(function(){//esto me permite segir usando las difentes opcinones que 
+                            fntEditRol();
+                            fntDelRol();
+                            fntPermisos();
                         });
                     }else{
                         swal("Error", objData.msg,"error");//muestra mensaje de error segun  la opcion dada por el controlador
@@ -162,6 +162,7 @@ function fntDelRol() {
                                 tableRoles.api().ajax.reload(function(){
                                     fntEditRol();
                                     fntDelRol();
+                                    fntPermisos();
                                 });
                             }else{
                                 swal("Atención!", objData.msg, "error");
@@ -188,12 +189,33 @@ function fntPermisos(){
 
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    console.log(request.responseText);
                     document.querySelector('#contentAjax').innerHTML = request.responseText;
                     $('.modalPermisos').modal('show');
+                    document.querySelector('#formPermisos').addEventListener('submit',fntSavePermisos,false);
                 }
             }
             
         });
     });
+}
+
+function fntSavePermisos(evnet){
+    evnet.preventDefault();//previene que se recarge toda la pagina cuando se preciona el boton guardar
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url+'/Permisos/setPermisosRol/';
+    var formElement = document.querySelector("#formPermisos");
+    var formData = new FormData(formElement);
+    request.open("POST", ajaxUrl,true);
+    request.send(formData);
+
+    request.onreadystatechange = function(){
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText);
+            if(objData.status){
+                swal("Permisos de usuario", objData.msg, "success");
+            }else{
+                swal("Error", objData.msg, "error");
+            }
+        }
+    }
 }
