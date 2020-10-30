@@ -26,6 +26,7 @@
                     $intTipoUsuario = intval(strClean($_POST['listRolid']));
                     $intStatus = intval(strclean($_POST['listStatus']));
 
+                    //la funcion hash encripta la contraceña
                     $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
 
                     $request_user = $this->model->insertarUsuario($strIdentificacion,
@@ -36,6 +37,15 @@
                                                                         $intTipoUsuario,
                                                                         $intStatus);
                     
+                    if($request_user > 0){
+                        
+                        $arrRespose = array('status' => true, 'msg' => 'Datos guardados correctamente. ');
+                    }elseif ($request_user == "exist") {
+                        $arrRespose = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro. ');
+                    }else{
+                        $arrRespose = array('status' => true, 'msg' => 'No es posible almacenar los datos. ');
+                    }
+                    echo json_encode($arrRespose,JSON_UNESCAPED_UNICODE);
                 }
             }
             die();
