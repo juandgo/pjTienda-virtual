@@ -18,13 +18,13 @@
                 if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listStatus'])) {
                     $arrRespose = array("status" => false, "msg" =>'Datos incorrectos. ');
                 }else{
-                    $strIdentificacion = intval($_POST['txtIdentificacion']);
-                    $strNombre = strclean($_POST['txtNombre']);
-                    $strApellido = strClean($_POST['txtApellido']);
-                    $intTelefono= intval($_POST['txtTelefono']);
-                    $strEmail = strClean($_POST['txtEmail']);
-                    $intTipoUsuario = intval($_POST['listRolid']);
-                    $strPassword = intval($_POST['listStatuss']); 
+                    $strIdentificacion = strClean($_POST['txtIdentificacion']);//limpia el campo para tener un dato limpio
+                    $strNombre = ucwords(strclean($_POST['txtNombre']));//Limpia el campo //La funcion ucwords convierte las primeras letras de cada palabra en mayuscula
+                    $strApellido = ucwords(strClean($_POST['txtApellido']));
+                    $intTelefono= intval(strClean($_POST['txtTelefono']));//limpia el campo y convierte a enteros
+                    $strEmail = strtolower(strClean($_POST['txtEmail']));//limpia los campos y convierte las palabras en minuscula
+                    $intTipoUsuario = intval(strClean($_POST['listRolid']));
+                    $strPassword = intval(strClean($_POST['listStatus'])); 
                     
                 }
             }
