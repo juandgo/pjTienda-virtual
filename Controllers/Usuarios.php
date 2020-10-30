@@ -11,6 +11,11 @@
             $this->views->getView($this,'usuarios',$data);
     
         }
+
+        public function getUsuarios() {
+            dep($_POST);
+            die();
+        }
     }
 
 ?>

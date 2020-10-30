@@ -15,38 +15,38 @@
               <p class="text-primary">Todos los campos son obligatorios.</p>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textIdentificacion">Identificación</label>s
+                    <label for="textIdentificacion">Identificación</label>
                     <input type="text" class="form-control" id="textIdentificacion" name="textIdentificacion" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textNombre">Nombres</label>s
+                    <label for="textNombre">Nombres</label>
                     <input type="text" class="form-control" id="textNombre" name="textNombre" required="">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="textApellido">Apellidos</label>s
+                    <label for="textApellido">Apellidos</label>
                     <input type="text" class="form-control" id="textApellido" name="textApellido" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textTelefono">Telefono</label>s
+                    <label for="textTelefono">Telefono</label>
                     <input type="text" class="form-control" id="textTelefono" name="textTelefono" required="">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="textEmail">Email</label>s
+                    <label for="textEmail">Email</label>
                     <input type="text" class="form-control" id="textEmail" name="textEmail" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="listRolid">Tipo usuario</label>s
+                    <label for="listRolid">Tipo usuario</label>
                     <select class="form-control" data-live-search="true" id="listRolid" name="listRolid" required="">
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="listStatus">Status</label>s
+                    <label for="listStatus">Status</label>
                     <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
@@ -55,7 +55,7 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textPassword">Password</label>s
+                    <label for="textPassword">Password</label>
                     <input type="text" class="form-control" id="textPassword" name="textPassword" required="">
                 </div>
               </div>
