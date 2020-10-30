@@ -1,6 +1,19 @@
 
 document.addEventListener('DOMContentLoaded', function () {
     var formUsuario = documet.querySelector('#formUsuario'); 
+    formUsuario.onsubmit = function(e){
+        e.preventDefault();
+        var strIdentificacion = document.querySelector('#txtIdentificacion');
+        var strNombre = document.querySelector('#txtNombre');
+        var strApellido = document.querySelector('#txtApellido');
+        var strEmail = document.querySelector('#txtEmail');
+        var intTelefono = document.querySelector('#txtTelefono');
+        var intTipoUsuario = document.querySelector('#listRolid');
+        var strPassword = document.querySelector('#txtPassword');
+
+        
+
+    }
 }, false);
 
 window.addEventListener('load', function(){//Esta es la funcion que ejecuta  la funcion fntRolesUsuario();

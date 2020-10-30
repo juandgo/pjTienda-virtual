@@ -9,7 +9,6 @@
         </button>
       </div>
       <div class="modal-body">
-    
             <form id="formUsuario" name="formUsuario" class="formHorizontal">
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
               <p class="text-primary">Todos los campos son obligatorios.</p>
@@ -21,32 +20,32 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textNombre">Nombres</label>s
-                    <input type="text" class="form-control" id="textNombre" name="textNombre" required="">
+                    <label for="txtNombre">Nombres</label>s
+                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" required="">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="textApellido">Apellidos</label>s
-                    <input type="text" class="form-control" id="textApellido" name="textApellido" required="">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="textTelefono">Telefono</label>s
-                    <input type="text" class="form-control" id="textTelefono" name="textTelefono" required="">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="textEmail">Email</label>s
-                    <input type="text" class="form-control" id="textEmail" name="textEmail" required="">
+                    <label for="txtApellido">Apellidos</label>
+                    <input type="text" class="form-control" id="txtApellido" name="txtApellido" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="listRolid">Tipo usuario</label>s
+                    <label for="txtTelefono">Telefono</label>
+                    <input type="text" class="form-control" id="txtTelefono" name="txtTelefono" required="">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="txtEmail">Email</label>
+                    <input type="text" class="form-control" id="txtEmail" name="txtEmail" required="">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="listRolid">Tipo usuario</label>
                     <select class="form-control" data-live-search="true" id="listRolid" name="listRolid" required="">
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="listStatus">Status</label>s
+                    <label for="listStatus">Status</label>
                     <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
                         <option value="1">Activo</option>
                         <option value="2">Inactivo</option>
@@ -55,8 +54,8 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textPassword">Password</label>s
-                    <input type="text" class="form-control" id="textPassword" name="textPassword" required="">
+                    <label for="txtPassword">Password</label>
+                    <input type="text" class="form-control" id="txtPassword" name="txtPassword" required="">
                 </div>
               </div>
               
@@ -65,7 +64,6 @@
                 <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i> Cerrar</button>
               </div>
             </form>
-        
       </div>
     </div>
   </div>
