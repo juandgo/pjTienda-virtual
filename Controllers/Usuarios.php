@@ -12,8 +12,9 @@
     
         }
 
-        public function getUsuarios() {
-            dep($_POST);
+        public function getUsuario() {
+            // dep($_POST);
+                echo $_POST['txtNombre'];
             die();
         }
     }

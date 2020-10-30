@@ -15,28 +15,28 @@
               <p class="text-primary">Todos los campos son obligatorios.</p>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textIdentificacion">Identificación</label>
-                    <input type="text" class="form-control" id="textIdentificacion" name="textIdentificacion" required="">
+                    <label for="txtIdentificacion">Identificación</label>
+                    <input type="text" class="form-control" id="txtIdentificacion" name="textIdentificacion" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textNombre">Nombres</label>
-                    <input type="text" class="form-control" id="textNombre" name="textNombre" required="">
+                    <label for="txtNombre">Nombres</label>
+                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" required="">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="textApellido">Apellidos</label>
-                    <input type="text" class="form-control" id="textApellido" name="textApellido" required="">
+                    <input type="text" class="form-control" id="txtApellido" name="txtApellido" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textTelefono">Telefono</label>
-                    <input type="text" class="form-control" id="textTelefono" name="textTelefono" required="">
+                    <label for="txtTelefono">Telefono</label>
+                    <input type="text" class="form-control" id="txtTelefono" name="txtTelefono" required="">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="textEmail">Email</label>
-                    <input type="text" class="form-control" id="textEmail" name="textEmail" required="">
+                    <label for="txtEmail">Email</label>
+                    <input type="text" class="form-control" id="txtEmail" name="txtEmail" required="">
                 </div>
               </div>
               <div class="form-row">
@@ -55,8 +55,8 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textPassword">Password</label>
-                    <input type="text" class="form-control" id="textPassword" name="textPassword" required="">
+                    <label for="txtPassword">Password</label>
+                    <input type="password" class="form-control" id="txtPassword" name="txtPassword" required="">
                 </div>
               </div>
               

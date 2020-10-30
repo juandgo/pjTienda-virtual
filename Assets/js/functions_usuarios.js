@@ -1,10 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    var formUsuario = documet.querySelector('#formUsuario'); 
-}, false);
-
-window.addEventListener('load', function(){//Esta es la funcion que ejecuta  la funcion fntRolesUsuario();
-    var formUsuario = document.querySelector("#formUsuario");
+        var formUsuario = document.querySelector("#formUsuario");
     formUsuario.onsubmit = function(e){
         e.preventDefault();//evita que se recarge toda la pagina para poder capturar los datos que se van a tener aca abajo 
         var strIdentificacion = document.querySelector("#txtIdentificacion").value;
@@ -12,7 +8,7 @@ window.addEventListener('load', function(){//Esta es la funcion que ejecuta  la 
         var strApellido = document.querySelector("#txtApellido").value;
         var strEmail = document.querySelector("#txtEmail").value;
         var intTelefono = document.querySelector("#txtTelefono").value;
-        var intTipoUsuario = document.querySelector("#txtlistRolid").value;
+        var intTipoUsuario = document.querySelector("#listRolid").value;
         var strPassword = document.querySelector("#txtPassword").value;
         // La siguiente validacion es poco probale que se use por que para esto ya esta el required en el html, esto es por si acaso.
         if (strIdentificacion == "" || strNombre == "" || strApellido == "" || strEmail == "" || intTelefono == "" || intTipoUsuario == "" || strPassword == "") {
@@ -20,11 +16,15 @@ window.addEventListener('load', function(){//Esta es la funcion que ejecuta  la 
             return false;
         }
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url+'/Usuarios/setUsuario';
+        var ajaxUrl = base_url+'/Usuarios/getUsuario';
         var formData = new FormData(formUsuario);
         request.open("POST",ajaxUrl,true);
         request.send(formData); 
     }
+}, false);
+
+window.addEventListener('load', function(){//Esta es la funcion que ejecuta  la funcion fntRolesUsuario();
+    fntRolesUsuario();
 }, false);
 
 function fntRolesUsuario() {
