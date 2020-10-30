@@ -20,6 +20,23 @@ document.addEventListener('DOMContentLoaded', function () {
         var formData = new FormData(formUsuario);
         request.open("POST",ajaxUrl,true);
         request.send(formData); 
+        request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
+            if (request.readyState == 4 && request.status == 200) {
+                var objData = JSON.parse(request.responseText);
+                if(objData.status){
+                    $('#modalFormUsuario').modal("hide");
+                    formElement.reset();
+                    swal("Usuarios", objData.msg, "success");
+                    tableUsuarios.api().ajaxUrl.reload(function(){
+
+                    });
+                }else{
+                    swal("Error", objData.msg, "error");
+                }
+            }else{
+                console.log("Error");
+            }    
+        }    
     }
 }, false);
 
