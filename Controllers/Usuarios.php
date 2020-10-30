@@ -24,7 +24,17 @@
                     $intTelefono= intval(strClean($_POST['txtTelefono']));//limpia el campo y convierte a enteros
                     $strEmail = strtolower(strClean($_POST['txtEmail']));//limpia los campos y convierte las palabras en minuscula
                     $intTipoUsuario = intval(strClean($_POST['listRolid']));
-                    $strPassword = intval(strClean($_POST['listStatus'])); 
+                    $intStatus = intval(strclean($_POST['listStatus']));
+
+                    $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
+
+                    $request_user = $this->model->insertarUsuario($strIdentificacion,
+                                                                        $strNombre,
+                                                                        $strApellido,
+                                                                        $intTelefono,
+                                                                        $strEmail,
+                                                                        $intTipoUsuario,
+                                                                        $intStatus);
                     
                 }
             }
