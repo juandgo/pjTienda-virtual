@@ -10,9 +10,16 @@ document.addEventListener('DOMContentLoaded', function () {
         var intTelefono = document.querySelector('#txtTelefono');
         var intTipoUsuario = document.querySelector('#listRolid');
         var strPassword = document.querySelector('#txtPassword');
-
-        
-
+        //Esto probablemento no se va a usar debido a que los campos en html son requeridos
+        if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario) {
+            swal("Atención", "Todos los campos son obligatorios.", "error");
+            return false;
+        }
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url+'/Usuarios/setUsuario';
+        var formData = FormData(formUsuario);
+        request.open("POST",ajaxUrl,true);
+        request.send(formData); 
     }
 }, false);
 

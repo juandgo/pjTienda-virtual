@@ -14,13 +14,13 @@
               <p class="text-primary">Todos los campos son obligatorios.</p>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="textIdentificacion">Identificación</label>s
+                    <label for="textIdentificacion">Identificación</label>
                     <input type="text" class="form-control" id="textIdentificacion" name="textIdentificacion" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="txtNombre">Nombres</label>s
+                    <label for="txtNombre">Nombres</label>
                     <input type="text" class="form-control" id="txtNombre" name="txtNombre" required="">
                 </div>
                 <div class="form-group col-md-6">
