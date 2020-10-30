@@ -14,7 +14,7 @@
 
         public function setUsuario(){
             if ($_POST) {
-                //Valida si no existe algun dato en el elemento//Nota: esta validacion ya se hizo en js pero tambien es importante hacerlo aca dellado del backend
+                //Valida si no existe algun dato en el elemento//Nota: esta validacion ya se hizo en js pero tambien es importante hacerlo aca del lado del backend
                 if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listStatus'])) {
                     $arrRespose = array("status" => false, "msg" =>'Datos incorrectos. ');
                 }else{
@@ -45,7 +45,7 @@
                     }else{
                         $arrRespose = array('status' => true, 'msg' => 'No es posible almacenar los datos. ');
                     }
-                    echo json_encode($arrRespose,JSON_UNESCAPED_UNICODE);
+                    echo json_encode($arrRespose,JSON_UNESCAPED_UNICODE);//El array se convierte en formato json
                 }
             }
             die();

@@ -27,14 +27,29 @@
             $this->strPassword = $password;
             $this->intTipoId = $tipoid;
             $this->strStatus = $status;
-            $return = 0;
+            $respuesta = 0;
 
             $sql = "SELECT * FROM persona WHERE email_user = '{$this->strEmail}' or identificacion = $this->strIdentificacion";
             $request = $this->select_all($sql);
 
             if (empty($request)) {
                 $query_insert = "INSERT INTO persona(identificacion,nombres,apellidos,telefono,email_user,password,rolid,status) VALUES(?,?,?,?,?,?,?,?)";
+
+                $arrData = array($this->strIdentificacion,
+                                $this->strNombre,
+                                $this->strApellido,
+                                $this->intTelefono,
+                                $this->strEmail,
+                                $this->strPassword,
+                                $this->intTipoId,
+                                $this->strStatus);
+                $request_insert = $this->insert($query_insert,$arrData);
+                $respuesta = $request_insert;
+            }else{
+                $respuesta = "exist";
             }
+
+            return $respuesta;
 
         }
     }
