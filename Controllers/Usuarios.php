@@ -12,12 +12,6 @@
     
         }
 
-<<<<<<< HEAD
-        public function getUsuario() {
-            // dep($_POST);
-                echo $_POST['txtNombre'];
-            die();
-=======
         public function setUsuario(){
             if ($_POST) {
                 //Valida si no existe algun dato en el elemento//Nota: esta validacion ya se hizo en js pero tambien es importante hacerlo aca del lado del backend
@@ -56,7 +50,6 @@
             }
             die();
 
->>>>>>> refs/remotes/origin/master
         }
     }
 

@@ -1,19 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-<<<<<<< HEAD
-        var formUsuario = document.querySelector("#formUsuario");
-    formUsuario.onsubmit = function(e){
-        e.preventDefault();//evita que se recarge toda la pagina para poder capturar los datos que se van a tener aca abajo 
-        var strIdentificacion = document.querySelector("#txtIdentificacion").value;
-        var strNombre = document.querySelector("#txtNombre").value;
-        var strApellido = document.querySelector("#txtApellido").value;
-        var strEmail = document.querySelector("#txtEmail").value;
-        var intTelefono = document.querySelector("#txtTelefono").value;
-        var intTipoUsuario = document.querySelector("#listRolid").value;
-        var strPassword = document.querySelector("#txtPassword").value;
-        // La siguiente validacion es poco probale que se use por que para esto ya esta el required en el html, esto es por si acaso.
-        if (strIdentificacion == "" || strNombre == "" || strApellido == "" || strEmail == "" || intTelefono == "" || intTipoUsuario == "" || strPassword == "") {
-=======
     var formUsuario = document.querySelector('#formUsuario'); 
     formUsuario.onsubmit = function(e){
         e.preventDefault();
@@ -26,17 +12,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var strPassword = document.querySelector('#txtPassword');
         //Esto probablemente no se va a usar debido a que los campos en html son requeridos
         if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario =='') {
->>>>>>> refs/remotes/origin/master
             swal("Atención", "Todos los campos son obligatorios.", "error");
             return false;
         }
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-<<<<<<< HEAD
-        var ajaxUrl = base_url+'/Usuarios/getUsuario';
-        var formData = new FormData(formUsuario);
-        request.open("POST",ajaxUrl,true);
-        request.send(formData); 
-=======
         var ajaxUrl = base_url+'/Usuarios/setUsuario';
         var formData = new FormData(formUsuario);
         request.open("POST",ajaxUrl,true);
@@ -58,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log("Error");
             }    
         }    
->>>>>>> refs/remotes/origin/master
     }
 }, false);
 
