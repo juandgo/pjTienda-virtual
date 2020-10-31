@@ -9,14 +9,17 @@
         </button>
       </div>
       <div class="modal-body">
-    
             <form id="formUsuario" name="formUsuario" class="formHorizontal">
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
               <p class="text-primary">Todos los campos son obligatorios.</p>
               <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="txtIdentificacion">Identificación</label>
+<<<<<<< HEAD
                     <input type="text" class="form-control" id="txtIdentificacion" name="textIdentificacion" required="">
+=======
+                    <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
+>>>>>>> refs/remotes/origin/master
                 </div>
               </div>
               <div class="form-row">
@@ -25,7 +28,11 @@
                     <input type="text" class="form-control" id="txtNombre" name="txtNombre" required="">
                 </div>
                 <div class="form-group col-md-6">
+<<<<<<< HEAD
                     <label for="textApellido">Apellidos</label>
+=======
+                    <label for="txtApellido">Apellidos</label>
+>>>>>>> refs/remotes/origin/master
                     <input type="text" class="form-control" id="txtApellido" name="txtApellido" required="">
                 </div>
               </div>
@@ -65,7 +72,6 @@
                 <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i> Cerrar</button>
               </div>
             </form>
-        
       </div>
     </div>
   </div>
