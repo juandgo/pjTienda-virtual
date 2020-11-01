@@ -39,7 +39,6 @@
                                                                     $intStatus);
                     
                     if($request_user > 0){
-                        
                         $arrRespose = array('status' => true, 'msg' => 'Datos guardados correctamente. ');
                     }elseif ($request_user == "exist") {
                         $arrRespose = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro. ');

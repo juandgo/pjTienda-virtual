@@ -53,6 +53,17 @@
             return $respuesta;
 
         }
+
+        public function selectUsuario(){
+            $sql = "SELECT p.idpersona, p.identificacion, p.nombres, p.apellidos, p.telefono,  
+                            p.email_user, p.status, r.nombrerol
+                    FROM persona p
+                    INNER JOIN rol r
+                    ON p.rolid = r.idrol
+                    WHERE p.status = !0";
+            $request = $this->select_all($sql);
+            return $request;
+        }
     }
 
 ?>

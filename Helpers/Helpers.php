@@ -75,6 +75,7 @@
             $pass .= substr($cadena, $pos,1);//Devuelve los caracteres extraídos de una cadena según la posición del carácter especificado para una cantidad especificada de caracteres y concatena.
         }
         return $pass;
+        // echo $longitudCadena;
     }
     //Genera Token 
     //Esto se usa para reestablecer contraceñas 
