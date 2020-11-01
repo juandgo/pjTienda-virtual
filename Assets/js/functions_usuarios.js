@@ -64,8 +64,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 }, false);
 
-window.addEventListener('load', function(){//Esta es la funcion que ejecuta  la funcion fntRolesUsuario();
+window.addEventListener('load', function(){//Esta es la funcion que ejecuta todas la funciones del modulo usuario
     fntRolesUsuario();
+    fntVewUsuario(); 
 }, false);
 
 function fntRolesUsuario() {
@@ -83,6 +84,20 @@ function fntRolesUsuario() {
     }    
 }
 
+function fntVewUsuario() {
+    var btnViewUsuario = document.querySelectorAll(".btnViewUsuario");
+    btnViewUsuario.forEach(function(btnViewUsuario){
+        btnViewUsuario.addEventListener('click', function() {
+            var idpersona = this.getAttribute('us');//usuario 
+            var ajaxUrl = base_url+'/Usuario/getUsuario/'+idpersona;
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            request.open("GET",ajaxUrl,true);
+            request.send(); 
+
+            $('#modalViewUser').modal('show');//muestra model por su id
+        });
+    });
+}
 function openModal() {
     document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector('#idUsuario').value="";//Es el id del input tipo hiden que resetea la modal
