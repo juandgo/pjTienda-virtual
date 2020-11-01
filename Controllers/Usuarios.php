@@ -66,10 +66,14 @@
                 <button class="btn btn-primary btn-sm btnEditUsuario" us="'.$arrData[$i]['idpersona'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
                 <button class="btn btn-danger btn-sm btnDelUsuario" us="'.$arrData[$i]['idpersona'].'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
                 <!--el title=Eliminar es un tooltip--> 
-                                            </div>';
-                
+                </div>';
             }
-            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Converte a formato JSON
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Convierte a formato JSON
+            die();
+        }
+
+        public function getUsuario(int $idpersona){
+            echo $idpersona;
             die();
         }
     }

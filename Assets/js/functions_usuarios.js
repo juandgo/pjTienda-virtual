@@ -89,7 +89,7 @@ function fntVewUsuario() {
     btnViewUsuario.forEach(function(btnViewUsuario){
         btnViewUsuario.addEventListener('click', function() {
             var idpersona = this.getAttribute('us');//usuario 
-            var ajaxUrl = base_url+'/Usuario/getUsuario/'+idpersona;
+            var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             request.open("GET",ajaxUrl,true);
             request.send(); 
