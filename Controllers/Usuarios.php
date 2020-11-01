@@ -15,7 +15,7 @@
         public function setUsuario(){
             if ($_POST) {
                 //Valida si no existe algun dato en el elemento//Nota: esta validacion ya se hizo en js pero tambien es importante hacerlo aca del lado del backend
-                if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listStatus'])) {
+                if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus'])) {
                     $arrRespose = array("status" => false, "msg" =>'Datos incorrectos. ');
                 }else{
                     $strIdentificacion = strClean($_POST['txtIdentificacion']);//limpia el campo para tener un dato limpio
@@ -30,12 +30,13 @@
                     $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
 
                     $request_user = $this->model->insertarUsuario($strIdentificacion,
-                                                                        $strNombre,
-                                                                        $strApellido,
-                                                                        $intTelefono,
-                                                                        $strEmail,
-                                                                        $intTipoUsuario,
-                                                                        $intStatus);
+                                                                    $strNombre,
+                                                                    $strApellido,
+                                                                    $intTelefono,
+                                                                    $strEmail,
+                                                                    $strPassword,
+                                                                    $intTipoUsuario,
+                                                                    $intStatus);
                     
                     if($request_user > 0){
                         

@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var formUsuario = document.querySelector('#formUsuario'); 
     formUsuario.onsubmit = function(e){
         e.preventDefault();
-        var strIdentificacion = document.querySelector('#txtIdentificacion');
-        var strNombre = document.querySelector('#txtNombre');
-        var strApellido = document.querySelector('#txtApellido');
-        var strEmail = document.querySelector('#txtEmail');
-        var intTelefono = document.querySelector('#txtTelefono');
-        var intTipoUsuario = document.querySelector('#listRolid');
-        var strPassword = document.querySelector('#txtPassword');
+        var strIdentificacion = document.querySelector('#txtIdentificacion').value;
+        var strNombre = document.querySelector('#txtNombre').value;
+        var strApellido = document.querySelector('#txtApellido').value;
+        var strEmail = document.querySelector('#txtEmail').value;
+        var intTelefono = document.querySelector('#txtTelefono').value;
+        var intTipoUsuario = document.querySelector('#listRolid').value;
+        var strPassword = document.querySelector('#txtPassword').value;
         //Esto probablemente no se va a usar debido a que los campos en html son requeridos
         if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario =='') {
             swal("Atención", "Todos los campos son obligatorios.", "error");

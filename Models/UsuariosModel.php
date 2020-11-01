@@ -28,8 +28,9 @@
             $this->intTipoId = $tipoid;
             $this->strStatus = $status;
             $respuesta = 0;
+            //Se coloca '{$this->strEmail}'  por que es un dato varchar 
+        $sql = "SELECT * FROM persona WHERE email_user = '{$this->strEmail}' or identificacion = '{$this->strIdentificacion}'";
 
-            $sql = "SELECT * FROM persona WHERE email_user = '{$this->strEmail}' or identificacion = $this->strIdentificacion";
             $request = $this->select_all($sql);
 
             if (empty($request)) {
