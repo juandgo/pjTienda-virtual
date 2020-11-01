@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
          "aProcessing":true,
          "aServerSide":true,
          "language":{
-             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"//fromato json con configuracion del lenguaje
+             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"//fromato json con configuracion del lenguaje en español
          },
          "ajax":{
              "url": ""+base_url+"/Roles/getRoles",

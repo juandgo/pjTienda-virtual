@@ -1,5 +1,33 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+
+    tableRoles = $('#tableUsuarios').dataTable({
+        "aProcessing":true,
+        "aServerSide":true,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"//fromato json con configuracion del lenguaje en español
+        },
+        "ajax":{
+            "url": ""+base_url+"/Usuarios/getUsuarios",
+            "dataSrc": ""
+        },
+        "columns":[
+            {"data":"idpersona"},
+            {"data":"identificacion"},
+            {"data":"nombres"},
+            {"data":"apellidos"},
+            {"data":"telefono"},
+            {"data":"email_user"},
+            {"data":"status"},
+            {"data":"nombrerol"},
+            {"data":"options"}
+
+        ],
+        "responsieve":"true",
+        "bDestroy": true,
+        "iDisplayLength": 10,
+        "order": [[0, "desc"]]
+       });
     var formUsuario = document.querySelector('#formUsuario'); 
     formUsuario.onsubmit = function(e){
         e.preventDefault();
