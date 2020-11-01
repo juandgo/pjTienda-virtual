@@ -29,7 +29,7 @@
                     //la funcion hash encripta la contraceña
                     $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
 
-                    $request_user = $this->model->insertarUsuario($strIdentificacion,
+                    $request_user = $this->model->insertUsuario($strIdentificacion,
                                                                     $strNombre,
                                                                     $strApellido,
                                                                     $intTelefono,
