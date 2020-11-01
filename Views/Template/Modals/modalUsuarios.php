@@ -1,4 +1,4 @@
-<!-- modalRoles -->
+<!-- modalUsuarios -->
 <div class="modal fade" id="modalFormUsuario" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -69,5 +69,56 @@
   </div>
 </div>
 
+<!-- modalViewUsers -->
+<div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header header-primary">
+        <h5 class="modal-title" id="titleModal">Datos del Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td>Identificación:</td>
+                <td id="celIdentificacion">8754354</td>
+              </tr>
+              <tr>
+                <td>Nombres:</td>
+                <td id="celNombre">Jacob</td>
+              </tr>
+              <tr>
+                <td>Apellidos:</td>
+                <td id="celApellido">Jacob</td>
+              </tr>
+              <tr>
+                <td>Teléfono:</td>
+                <td id="celApellido">Jacob</td>
+              </tr>
+              <tr>
+                <td>Email (Usuario):</td>
+                <td id="celEmail">Jacob</td>
+              </tr>
+              <tr>
+                <td>Tipo Usuario:</td>
+                <td id="celTipoUsuario">Jacob</td>
+              </tr>
+              <tr>
+                <td>Estado:</td>
+                <td id="celEstado">Jacob</td>
+              </tr>
+              <tr>
+                <td>Fecha registro:</td>
+                <td id="celFechaRegistro">Jacob</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
 
 
