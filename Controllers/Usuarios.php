@@ -62,7 +62,7 @@
                     $arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
                 }
                 $arrData[$i]['options'] = '<div class="text-center">
-                <button class="btn btn-secondary btn-sm btnViewUsuario" us="'.$arrData[$i]['idpersona'].'" title="Ver usuario"><i class="fas fa-key"></i></button>                        
+                <button class="btn btn-info btn-sm btnViewUsuario" us="'.$arrData[$i]['idpersona'].'" title="Ver usuario"><i class="fas fa-eye"></i></button>                        
                 <button class="btn btn-primary btn-sm btnEditUsuario" us="'.$arrData[$i]['idpersona'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
                 <button class="btn btn-danger btn-sm btnDelUsuario" us="'.$arrData[$i]['idpersona'].'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
                 <!--el title=Eliminar es un tooltip--> 

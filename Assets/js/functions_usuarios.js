@@ -13,13 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         "columns":[
             {"data":"idpersona"},
-            {"data":"identificacion"},
             {"data":"nombres"},
             {"data":"apellidos"},
-            {"data":"telefono"},
             {"data":"email_user"},
-            {"data":"status"},
+            {"data":"telefono"},
             {"data":"nombrerol"},
+            {"data":"status"},
             {"data":"options"}
 
         ],
