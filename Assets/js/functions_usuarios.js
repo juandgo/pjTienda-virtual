@@ -177,7 +177,7 @@ function fntEditUsuario() {
 }
 
 function fntDelUsuario() {
-    var btnDelUsuario = document.querySelectorAll(".btnDelUsuario =");//se refiere a todos los elementos que tengan esta clase del usuario
+    var btnDelUsuario = document.querySelectorAll(".btnDelUsuario");//se refiere a todos los elementos que tengan esta clase del usuario
     btnDelUsuario.forEach(function(btnDelUsuario){
         btnDelUsuario.addEventListener("click", function(){
             var idUsuario = this.getAttribute("us");//Se obtiene el id del usuario
@@ -195,7 +195,7 @@ function fntDelUsuario() {
 
                 if (isConfirm) {
                     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-                    var ajaxUrl = base_url+'/Usuarios/delUsurio/';
+                    var ajaxUrl = base_url+'/Usuarios/delUsuario/';
                     var strData = "idUsuario="+idUsuario;
                     request.open("POST", ajaxUrl , true);
                     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
