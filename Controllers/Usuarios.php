@@ -18,6 +18,7 @@
                 if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['listRolid']) || empty($_POST['listStatus'])) {
                     $arrRespose = array("status" => false, "msg" =>'Datos incorrectos. ');
                 }else{
+                    $idUsuario = intval($_POST['idUsuario']);
                     $strIdentificacion = strClean($_POST['txtIdentificacion']);//limpia el campo para tener un dato limpio
                     $strNombre = ucwords(strclean($_POST['txtNombre']));//Limpia el campo //La funcion ucwords convierte las primeras letras de cada palabra en mayuscula
                     $strApellido = ucwords(strClean($_POST['txtApellido']));
@@ -25,21 +26,43 @@
                     $strEmail = strtolower(strClean($_POST['txtEmail']));//limpia los campos y convierte las palabras en minuscula
                     $intTipoUsuario = intval(strClean($_POST['listRolid']));
                     $intStatus = intval(strclean($_POST['listStatus']));
-
-                    //la funcion hash encripta la contraceña
-                    $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
-
-                    $request_user = $this->model->insertUsuario($strIdentificacion,
+                    //Si el id no existe es por que s va a gregar un nuevo usuario 
+                    if ($idUsuario == 0) {
+                        $option = 1;
+                        //la funcion hash encripta la contraceña con SHA256
+                        $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
+                        
+                        $request_user = $this->model->insertUsuario($strIdentificacion,
+                                                                        $strNombre,
+                                                                        $strApellido,
+                                                                        $intTelefono,
+                                                                        $strEmail,
+                                                                        $strPassword,
+                                                                        $intTipoUsuario,
+                                                                        $intStatus); 
+                    }else{//Actualiza Datos 
+                        $option = 2;
+                        //la funcion hash encripta la contraceña con SHA256
+                        //Si la contraceña es vacia no se actualiza de lo contrario si actualiza
+                        $strPassword = empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
+                        
+                        $request_user = $this->model->updateUsuario($idUsuario,
+                                                                    $strIdentificacion,
                                                                     $strNombre,
                                                                     $strApellido,
                                                                     $intTelefono,
                                                                     $strEmail,
                                                                     $strPassword,
                                                                     $intTipoUsuario,
-                                                                    $intStatus);
-                    
+                                                                    $intStatus); 
+                    }
+
                     if($request_user > 0){
-                        $arrRespose = array('status' => true, 'msg' => 'Datos guardados correctamente. ');
+                        if ($option == 1) {
+                            $arrRespose = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+                        }else{
+                            $arrRespose = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
+                        }
                     }elseif ($request_user == "exist") {
                         $arrRespose = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro. ');
                     }else{
@@ -63,8 +86,8 @@
                 }
                 $arrData[$i]['options'] = '<div class="text-center">
                 <button class="btn btn-info btn-sm btnViewUsuario" us="'.$arrData[$i]['idpersona'].'" title="Ver usuario"><i class="fas fa-eye"></i></button>                        
-                <button class="btn btn-primary btn-sm btnEditUsuario" us="'.$arrData[$i]['idpersona'].'" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger btn-sm btnDelUsuario" us="'.$arrData[$i]['idpersona'].'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                <button class="btn btn-primary btn-sm btnEditUsuario" us="'.$arrData[$i]['idpersona'].'" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-danger btn-sm btnDelUsuario" us="'.$arrData[$i]['idpersona'].'" title="Eliminar Usuario"><i class="far fa-trash-alt"></i></button>
                 <!--el title=Eliminar es un tooltip--> 
                 </div>';
             }

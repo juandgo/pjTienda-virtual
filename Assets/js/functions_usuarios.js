@@ -1,7 +1,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    tableRoles = $('#tableUsuarios').dataTable({
+    tableUsuarios = $('#tableUsuarios').dataTable({
         "aProcessing":true,
         "aServerSide":true,
         "language":{
@@ -55,7 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#modalFormUsuario').modal("hide");
                     formUsuario.reset();
                     swal("Usuarios", objData.msg ,"success");
-                    tableUsuarios.api().ajaxUrl.reload(function(){
+                    tableUsuarios.api().ajax.reload(function(){
+                        fntRolesUsuario();
+                        fntViewUsuario(); 
+                        fntEditUsuario();
                     });
                 }else{
                     swal("Error", objData.msg, "error");
@@ -154,18 +157,18 @@ function fntEditUsuario() {
                         //esto se usa para renderizar los options y asi poder colocarle su valor
                         $('#listRolid').selectpicker('render');
 
-                        if (objData.status.status == 1) {
-                            document.querySelector("#txtStatus").value = 1;
+                        if(objData.data.status == 1){
+                            document.querySelector("#listStatus").value = 1;
                         }else{
-                            document.querySelector("#txtStatus").value = 2;
+                            document.querySelector("#listStatus").value = 2;
                         }
                         //esto se usa para renderizar los options y asi poder colocarle su valor
                         $('#listStatus').selectpicker('render');
+                        }
                     }
-
+                
+                    $('#modalFormUsuario').modal('show');
                 }
-                $('#modalFormUsuario').modal('show');    
-            }
             
         });
     });

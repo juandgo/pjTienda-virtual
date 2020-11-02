@@ -114,7 +114,6 @@ function fntEditRol(){
                         }else{
                             var optionSelect = '<option value="2" selected class="notBlock">Inactivo</option>';
                         }
-
                         var htmlSelect = `${optionSelect}
                                             <option value="1">Activo</option>
                                             <option value="2">Inactivo</option>`;
