@@ -174,6 +174,51 @@ function fntEditUsuario() {
     });
 }
 
+function fntDelUsuario() {
+    var btnDelUsuario = document.querySelectorAll(".btnDelUsuario =");//se refiere a todos los elementos que tengan esta clase del usuario
+    btnDelUsuario.forEach(function(btnDelUsuario){
+        btnDelUsuario.addEventListener("click", function(){
+            var idUsuario = this.getAttribute("us");//Se obtiene el id del usuario
+
+            swal({
+                title: "Eliminar Usuario",
+                text: "¿Realmente quiere eliminar el usuario?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, eliminar!", 
+                cancelButtonText: "No, cancelar!",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function(isConfirm) {
+
+                if (isConfirm) {
+                    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                    var ajaxUrl = base_url+'/Usuarios/delUsurio/';
+                    var strData = "idUsuario="+idUsuario;
+                    request.open("POST", ajaxUrl , true);
+                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    request.send(strData);
+                    request.onreadystatechange = function() {
+                        if (request.readyState == 4 && request.status == 200) {
+                            var objData = JSON.parse(request.responseText);
+                            if (objData.status) {
+                                swal("Eliminar!", objData.msg ,"success");
+                                tableRoles.api().ajax.reload(function(){
+                                    fntEditUsuario();
+                                    fntDelUsuario();
+                                });
+                            }else{
+                                swal("Atención!", objData.msg, "error");
+                            }
+                        }
+                    }
+                }
+
+            });
+        });
+    });
+}
+
 function openModal() {
     document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector('#idUsuario').value="";//Es el id del input tipo hiden que resetea la modal

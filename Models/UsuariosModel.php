@@ -126,8 +126,16 @@
 				$request = "exist";
 			}
 			return $request;
-		
-		}
+        }
+        
+        public function deleteUsuario(int $idtipousuario){
+            //Se pone en 0 ya que no es recomendado eliminar la informacion ya que puede ser de utilidad
+            $this->intIdUsuario = $idtipousuario;
+            $sql = "UPDATE persona SET status = ? WHERE idpersona = $this->intIdUsuario";
+            $arrData = array(0);
+            $request = $this->update($sql,$arrData);
+            return $request;
+        }
 } 
 
 ?>
