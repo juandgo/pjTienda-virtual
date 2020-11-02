@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "iDisplayLength": 10,
         "order": [[0, "desc"]]
        });
+
     var formUsuario = document.querySelector('#formUsuario'); 
     formUsuario.onsubmit = function(e){
         e.preventDefault();
@@ -66,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener('load', function(){//Esta es la funcion que ejecuta todas la funciones del modulo usuario
     fntRolesUsuario();
-    fntVewUsuario(); 
+    fntViewUsuario(); 
+    fntEditUsuario();
 }, false);
 
 function fntRolesUsuario() {
@@ -84,7 +86,7 @@ function fntRolesUsuario() {
     }    
 }
 
-function fntVewUsuario() {
+function fntViewUsuario() {
     var btnViewUsuario = document.querySelectorAll(".btnViewUsuario");
     btnViewUsuario.forEach(function(btnViewUsuario){
         btnViewUsuario.addEventListener('click', function() {
@@ -101,6 +103,7 @@ function fntVewUsuario() {
                         var estadoUsuario = objData.data.status == 1 ?
                         '<span class="badge badge-success">Activo</span>' :
                         '<span class="badge badge-danger">Inactivo</span>' ;
+                        //Agarra los valores
                         document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
                         document.querySelector("#celNombre").innerHTML = objData.data.nombres;
                         document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
@@ -120,6 +123,54 @@ function fntVewUsuario() {
         });
     });
 }
+
+function fntEditUsuario() {
+    var btnEditUsuario = document.querySelectorAll(".btnEditUsuario");
+    btnEditUsuario.forEach(function(btnEditUsuario){
+        btnEditUsuario.addEventListener('click', function() {
+            //Configuracion de Apariencia
+            document.querySelector('#titleModal').innerHTML = "Acatualizar Usuario";
+            document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
+            document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+            document.querySelector('#btnText').innerHTML = "Acatualizar";
+
+            var idpersona = this.getAttribute('us');//obtine el id del usuario 
+            var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            request.open("GET",ajaxUrl,true);
+            request.send(); 
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    var objData = JSON.parse(request.responseText);
+                    if (objData.status) {
+                        //Agarra los  valores
+                        document.querySelector("#idUsuario").value = objData.data.idpersona;
+                        document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
+                        document.querySelector("#txtNombre").value = objData.data.nombres;
+                        document.querySelector("#txtApellido").value = objData.data.apellidos;
+                        document.querySelector("#txtTelefono").value = objData.data.telefono;
+                        document.querySelector("#txtEmail").value = objData.data.email_user;
+                        document.querySelector("#listRolid").value = objData.data.idrol;
+                        //esto se usa para renderizar los options y asi poder colocarle su valor
+                        $('#listRolid').selectpicker('render');
+
+                        if (objData.status.status == 1) {
+                            document.querySelector("#txtStatus").value = 1;
+                        }else{
+                            document.querySelector("#txtStatus").value = 2;
+                        }
+                        //esto se usa para renderizar los options y asi poder colocarle su valor
+                        $('#listStatus').selectpicker('render');
+                    }
+
+                }
+                $('#modalFormUsuario').modal('show');    
+            }
+            
+        });
+    });
+}
+
 function openModal() {
     document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector('#idUsuario').value="";//Es el id del input tipo hiden que resetea la modal
