@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         "iDisplayLength": 10,
         "order": [[0, "desc"]]
        });
-
+    //Registrar un Usuario 
     var formUsuario = document.querySelector('#formUsuario'); 
     formUsuario.onsubmit = function(e){
         e.preventDefault();
@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         fntRolesUsuario();
                         fntViewUsuario(); 
                         fntEditUsuario();
+                        fntDelUsuario();
                     });
                 }else{
                     swal("Error", objData.msg, "error");
@@ -72,6 +73,7 @@ window.addEventListener('load', function(){//Esta es la funcion que ejecuta toda
     fntRolesUsuario();
     fntViewUsuario(); 
     fntEditUsuario();
+    fntDelUsuario();
 }, false);
 
 function fntRolesUsuario() {
@@ -203,7 +205,9 @@ function fntDelUsuario() {
                             var objData = JSON.parse(request.responseText);
                             if (objData.status) {
                                 swal("Eliminar!", objData.msg ,"success");
-                                tableRoles.api().ajax.reload(function(){
+                                tableUsuarios.api().ajax.reload(function(){
+                                    fntRolesUsuario();
+                                    fntViewUsuario(); 
                                     fntEditUsuario();
                                     fntDelUsuario();
                                 });
