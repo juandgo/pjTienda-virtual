@@ -101,14 +101,14 @@ function fntVewUsuario() {
                         var estadoUsuario = objData.data.status == 1 ?
                         '<span class="badge badge-success">Activo</span>' :
                         '<span class="badge badge-danger">Inactivo</span>' ;
-                        document.querySelector("#celIdentificacion").innerHTML = objData.data.identifcacion;
+                        document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
                         document.querySelector("#celNombre").innerHTML = objData.data.nombres;
                         document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
                         document.querySelector("#celEmail").innerHTML = objData.data.email_user;
                         document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
-                        document.querySelector("#celTipoUsuario").innerHTML = objData.data.estadoUsuario;
-                        document.querySelector("#celEstado").innerHTML = objData.data.identifcacion;
-                        document.querySelector("#celFechaRegistro").innerHTML = objData.data.FechaRegistro;
+                        document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
+                        document.querySelector("#celEstado").innerHTML = estadoUsuario;
+                        document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro;
                         $('#modalViewUser').modal('show');//muestra model por su id
                     }else{
                         swal("Error, objData.msg, error");
