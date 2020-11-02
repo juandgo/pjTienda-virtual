@@ -68,12 +68,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }    
     }
 }, false);
-
-window.addEventListener('load', function(){//Esta es la funcion que ejecuta todas la funciones del modulo usuario
+//Esta es la funcion que ejecuta todas la funciones del modulo usuario
+window.addEventListener('load', function(){
     fntRolesUsuario();
-    fntViewUsuario(); 
-    fntEditUsuario();
-    fntDelUsuario();
+    //Comento la funciones por que ya no son utiles debido a que estan siendo cargadas desde los botones en las validacionde Usuaros.php
+
+    // fntViewUsuario(); 
+    // fntEditUsuario();
+    // fntDelUsuario();
 }, false);
 
 function fntRolesUsuario() {
@@ -91,144 +93,145 @@ function fntRolesUsuario() {
     }    
 }
 
-function fntViewUsuario() {
-    var btnViewUsuario = document.querySelectorAll(".btnViewUsuario");
-    btnViewUsuario.forEach(function(btnViewUsuario){
-        btnViewUsuario.addEventListener('click', function() {
-            var idpersona = this.getAttribute('us');//usuario 
-            var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            request.open("GET",ajaxUrl,true);
-            request.send(); 
-            request.onreadystatechange = function() {
-                if (request.readyState == 4 && request.status == 200) {
-                    var objData = JSON.parse(request.responseText);
-
-                    if (objData.status) {
-                        var estadoUsuario = objData.data.status == 1 ?
-                        '<span class="badge badge-success">Activo</span>' :
-                        '<span class="badge badge-danger">Inactivo</span>' ;
-                        //Agarra los valores
-                        document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
-                        document.querySelector("#celNombre").innerHTML = objData.data.nombres;
-                        document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
-                        document.querySelector("#celEmail").innerHTML = objData.data.email_user;
-                        document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
-                        document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
-                        document.querySelector("#celEstado").innerHTML = estadoUsuario;
-                        document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro;
-                        $('#modalViewUser').modal('show');//muestra model por su id
-                    }else{
-                        swal("Error, objData.msg, error");
-                    }
-                }
-
+function fntViewUsuario(idpersona) {
+    //ya no es util por que esta siendo cargado desde el controlador Usuarios.php
+    // var btnViewUsuario = document.querySelectorAll(".btnViewUsuario");
+    // btnViewUsuario.forEach(function(btnViewUsuario){
+    //     btnViewUsuario.addEventListener('click', function() {
+            // var idpersona = this.getAttribute('us');//usuario 
+    var idpersona = idpersona;
+    var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    request.open("GET",ajaxUrl,true);
+    request.send(); 
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText)
+            if (objData.status) {
+                var estadoUsuario = objData.data.status == 1 ?
+                '<span class="badge badge-success">Activo</span>' :
+                '<span class="badge badge-danger">Inactivo</span>' ;
+                //Agarra los valores
+                document.querySelector("#celIdentificacion").innerHTML = objData.datidentificacion;
+                document.querySelector("#celNombre").innerHTML = objData.data.nombres;
+                document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
+                document.querySelector("#celEmail").innerHTML = objData.data.email_user;
+                document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
+                document.querySelector("#celTipoUsuario").innerHTML = objData.data.nombrerol;
+                document.querySelector("#celEstado").innerHTML = estadoUsuario;
+                document.querySelector("#celFechaRegistro").innerHTML = objData.datfechaRegistro;
+                $('#modalViewUser').modal('show');//muestra model por su id
+            }else{
+                swal("Error, objData.msg, error");
             }
+        
+    }
             
-        });
-    });
+    //     });
+    // });
+
+
+function fntEditUsuario(idpersona) {
+    // var btnEditUsuario = document.querySelectorAll(".btnEditUsuario");
+    // btnEditUsuario.forEach(function(btnEditUsuario){
+    //     btnEditUsuario.addEventListener('click', function() {
+    //Configuracion de Apariencia
+    document.querySelector('#titleModal').innerHTML = "Acatualizar Usuario";
+    document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
+    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnText').innerHTML = "Acatualizar";
+    // var idpersona = this.getAttribute('us');//obtine el id del usuario 
+    var idpersona = idpersona;//obtine el id del usuario
+    var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    request.open("GET",ajaxUrl,true);
+    request.send(); 
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText);
+            if (objData.status) {
+                //Agarra los  valores
+                document.querySelector("#idUsuario").value = objData.data.idpersona;
+                document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
+                document.querySelector("#txtNombre").value = objData.data.nombres;
+                document.querySelector("#txtApellido").value = objData.data.apellidos;
+                document.querySelector("#txtTelefono").value = objData.data.telefono;
+                document.querySelector("#txtEmail").value = objData.data.email_user;
+                document.querySelector("#listRolid").value = objData.data.idrol;
+                //esto se usa para renderizar los options y asi poder colocarle su valor
+                $('#listRolid').selectpicker('render')
+                if(objData.data.status == 1){
+                    document.querySelector("#listStatus").value = 1;
+                }else{
+                    document.querySelector("#listStatus").value = 2;
+                }
+                //esto se usa para renderizar los options y asi poder colocarle su valor
+                $('#listStatus').selectpicker('render');
+                }
+            }
+        
+            $('#modalFormUsuario').modal('show');
+        }
+            
+    //     });
+    // });
 }
 
-function fntEditUsuario() {
-    var btnEditUsuario = document.querySelectorAll(".btnEditUsuario");
-    btnEditUsuario.forEach(function(btnEditUsuario){
-        btnEditUsuario.addEventListener('click', function() {
-            //Configuracion de Apariencia
-            document.querySelector('#titleModal').innerHTML = "Acatualizar Usuario";
-            document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
-            document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
-            document.querySelector('#btnText').innerHTML = "Acatualizar";
-
-            var idpersona = this.getAttribute('us');//obtine el id del usuario 
-            var ajaxUrl = base_url+'/Usuarios/getUsuario/'+idpersona;
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            request.open("GET",ajaxUrl,true);
-            request.send(); 
-            request.onreadystatechange = function() {
-                if (request.readyState == 4 && request.status == 200) {
+function fntDelUsuario(idpersona) {
+    // var btnDelUsuario = document.querySelectorAll(".btnDelUsuario");//se refiere a todos los elementos que tengan esta clase del usuario
+    // btnDelUsuario.forEach(function(btnDelUsuario){
+    //     btnDelUsuario.addEventListener("click", function(){
+            // var idUsuario = this.getAttribute("us");//Se obtiene el id del usuario
+    var idUsuario = idpersona;
+    swal({
+        title: "Eliminar Usuario",
+        text: "¿Realmente quiere eliminar el Usuario?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm){
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url+'/Usuarios/delUsuario';
+            var strData = "idUsuario="+idUsuario;
+            request.open("POST",ajaxUrl,true);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
                     var objData = JSON.parse(request.responseText);
-                    if (objData.status) {
-                        //Agarra los  valores
-                        document.querySelector("#idUsuario").value = objData.data.idpersona;
-                        document.querySelector("#txtIdentificacion").value = objData.data.identificacion;
-                        document.querySelector("#txtNombre").value = objData.data.nombres;
-                        document.querySelector("#txtApellido").value = objData.data.apellidos;
-                        document.querySelector("#txtTelefono").value = objData.data.telefono;
-                        document.querySelector("#txtEmail").value = objData.data.email_user;
-                        document.querySelector("#listRolid").value = objData.data.idrol;
-                        //esto se usa para renderizar los options y asi poder colocarle su valor
-                        $('#listRolid').selectpicker('render');
-
-                        if(objData.data.status == 1){
-                            document.querySelector("#listStatus").value = 1;
-                        }else{
-                            document.querySelector("#listStatus").value = 2;
-                        }
-                        //esto se usa para renderizar los options y asi poder colocarle su valor
-                        $('#listStatus').selectpicker('render');
-                        }
-                    }
-                
-                    $('#modalFormUsuario').modal('show');
-                }
-            
-        });
-    });
-}
-
-function fntDelUsuario() {
-    var btnDelUsuario = document.querySelectorAll(".btnDelUsuario");//se refiere a todos los elementos que tengan esta clase del usuario
-    btnDelUsuario.forEach(function(btnDelUsuario){
-        btnDelUsuario.addEventListener("click", function(){
-            var idUsuario = this.getAttribute("us");//Se obtiene el id del usuario
-
-            swal({
-                title: "Eliminar Usuario",
-                text: "¿Realmente quiere eliminar el usuario?",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Si, eliminar!", 
-                cancelButtonText: "No, cancelar!",
-                closeOnConfirm: false,
-                closeOnCancel: true
-            }, function(isConfirm) {
-
-                if (isConfirm) {
-                    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-                    var ajaxUrl = base_url+'/Usuarios/delUsuario/';
-                    var strData = "idUsuario="+idUsuario;
-                    request.open("POST", ajaxUrl , true);
-                    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    request.send(strData);
-                    request.onreadystatechange = function() {
-                        if (request.readyState == 4 && request.status == 200) {
-                            var objData = JSON.parse(request.responseText);
-                            if (objData.status) {
-                                swal("Eliminar!", objData.msg ,"success");
-                                tableUsuarios.api().ajax.reload(function(){
-                                    fntRolesUsuario();
-                                    fntViewUsuario(); 
-                                    fntEditUsuario();
-                                    fntDelUsuario();
-                                });
-                            }else{
-                                swal("Atención!", objData.msg, "error");
-                            }
-                        }
+                    if(objData.status)
+                    {
+                        swal("Eliminar!", objData.msg , "success");
+                        tableUsuarios.api().ajax.reload(function(){
+                            fntRolesUsuario();
+                            fntViewUsuario();
+                            fntEditUsuario();
+                            fntDelUsuario();
+                        });
+                    }else{
+                        swal("Atención!", objData.msg , "error");
                     }
                 }
+            }
+        }
 
-            });
-        });
     });
+    //     });
+    // });
 }
 
 function openModal() {
-    document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
-    document.querySelector('#idUsuario').value="";//Es el id del input tipo hiden que resetea la modal
+    //Configuracion de Apariencia
+    document.querySelector('#idUsuario').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
-    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");//cambia 
-    document.querySelector('#btnText').innerHTML = "Guardar";
+    document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
+    document.querySelector('#btnText').innerHTML ="Guardar";
+    document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector("#formUsuario").reset();
     $('#modalFormUsuario').modal('show');
 }
