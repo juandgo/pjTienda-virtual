@@ -75,10 +75,12 @@
                     INNER JOIN rol r
                     ON p.rolid = r.idrol
                     WHERE p.idpersona = $this->intIdUsuario";
-                    echo $sql;exit;
+                    // echo $sql;exit;
             $request = $this->select($sql);
             return $request;
         }
+        
+        // public function
     }
 
 ?>

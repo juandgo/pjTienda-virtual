@@ -93,8 +93,30 @@ function fntVewUsuario() {
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             request.open("GET",ajaxUrl,true);
             request.send(); 
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                    var objData = JSON.parse(request.responseText);
 
-            $('#modalViewUser').modal('show');//muestra model por su id
+                    if (objData.status) {
+                        var estadoUsuario = objData.data.status == 1 ?
+                        '<span class="badge badge-success">Activo</span>' :
+                        '<span class="badge badge-danger">Inactivo</span>' ;
+                        document.querySelector("#celIdentificacion").innerHTML = objData.data.identifcacion;
+                        document.querySelector("#celNombre").innerHTML = objData.data.nombres;
+                        document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
+                        document.querySelector("#celEmail").innerHTML = objData.data.email_user;
+                        document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
+                        document.querySelector("#celTipoUsuario").innerHTML = objData.data.estadoUsuario;
+                        document.querySelector("#celEstado").innerHTML = objData.data.identifcacion;
+                        document.querySelector("#celFechaRegistro").innerHTML = objData.data.FechaRegistro;
+                        $('#modalViewUser').modal('show');//muestra model por su id
+                    }else{
+                        swal("Error, objData.msg, error");
+                    }
+                }
+
+            }
+            
         });
     });
 }

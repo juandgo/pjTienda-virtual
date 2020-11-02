@@ -43,7 +43,7 @@
                     }elseif ($request_user == "exist") {
                         $arrRespose = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro. ');
                     }else{
-                        $arrRespose = array('status' => true, 'msg' => 'No es posible almacenar los datos. ');
+                        $arrRespose = array('status' => false, 'msg' => 'No es posible almacenar los datos. ');
                     }
                     echo json_encode($arrRespose,JSON_UNESCAPED_UNICODE);//El array se convierte en formato json
                 }
@@ -76,8 +76,15 @@
             $idusuario = intval($idpersona);
             if ($idusuario > 0) {
                 $arrData = $this->model->selectUsuario($idusuario);
-            }
-            die();
+				if(empty($arrData))
+				{
+					$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+				}else{
+					$arrResponse = array('status' => true, 'data' => $arrData);
+				}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+			}
+			die();
         }
     }
 
