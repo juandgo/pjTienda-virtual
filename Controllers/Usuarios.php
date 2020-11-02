@@ -73,7 +73,10 @@
         }
 
         public function getUsuario(int $idpersona){
-            echo $idpersona;
+            $idusuario = intval($idpersona);
+            if ($idusuario > 0) {
+                $arrData = $this->model->selectUsuario($idusuario);
+            }
             die();
         }
     }

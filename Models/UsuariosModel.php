@@ -64,6 +64,21 @@
             $request = $this->select_all($sql);
             return $request;
         }
+
+        public function selectUsuario(int $idpersona){
+            //la funcion DATE_FORMAT sirve para mostra la fecha a preferecia del desarrollados ya sea con hora o sin hora  o tambien su orden. 
+            $this->intIdUsuario = $idpersona;
+            $sql = "SELECT p.idpersona, p.identificacion, p.nombres, p.apellidos, p.telefono,  
+                            p.email_user, p.nit, p.nombrefiscal, p.direccionfiscal,r.idrol, r.nombrerol, p.status,
+                    DATE_FORMAT(p.datecreated, '%d-%m-%y') as fechaRegistro
+                    FROM persona p
+                    INNER JOIN rol r
+                    ON p.rolid = r.idrol
+                    WHERE p.idpersona = $this->intIdUsuario";
+                    echo $sql;exit;
+            $request = $this->select($sql);
+            return $request;
+        }
     }
 
 ?>
