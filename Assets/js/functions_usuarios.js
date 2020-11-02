@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         "responsieve":"true",
         "bDestroy": true,
-        "iDisplayLength": 10,
+        "iDisplayLength": 3,
         "order": [[0, "desc"]]
        });
+
     //Registrar un Usuario 
     var formUsuario = document.querySelector('#formUsuario'); 
     formUsuario.onsubmit = function(e){
@@ -55,12 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     $('#modalFormUsuario').modal("hide");
                     formUsuario.reset();
                     swal("Usuarios", objData.msg ,"success");
-                    tableUsuarios.api().ajax.reload(function(){
-                        fntRolesUsuario();
-                        fntViewUsuario(); 
-                        fntEditUsuario();
-                        fntDelUsuario();
-                    });
+                    tableUsuarios.api().ajax.reload();
                 }else{
                     swal("Error", objData.msg, "error");
                 } 
@@ -124,12 +120,13 @@ function fntViewUsuario(idpersona) {
             }else{
                 swal("Error, objData.msg, error");
             }
+        }
         
     }
             
     //     });
     // });
-
+}
 
 function fntEditUsuario(idpersona) {
     // var btnEditUsuario = document.querySelectorAll(".btnEditUsuario");
@@ -209,9 +206,9 @@ function fntDelUsuario(idpersona) {
                         swal("Eliminar!", objData.msg , "success");
                         tableUsuarios.api().ajax.reload(function(){
                             fntRolesUsuario();
-                            fntViewUsuario();
-                            fntEditUsuario();
-                            fntDelUsuario();
+                            // fntViewUsuario();
+                            // fntEditUsuario();
+                            // fntDelUsuario();
                         });
                     }else{
                         swal("Atención!", objData.msg , "error");
@@ -235,3 +232,4 @@ function openModal() {
     document.querySelector("#formUsuario").reset();
     $('#modalFormUsuario').modal('show');
 }
+    
