@@ -37,12 +37,11 @@
                         for ($i=0; $i < count($modulos); $i++) { 
                             $permisos = $modulos[$i]['permisos'];
                             $rCheck = $permisos['r'] == 1 ? " checked " : "";
-                            $wCheck = $permisos['r'] == 1 ? " checked " : "";
-                            $uCheck = $permisos['r'] == 1 ? " checked " : "";
-                            $dCheck = $permisos['r'] == 1 ? " checked " : "";
+                            $wCheck = $permisos['w'] == 1 ? " checked " : "";
+                            $uCheck = $permisos['u'] == 1 ? " checked " : "";
+                            $dCheck = $permisos['d'] == 1 ? " checked " : "";
 
                             $idmod = $modulos[$i]['idmodulo'];
-                        
                     ?>
                     <tr>
                       <td>
