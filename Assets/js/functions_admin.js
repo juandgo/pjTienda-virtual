@@ -28,10 +28,25 @@ function testEntero(intCant){
 }
 
 function fntEmailValidate(email) {
+    //Esta es la exprecion regular que tiene un correo
     var stringEmail = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
-    if (string.test(email)) {
-        return true;
-    }else{
+    if (string.test(email) == false) {
         return false;
+    }else{
+        return true;
     }
+}
+
+function fntValidText(){
+    let validText = document.querySelectorAll(".validText");
+    validText.forEach(function(validText){
+        validText.addEventListener('keyup', function(){
+            let inputValue = this.value;
+            if (!testText(inputValue)) {
+                this.classList.add("is-invalid");
+            }else{
+                this.classList.remove("is-invalid");
+            }
+        });
+    });
 }
