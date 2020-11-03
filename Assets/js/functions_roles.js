@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
          ],
          "responsieve":"true",
          "bDestroy": true,
-         "iDisplayLength": 5,
+         "iDisplayLength": 10,
          "order": [[0, "desc"]]
         });
         //NUEVO ROL
