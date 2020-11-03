@@ -31,17 +31,17 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="txtTelefono">Telefono</label>
-                    <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="">
+                    <input type="text" class="form-control valid validNumber" id="txtTelefono" name="txtTelefono" required="" onkeyup="return controlTag(event);">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="txtEmail">Email</label>
-                    <input type="text" class="form-control" id="txtEmail" name="txtEmail" required="">
+                    <input type="text" class="form-control valid validEmail" id="txtEmail" name="txtEmail" required="">
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="listRolid">Tipo usuario</label>
-                    <select class="form-control valid validEmail" data-live-search="true" id="listRolid" name="listRolid" required="">
+                    <select class="form-control" data-live-search="true" id="listRolid" name="listRolid" required="">
                     </select>
                 </div>
                 <div class="form-group col-md-6">

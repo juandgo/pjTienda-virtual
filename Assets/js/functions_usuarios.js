@@ -67,6 +67,14 @@ document.addEventListener('DOMContentLoaded', function () {
             swal("Atención", "Todos los campos son obligatorios.", "error");
             return false;
         }
+        //valida que los campos sean correctos 
+        let elementsValid = document.getElementsByClassName("valid");
+        for (let i = 0; i < elementsValid.length; i++) {
+            if (elementsValid[i].classList.contains('is-invalid')) {
+                swal("!Atención", "Por favor verifique los campos en rojo.", "error");
+                return false;
+            }
+        }
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         var ajaxUrl = base_url+'/Usuarios/setUsuario';
         var formData = new FormData(formUsuario);

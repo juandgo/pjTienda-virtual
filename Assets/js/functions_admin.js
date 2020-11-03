@@ -1,4 +1,5 @@
 //Esta funcion bloquea las teclas y solo permite el ingreso de numeros 
+//unicamente permite digitar numeros, borrar y dar enter.
 function controlTag(e){
     tecla = (document.all) ? e.keyCode : e.which;
     if(tecla == 8) return true;
@@ -27,10 +28,10 @@ function testEntero(intCant){
     }
 }
 
-function fntEmailValidate(email) {
+function testEmail(email) {
     //Esta es la exprecion regular que tiene un correo
     var stringEmail = new RegExp(/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/);
-    if (string.test(email) == false) {
+    if (stringEmail.test(email) == false) {
         return false;
     }else{
         return true;
@@ -53,8 +54,8 @@ function fntValidText(){
     });
 }
 
-function fntValidNomber(){
-    let validText = document.querySelectorAll(".validNumber");
+function fntValidNumber(){
+    let validNumber = document.querySelectorAll(".validNumber");
     validNumber.forEach(function(validNumber){
         validNumber.addEventListener('keyup', function(){
             let inputValue = this.value;//obtiene el valor que se escribio 
@@ -66,3 +67,23 @@ function fntValidNomber(){
         });
     });
 }
+
+function fntValidEmail(){
+	let validEmail = document.querySelectorAll(".validEmail");
+    validEmail.forEach(function(validEmail) {
+        validEmail.addEventListener('keyup', function(){
+			let inputValue = this.value;
+			if(!testEmail(inputValue)){
+				this.classList.add('is-invalid');
+			}else{
+				this.classList.remove('is-invalid');
+			}				
+		});
+	});
+}
+
+window.addEventListener('load', function(){
+    fntValidEmail();
+    fntValidNumber();
+    fntValidText();
+}, false);
