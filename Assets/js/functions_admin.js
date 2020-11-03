@@ -40,9 +40,25 @@ function fntEmailValidate(email) {
 function fntValidText(){
     let validText = document.querySelectorAll(".validText");
     validText.forEach(function(validText){
-        validText.addEventListener('keyup', function(){
-            let inputValue = this.value;
+        validText.addEventListener('keyup', function(){//keyup se refiere a terminar de precionar la tecla
+            let inputValue = this.value;//obtiene el valor que se escribio
+            //usa la testText ya antes creada 
+            //Sí es falso le da clase valor de is-invalid  de locontrario le quita ese valor
             if (!testText(inputValue)) {
+                this.classList.add("is-invalid");
+            }else{
+                this.classList.remove("is-invalid");
+            }
+        });
+    });
+}
+
+function fntValidNomber(){
+    let validText = document.querySelectorAll(".validNumber");
+    validNumber.forEach(function(validNumber){
+        validNumber.addEventListener('keyup', function(){
+            let inputValue = this.value;//obtiene el valor que se escribio 
+            if (!testEntero(inputValue)) {//usa la testEntero ya antes creada 
                 this.classList.add("is-invalid");
             }else{
                 this.classList.remove("is-invalid");
