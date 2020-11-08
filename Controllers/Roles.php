@@ -9,6 +9,7 @@
             $data['page_tag'] = 'Roles Usuario';
             $data['page_name'] = "rol_usuario";
             $data['page_title'] = "Roles Usuario <small>Tienda Virtual</small>";
+            $data['page_functions_js'] = 'function_roles.js';
             $this->views->getView($this,"roles",$data);//Se utitiliza la vista dasboard 
         }
 
@@ -37,7 +38,9 @@
             $arrData = $this->model->selectRoles();
             if(count($arrData) > 0){
                 for ($i=0; $i < count($arrData); $i++) { 
+                    if ($arrData[$i]['status'] == 1){
                     $htmlOptions .= '<option value="'.$arrData[$i]['idrol'].'">'.$arrData[$i]['nombrerol'].'</option>';
+                    }
                 }
             }
             echo $htmlOptions;

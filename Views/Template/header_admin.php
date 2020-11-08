@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"><!--meta responsive-->
     <meta name="author" content="JuanDa97">
     <meta name="theme-color" content="#009688"><!-- Este color se va a ver en los telefonos -->
-    <link rel="shortcut icon"  href="<?= media(); ?>/images/icon7.ico" type="image/x-icon"><!--pone un icono solo para firefox-->
-    <title><?= $data['page_tag'] ?></title>
+    <link rel="shortcut icon" href="<?= media(); ?>/images/icon8.ico"><!--pone un icono solo para firefox-->
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main.css"><!-- orden 1 -->
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/bootstrap-select.min.css"><!-- orden 2 -->
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/style.css"><!-- orden 3 -->
+    <title><?= $data['page_tag'] ?></title>
   </head>
   <body class="app sidebar-mini">
     <!-- Navbar-->

@@ -8,6 +8,7 @@
             $data['page_tag'] = 'Usuarios';
             $data['page_title'] = "Usuarios <small>Tienda Virtual</small>";
             $data['page_name'] = 'usuarios';
+            $data['page_functions_js'] = 'function_usuarios.js';
             $this->views->getView($this,'usuarios',$data);
     
         }
@@ -91,7 +92,7 @@
                 <!--el title=Eliminar es un tooltip--> 
                 </div>';
             }
-            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Convierte a formato JSON
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
             die();
         }
 
@@ -105,7 +106,8 @@
 					$arrResponse = array('status' => true, 'data' => $arrData);
 				}
 				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-			}
+            }
+            // dep($arrResponse);
 			die();
         }
 
