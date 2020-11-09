@@ -58,6 +58,15 @@
                     $token = token();
                     $strEmail = strtolower(strClean($_POST['txtEmailReset']));
                     $arrData = $this->model->getUserEmail($strEmail);
+
+                    if (empty($arrData)) {
+                        $arrResponse = array('status' => false, 'msg' => 'Usuario no existente.');
+                    }else{
+                        $idpersona = $arrData['idpersona'];
+                        $nombreUsuario = $arrData['nombres'].' '.$arrData['apellidos'];
+
+                        $url_recovery = base_url().'/Login/confirmUser/'.$strEmail.'/'.$token;
+                    }
                 }
             }
             die();
