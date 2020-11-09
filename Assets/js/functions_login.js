@@ -78,8 +78,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                     window.location = base_url;
                                 }
                             });
+                        }else{
+                            swal("Atención", objData, "error");
                         }
+                    }else{
+                        swal("Atención", "Error en el proceso", "error");
                     }
+                    return false;
                 }
             }
         }
