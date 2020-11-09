@@ -46,11 +46,11 @@
             <button type="submit" class="btn btn-primary btn-block"><i class="fas fa-sign-in-alt"></i> INICIAR SESIÓN</button>
           </div>
         </form>
-        <form class="forget-form" action="index.html">
+        <form id="formResetPass" name="formResetPass" class="forget-form" action="">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>¿Olvidaste tu contraceña?</h3>
           <div class="form-group">
             <label class="control-label">EMAIL</label>
-            <input id="txtEmailReset" class="form-control" type="text" placeholder="Email">
+            <input id="txtEmailReset" name="txtEmailReset" class="form-control" type="email" placeholder="Email">
           </div>
           <div class="form-group btn-container">
             <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-unlock fa-lg fa-fw"></i>REINICIAR</button>
