@@ -44,6 +44,7 @@
                     WHERE p.idpersona = $this->intIdUsuario";
 
             $request = $this->select($sql);
+            return $request;
         }
     }
 
