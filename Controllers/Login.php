@@ -66,10 +66,9 @@
                         $nombreUsuario = $arrData['nombres'].' '.$arrData['apellidos'];
 
                         $url_recovery = base_url().'/Login/confirmUser/'.$strEmail.'/'.$token;
+                        $requestUpdate =  $this->model->setTokenUser($idpersona,$token);
 
-                        $this->model->setTokenUser($idpersona,$token);
-
-                        if($endEmail){
+                        if($requestUpdate){
                             $arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo electronico para cambiar tu contraceña');
                         }else{
                             $arrResponse = array('status' => false, 'msg' => 'No es posible realizar el proceso, intenta más tarde.');

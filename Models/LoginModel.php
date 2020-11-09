@@ -48,8 +48,8 @@
         }
 
         public function getUserEmail(string $email){
-            $this->strUsuario = $strEmail;
-            $sql = "SELECT idpersona, nombres, apellidos, status FROM persona WHERE email_user = '$this->strUsuario' and  status = 1";
+            $this->strUsuario = $email;
+            $sql = "SELECT idpersona,nombres,apellidos,status FROM persona WHERE email_user = '$this->strUsuario' and  status = 1";
             $request = $this->select($sql);
             return $request; 
         }
