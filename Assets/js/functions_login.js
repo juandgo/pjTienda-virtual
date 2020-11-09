@@ -23,6 +23,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 request.open("POST",ajaxUrl,true);
                 request.send(formData);
                 console.log(request);
+                request.onreadystatechange = function(){
+                    if (request.readySatate !=4) return;//no hace absolutamente nada si es diferente de 4 
+                    if (request.status == 200) {
+                        var objData = JSON.parse(request.responseText);
+                        if (objData.status){// si el status es true es correcto
+                            //al iniciar sesión muestra el dashboard
+                            window.location = base_url+'/dashboard';
+                        }else{
+                            swal("Atención", objData.msg, "error");
+                            document.querySelector('#txtPassword').value = "";//limpia campo
+                        }
+                    }else{
+                        swal("Atención", "Erro en el proceso", "error");
+                    }
+                    return false;                   
+                    // console.log(request);
+                }
             }
         }
     }
