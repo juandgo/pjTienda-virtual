@@ -2,6 +2,10 @@
     class Login extends Controllers{
         public function __construct(){
             session_start();//con esto se puenden crear varibles de sesión
+            //valida si la sesión existe  redirecciona a dashboard, si no te devuelve al form login 
+            if (isset($_SESSION['login'])) {
+                header("Location:".base_url()."/dashboard");
+            }
             parent::__construct();//ejecuta el metodo constructor de la clase Controllers
         }
 
