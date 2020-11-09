@@ -49,5 +49,18 @@
             }
             die();
         }
+
+        public function resetPass(){
+            if ($_POST) {
+                if (empty($_POST['txtEmailReset'])) {
+                    $arrResponse = array('status' => false, 'msg' => 'Error de datos');
+                }else{
+                    $token = token();
+                    $strEmail = strtolower(strClean($_POST['txtEmailReset']));
+                    $arrData = $this->model->getUserEmail($strEmail);
+                }
+            }
+            die();
+        }
     }
 ?>

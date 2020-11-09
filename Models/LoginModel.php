@@ -46,6 +46,10 @@
             $request = $this->select($sql);
             return $request;
         }
+
+        public function getUserEmail(string $email){
+            
+        }
     }
 
     

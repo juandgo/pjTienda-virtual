@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 request.open("POST", ajaxUrl, true);
                 request.send(formData);
                 request.onreadystatechange = function () {
-                    
+                    console.log(request);
                 }
             }
         }
