@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 request.open("POST", ajaxUrl, true);
                 request.send(formData);
                 request.onreadystatechange = function () {
-                    console.log(request);
+                    // console.log(request);
                     if(request.readyState != 4) return;
                     if (request.status == 200) {
                         var objData = JSON.parse(request.responseText);

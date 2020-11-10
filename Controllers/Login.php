@@ -79,5 +79,12 @@
             }
             die();
         }
+
+        public function confirmUser(string $params){
+            $data['page_tag'] = 'Cambiar Contraceña';
+            $data['page_title'] = "Cambiar Contraceña <small>Tienda Virtual</small>";
+            $data['page_name'] = 'cambiar_contracenia';
+            $this->views->getView($this,'cambiar_password',$data);
+        }
     }
 ?>
