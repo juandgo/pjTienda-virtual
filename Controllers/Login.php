@@ -13,7 +13,7 @@
             $data['page_tag'] = 'Login - Tienda Virtual';
             $data['page_title'] = "Tienda Virtual";
             $data['page_name'] = 'login';
-            $data['page_functions_js'] = 'functions_login.js';
+            $data['page_functions_js'] = 'functions_login.js';//esto se usa para el cambio de pagina
             $this->views->getView($this,'login',$data);
     
         }
@@ -89,18 +89,23 @@
                 $arrParamas = explode(',',$params);
                 $strEmail = strClean($arrParamas[0]);
                 $strToken = strClean($arrParamas[1]);
-                
                 $arrResponse = $this->model->getUsuario($strEmail,$strToken);
                 if(empty($arrResponse)){
                     header('location: '.base_url());//redireciona a la ruta raiz del proyecto
                 }else{
-                    $data['page_tag'] = 'Cambiar Contraceña';
-                    $data['page_title'] = "Cambiar Contraceña ";
-                    $data['page_name'] = 'cambiar_contracenia';
+                    $data['page_tag'] = 'Cambiar Contraseña';
+                    $data['page_name'] = 'cambiar_contrasenia';
+                    $data['page_title'] = "Cambiar Contraseña ";
                     $data['idpersona'] = $arrResponse['idpersona'];//recive la variable idpersona
+                    $data['page_functions_js'] = 'functions_login.js';//esto se usa para el cambio de pagina
                     $this->views->getView($this,'cambiar_password',$data);
                 }
             }
+            die();
+        }
+
+        public function setPassword(){
+            dep($_POST);
             die();
         }
     }

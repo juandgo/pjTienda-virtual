@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Por favor", "Escriba su correo electronico.", "error");
                 return false;
             }else{
-                var request = (window.XMLHttpRequest) ? new XMLHttpRequest : new ActiveXObject('Microsoft.XMLHTTP');
+                var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
                 var ajaxUrl = base_url+'/Login/resetPass';
                 var formData = new FormData(formResetPass);
                 request.open("POST", ajaxUrl, true);
@@ -88,23 +88,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        //Sí esxixte el elemento formCambiarPass hacer
-        if (document.querySelector('#formCambiarPass')) {
-            let formCambiarPass = document.querySelector('#formCambiarPass');
-            formCambiarPass.onsubmit = function(e){
-                e.preventDefault();
+        
+    }
+    //Sí esxixte el elemento formCambiarPass hacer
+    if (document.querySelector('#formCambiarPass')) {
+        let formCambiarPass = document.querySelector('#formCambiarPass');
+        formCambiarPass.onsubmit = function(e){
+            e.preventDefault();
 
-                let strPassword = document.querySelector('#txtPassword').value;//obtiene el valor
-                let strPasswordConfirm = document.querySelector('#txtPasswordConfirm').value;
-                let idUsuario = document.querySelector('#idUsuario').value;
+            let strPassword = document.querySelector('#txtPassword').value;//obtiene el valor
+            let strPasswordConfirm = document.querySelector('#txtPasswordConfirm').value;
+            let idUsuario = document.querySelector('#idUsuario').value;
 
-                if (strPassword == "" || strPasswordConfirm == "") {
-                    swal("Por favor", "Escribe la nueva contraceña", "error");
-                        return false;
-                }else{
-                    if(strPassword.lengt < 5){
-                        swal('Atención', 'La contraceña debe tener un mínimo de 5 caracteres.', "info");
-                        return false;
+            if (strPassword == "" || strPasswordConfirm == "") {
+                swal("Por favor", "Escribe la nueva contraseña", "error");
+                    return false;
+            }else{
+                if(strPassword.length < 5){
+                    swal('Atención', 'La contraseña debe tener un mínimo de 5 caracteres.', "info");
+                    return false;
+                }
+                if(strPassword != strPasswordConfirm){
+                    swal('Atención', 'Las contraseñas son igualess.', "error");
+                    return false;
+                }
+                // se crea el objeto web segun el navegador
+                var request = (window.XMLHttpRequest) ? 
+                                new XMLHttpRequest() : 
+                                new ActiveXObject('Microsoft.XMLHTTP');
+                var ajaxUrl = base_url+'/Login/setPassword';
+                //se crea el obejto formData con el parametro formCambiarPass
+                var formData = new FormData(formCambiarPass);
+                request.open("POST",ajaxUrl,true);
+                request.send(formData);
+
+                request.onreadystatechange = function(){
+                    if(request.readyState != 4) return;
+                    if (request.status == 200) {
+                        console.log(request.responseText);
                     }
                 }
             }
