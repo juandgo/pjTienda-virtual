@@ -81,9 +81,18 @@
         }
 
         public function confirmUser(string $params){
+            
+            if (empty($params)) {
+                header("Location:".base_url());
+            }else{
+                // echo $params;
+                $arrParamas = explode(',',$params);
+                dep($arrParamas);
+            }
             $data['page_tag'] = 'Cambiar Contraceña';
-            $data['page_title'] = "Cambiar Contraceña <small>Tienda Virtual</small>";
+            $data['page_title'] = "Cambiar Contraceña ";
             $data['page_name'] = 'cambiar_contracenia';
+            $data['idpersona'] = 1;
             $this->views->getView($this,'cambiar_password',$data);
         }
     }

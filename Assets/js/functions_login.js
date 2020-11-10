@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 title: "",
                                 text: objData.msg,
                                 type: "success",
-                                confirmButtonText: "Aceotar",
+                                confirmButtonText: "Aceptar",
                                 closeOnConfirm: false,
                             }, function (isConfirm) {
                                 if(isConfirm){
