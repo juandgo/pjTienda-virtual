@@ -81,22 +81,27 @@
         }
 
         public function confirmUser(string $params){
-            
+            //si es diferente a los datos pedidos redirecciona al index
             if (empty($params)) {
                 header("Location:".base_url());
             }else{
                 // echo $params;
                 $arrParamas = explode(',',$params);
-                $strEmail = strCelan($arrParamas[0]);
+                $strEmail = strClean($arrParamas[0]);
                 $strToken = strClean($arrParamas[1]);
                 
                 $arrResponse = $this->model->getUsuario($strEmail,$strToken);
+                if(empty($arrResponse)){
+                    header('location: '.base_url());//redireciona a la ruta raiz del proyecto
+                }else{
+                    $data['page_tag'] = 'Cambiar Contraceña';
+                    $data['page_title'] = "Cambiar Contraceña ";
+                    $data['page_name'] = 'cambiar_contracenia';
+                    $data['idpersona'] = $arrResponse['idpersona'];//recive la variable idpersona
+                    $this->views->getView($this,'cambiar_password',$data);
+                }
             }
-            $data['page_tag'] = 'Cambiar Contraceña';
-            $data['page_title'] = "Cambiar Contraceña ";
-            $data['page_name'] = 'cambiar_contracenia';
-            $data['idpersona'] = 1;
-            $this->views->getView($this,'cambiar_password',$data);
+            die();
         }
     }
 ?>

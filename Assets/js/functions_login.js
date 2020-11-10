@@ -88,5 +88,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+        //Sí esxixte el elemento formCambiarPass hacer
+        if (document.querySelector('#formCambiarPass')) {
+            let formCambiarPass = document.querySelector('#formCambiarPass');
+            formCambiarPass.onsubmit = function(e){
+                e.preventDefault();
+
+                let strPassword = document.querySelector('#txtPassword').value;//obtiene el valor
+                let strPasswordConfirm = document.querySelector('#txtPasswordConfirm').value;
+                let idUsuario = document.querySelector('#idUsuario').value;
+
+                if (strPassword == "" || strPasswordConfirm == "") {
+                    swal("Por favor", "Escribe la nueva contraceña", "error");
+                        return false;
+                }else{
+                    if(strPassword.lengt < 5){
+                        swal('Atención', 'La contraceña debe tener un mínimo de 5 caracteres.', "info");
+                        return false;
+                    }
+                }
+            }
+        }
     }
 }, false);
