@@ -87,7 +87,10 @@
             }else{
                 // echo $params;
                 $arrParamas = explode(',',$params);
-                dep($arrParamas);
+                $strEmail = strCelan($arrParamas[0]);
+                $strToken = strClean($arrParamas[1]);
+                
+                $arrResponse = $this->model->getUsuario($strEmail,$strToken);
             }
             $data['page_tag'] = 'Cambiar Contraceña';
             $data['page_title'] = "Cambiar Contraceña ";
