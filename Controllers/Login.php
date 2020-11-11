@@ -96,6 +96,8 @@
                     $data['page_tag'] = 'Cambiar Contraseña';
                     $data['page_name'] = 'cambiar_contrasenia';
                     $data['page_title'] = "Cambiar Contraseña ";
+                    $data['token'] = $strToken;
+                    $data['email'] = $strEmail;
                     $data['idpersona'] = $arrResponse['idpersona'];//recive la variable idpersona
                     $data['page_functions_js'] = 'functions_login.js';//esto se usa para el cambio de pagina
                     $this->views->getView($this,'cambiar_password',$data);
@@ -105,7 +107,10 @@
         }
 
         public function setPassword(){
-            dep($_POST);
+            // dep($_POST);
+            if (empty($_POST['idUsuario']) || empty($_POST['txtPassword']) || empty($_POST['txtPasswordConfirm'])) {
+                $arrResponse = array('status' => false, 'msg' => 'Error de datos');
+            }
             die();
         }
     }
