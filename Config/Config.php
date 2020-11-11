@@ -19,4 +19,10 @@
     //Simbolo de moneda
     const SMONEY = "$";
 
+    //Datos de envio de correo
+    const NOMBRE_REMITENTE = "Tienda Virtual";
+    const EMAIL_REMITENTE = "no-reply@jd97.com";
+    const NOMBRE_EMPRESA = "Tienda Virtual";
+    const WEB_EMPRESA = "wwww.jd97.com";
+
 ?>

@@ -28,6 +28,23 @@
         $view_modal = "Views/Template/Modals/{$nameModal}.php";
         require_once $view_modal;
     }
+
+    function sendEmail($data,$template){
+        $asunto = $data['asunto'];
+        $emailDestino = $data['email'];
+        $empresa = NOMBRE_REMITENTE;
+        $remitente = EMAIL_REMITENTE;
+        //ENVIO DE CORREO
+        $de = "MIME-Version: 1.0\r\n";
+        $de .= "Content-type: text/html; charset=UTF8\r\n";//se le coloca el retorno de carro y un salto de linea
+        $de .= "FROM: {$empresa}<{$remitente}>\r\n";
+        ob_start();//Carga en memoria un archivo especifico el caul es el siguiente
+        require_once("Views/Template/Email/".$template.".php");
+        $mensaje = ob_get_clean();
+        $send = mail($emailDestino, $asunto, $mensaje, $de);
+        return $send;
+    }
+
     //Elimina exceso de espacions entre palabaras 
     //Esto es para evitar una Inyeccion SQL
     function strClean($strCadena){

@@ -55,7 +55,7 @@
                 if (empty($_POST['txtEmailReset'])) {
                     $arrResponse = array('status' => false, 'msg' => 'Error de datos');
                 }else{
-                    $token = token();
+                    $token = token();//Crea token;
                     $strEmail = strtolower(strClean($_POST['txtEmailReset']));
                     $arrData = $this->model->getUserEmail($strEmail);
 
@@ -68,8 +68,22 @@
                         $url_recovery = base_url().'/Login/confirmUser/'.$strEmail.'/'.$token;
                         $requestUpdate =  $this->model->setTokenUser($idpersona,$token);
 
+                        $dataUsuario = array('nombreUsuario' => $nombreUsuario,
+                                                'email' => $strEmail,
+                                                'asunto' => 'Recuperar cuenta - '.NOMBRE_REMITENTE,
+                                                'url_recovery' => $url_recovery);
+                        
+                        //La funcio send email en herpers resibe como parametro el array y la pagina en que se va a mostrar el mensaje
+                        
+
                         if($requestUpdate){
+                            $endEmail = sendEmail($dataUsuario,'email_cambioPassword');
+
+                            if($sendEmail){
                             $arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo electronico para cambiar tu contraceña');
+                            }else{
+                                $arrResponse = array('status' => false, 'msg' => 'No es posible realizar el proceso, intenta más tarde.');
+                            }
                         }else{
                             $arrResponse = array('status' => false, 'msg' => 'No es posible realizar el proceso, intenta más tarde.');
                         }
