@@ -74,8 +74,6 @@
                                                 'url_recovery' => $url_recovery);
                         
                         //La funcio send email en herpers resibe como parametro el array y la pagina en que se va a mostrar el mensaje
-                        
-
                         if($requestUpdate){
                             $endEmail = sendEmail($dataUsuario,'email_cambioPassword');
 
