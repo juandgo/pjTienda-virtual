@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if(request.readyState != 4) return;
                     if (request.status == 200) {
                         var objData = JSON.parse(request.responseText);
-                        if (objData.status) {
+                        if (objData.status) {//Sí objData es true 
                             swal({
                                 title: "",
                                 text: objData.msg,
@@ -124,7 +124,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 request.onreadystatechange = function(){
                     if(request.readyState != 4) return;
                     if (request.status == 200) {
-                        console.log(request.responseText);
+                        // console.log(request.responseText);
+                        var objData = JSON.parse(request.responseText);
+                        if (objData.status) {//Sí objData es true 
+                            swal({
+                                title: "",
+                                text: objData.msg,//recibe el formato json del LoginModel
+                                type: "success",
+                                confirmButtonText: "Iniciar sessión",
+                                closeOnConfirm: false,
+                            }, function (isConfirm) {
+                                if(isConfirm){
+                                    window.location = base_url+'/Login';
+                                }
+                            });
+                        }
                     }
                 }
             }

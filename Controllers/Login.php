@@ -129,7 +129,7 @@
                         $strPassword = hash("SHA256", $strPassword);//encripta la clave nueva 
                         $requestPass = $this->model->insertPassword($intIdpersona, $strPassword);//Inserta la clave nueva
 
-                        if($requestPass){
+                        if($requestPass){//si la solicitud fue exitosa 
                             $arrResponse = array('status' => true, 'msg' => 'Contraseña Actualizada con éxito.');
                         }else{
                             $arrResponse = array('status' => false, 'msg' => 'No es posible realizar el proceso, intente más tarde');
@@ -137,6 +137,7 @@
                     }
                 }
             }
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//convierte a formato json y devuelve como un return  hacia el functions_login
             die();
         }
     }
