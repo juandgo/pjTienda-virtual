@@ -71,6 +71,17 @@
             return $request;
 
         }
+
+        public function insertPassword(int $idpersona, string $password){
+            $this->intIdUsuario->$idpersona;
+            $this->strPassword->$password;
+            $sql = "UPDATE persona SET password = ?, token = ? WHERE idpersona = $this->intIdUsuario";
+            $arrData = array($this->strPassword,"");
+            $request = $this->update($sql, $arrData);
+            return $request;
+
+            
+        }
     }
 
     

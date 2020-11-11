@@ -128,6 +128,12 @@
                     }else{//si totdo anda correcto se procede a actualizar los datos
                         $strPassword = hash("SHA256", $strPassword);//encripta la clave nueva 
                         $requestPass = $this->model->insertPassword($intIdpersona, $strPassword);//Inserta la clave nueva
+
+                        if($requestPass){
+                            $arrResponse = array('status' => true, 'msg' => 'Contraseña Actualizada con éxito.');
+                        }else{
+                            $arrResponse = array('status' => false, 'msg' => 'No es posible realizar el proceso, intente más tarde');
+                        }
                     }
                 }
             }
