@@ -26,7 +26,7 @@
                 }else{
                     $strUsuario = strtolower(strClean($_POST['txtEmail']));
                     $strPassword = hash("SHA256",$_POST['txtPassword']);
-                    $requestUser = $this->model->loginUser($strUsuario,$strPassword);
+                    $requestUser = $this->model->loginUser($strUsuario,$strPassword);//Devuelve el id del usuario
                     // dep($requestUser);
                     if (empty($requestUser)) {
                         $arrResponse = array('status' => false, 'msg' => 'El usuario o la contraseña es incorrecto.');
@@ -108,8 +108,28 @@
 
         public function setPassword(){
             // dep($_POST);
-            if (empty($_POST['idUsuario']) || empty($_POST['txtPassword']) || empty($_POST['txtPasswordConfirm'])) {
+            if (empty($_POST['idUsuario']) || empty($_POST['txtPassword']) || empty($_POST['txtPasswordConfirm']) || empty($_POST['txtToken']) ) {
                 $arrResponse = array('status' => false, 'msg' => 'Error de datos');
+            }else{
+                //La inyeccion sql no sirve en el password por que se encripta al momento de ejecutar el query en la base de datos 
+                $intIdpersona = intval($_POST['idUsuario']);
+                $strPassword = $_POST['txtPassword'];
+                $strPasswordConfirm = $_POST['txtPasswordConfirm'];
+                $strToken = strClean($_POST['txtToken']);
+                $strEmail = strClean($_POST['txtEmail']);
+                //Esta validación ya se hizo en el javascrip, pero por motivos de seguridad se vuelve a colocar acá
+                if ($strPassword != $strPasswordConfirm) {
+                    $arrResponse = array('status' => false, 'msg' => 'Las contraseñas son iguales.');
+                }else{
+                    //Esto es para evitar ser hakeado;esto es para laguien que no este haciendo el proceso desde el formulario y este buscando una bulnerabilidad
+                    $arrResponseUser = $this->model->getUsuario($strEmail,$strToken);//Devuelve el id del usuario
+                    if(empty($arrResponseUser)){
+                        $arrResponseUser = array('status' => false, 'msg' => 'Error de datos.');
+                    }else{//si totdo anda correcto se procede a actualizar los datos
+                        $strPassword = hash("SHA256", $strPassword);//encripta la clave nueva 
+                        $requestPass = $this->model->insertPassword($intIdpersona, $strPassword);//Inserta la clave nueva
+                    }
+                }
             }
             die();
         }

@@ -107,8 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(strPassword.length < 5){
                     swal('Atención', 'La contraseña debe tener un mínimo de 5 caracteres.', "info");
                     return false;
-                }
-                if(strPassword != strPasswordConfirm){
+                }else if(strPassword != strPasswordConfirm){
                     swal('Atención', 'Las contraseñas son igualess.', "error");
                     return false;
                 }
