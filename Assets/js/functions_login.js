@@ -121,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 request.open("POST",ajaxUrl,true);
                 request.send(formData);
 
-                request.onreadystatechange = function(){
+                request.onreadystatechange = function () {
+
                     if(request.readyState != 4) return;
                     if (request.status == 200) {
                         // console.log(request.responseText);
@@ -131,14 +132,18 @@ document.addEventListener('DOMContentLoaded', function() {
                                 title: "",
                                 text: objData.msg,//recibe el formato json del LoginModel
                                 type: "success",
-                                confirmButtonText: "Iniciar sessión",
-                                closeOnConfirm: false,
+                                confirmButtonText: "Iniciar sesión",
+                                closeOnConfirm: false,//Indica que no se cierra la alerta hasta que no se de click en el boton
                             }, function (isConfirm) {
                                 if(isConfirm){
-                                    window.location = base_url+'/Login';
+                                    window.location = base_url+'/login';
                                 }
                             });
+                        }else{
+                            swal("Atención", objData, "error");
                         }
+                    }else{
+                        swal("Atención", "Error en el proceso", "error");
                     }
                 }
             }

@@ -108,15 +108,15 @@
 
         public function setPassword(){
             // dep($_POST);
-            if (empty($_POST['idUsuario']) || empty($_POST['txtPassword']) || empty($_POST['txtPasswordConfirm']) || empty($_POST['txtToken']) ) {
+            if (empty($_POST['idUsuario']) || empty($_POST['txtEmail']) || empty($_POST['txtPassword']) || empty($_POST['txtPasswordConfirm']) || empty($_POST['txtToken']) ) {
                 $arrResponse = array('status' => false, 'msg' => 'Error de datos');
             }else{
                 //La inyeccion sql no sirve en el password por que se encripta al momento de ejecutar el query en la base de datos 
                 $intIdpersona = intval($_POST['idUsuario']);
                 $strPassword = $_POST['txtPassword'];
                 $strPasswordConfirm = $_POST['txtPasswordConfirm'];
-                $strToken = strClean($_POST['txtToken']);
                 $strEmail = strClean($_POST['txtEmail']);
+                $strToken = strClean($_POST['txtToken']);
                 //Esta validación ya se hizo en el javascrip, pero por motivos de seguridad se vuelve a colocar acá
                 if ($strPassword != $strPasswordConfirm) {
                     $arrResponse = array('status' => false, 'msg' => 'Las contraseñas son iguales.');

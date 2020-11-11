@@ -1,2 +1,2 @@
 http://localhost:8082/www/pjTienda-virtual/login/confirmUser/juandavidgo1997@gmail.com/
-c75a85b6369ef69e1518-a5b96b39e570a108f522-a5e28c2bc0e5ed996e35-482310cfef10b9592
+65be110f86d353c4ee32-e2474cdd3cda1787c75b-91f6486c34d0664498e8-a8aa6594acb1b9043
