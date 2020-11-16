@@ -1,17 +1,26 @@
-<?php 
-  headerAdmin($data); 
-  getModal('modalUsuarios', $data);//los datos de la modal se envian por parametro a la funcion getmodals ubicada en  helpers
+<?php headerAdmin($data); ?>
+<main class="app-content">
+<?php
+//los datos de la modal se envian por parametro a la funcion getmodals ubicada en  helpers
+  getModal('modalUsuarios', $data);
+  //Sí el tipo de ususario tiene read en true podra ver este modulo, sí no pues no podra acceder a el ni siquiera por la url 
+  if (empty($_SESSION['permisosMod']['r'])) {
 ?>
-    <main class="app-content">
-    <?= 
-                dep($_SESSION['permisos']);
-                dep($_SESSION['permisosMod']);
-            ?>
+           <p>Acceso restringido</p>
+<?php 
+  }else{ 
+      // dep($_SESSION['permisos']);
+  dep($_SESSION['permisosMod']); 
+?>      
       <div class="app-title">
         <div>
-          <h1><i class="fas fa-user-tag"></i>  <?= $data['page_title'] ?>
+          <h1>
+              <i class="fas fa-user-tag"></i>  <?= $data['page_title'] ?>
+              <!-- Si permisosMod tiene write en true mostrara el boto para poder crear un ususario en este modulo -->
+              <?php if ($_SESSION['permisosMod']['w']){ ?>
               <button class="btn btn-primary" type="button" onclick="openModal();">
               <i class="fas fa-plus-circle"></i> Nuevo</button>
+              <?php } ?>
           </h1>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -45,5 +54,6 @@
           </div>
         </div>
       </div>
+  <?php } ?>
     </main>
 <?php footerAdmin($data); ?>
