@@ -6,10 +6,16 @@
             //valida si la sesión existe, si no te regresa al formulario login 
             if (empty($_SESSION['login'])) {
                 header("Location:".base_url()."/login");
-            }   
+            } 
+            //Permisos por rol  de usuario
+            getPermisos(2);
         }
 
         public function roles(){
+            //Sí permisosMod en read es igual a true muestra el modulo usuarios 
+            if (empty($_SESSION['permisosMod']['r'])) {
+                header("Location:".base_url().'/dashboard');//redirecciona al dashboard 
+            }
             $data['page_id'] = 3;
             $data['page_tag'] = 'Roles Usuario';
             $data['page_name'] = "rol_usuario";
@@ -19,6 +25,10 @@
         }
 
         public function getRoles(){
+            $btnView = "";
+            $btnEdit =  "";
+            $btnDelete = "";
+
             $arrData = $this->model->selectRoles(); 
             //Convierto el array a un formato jSon para que pueda ser interpretado por cualquier lenguaje de programacion 
             for ($i=0; $i < count($arrData) ; $i++) { 
@@ -27,11 +37,21 @@
                 }else{
                     $arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
                 }
-                $arrData[$i]['options'] = '<div class="text-center">
-				<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrol'].')" title="Permisos"><i class="fas fa-key"></i></button>
-				<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrol'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-				<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>
-				</div>';
+
+                if ($_SESSION['permisosMod']['r']) {
+                    
+                 }
+ 
+                 if ($_SESSION['permisosMod']['u']) {
+                    $btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrol'].')" title="Permisos"><i class="fas fa-key"></i></button>';
+                    $btnEdit =  '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrol'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+                 }
+ 
+                 if ($_SESSION['permisosMod']['d']) {
+                     $btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+                 }
+                 //Se concatenan las variables paraque puedan se mostradas en la tabla por medio del array
+                 $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
             }
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//el unicode forza a que se combierta en un ojeto en caso de que tenga caracteres especiales
             die();//finaliza el proceso

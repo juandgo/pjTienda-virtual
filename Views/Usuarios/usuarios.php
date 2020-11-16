@@ -1,17 +1,8 @@
-<?php headerAdmin($data); ?>
-<main class="app-content">
-<?php
-//los datos de la modal se envian por parametro a la funcion getmodals ubicada en  helpers
-  getModal('modalUsuarios', $data);
-  //Sí el tipo de ususario tiene read en true podra ver este modulo, sí no pues no podra acceder a el ni siquiera por la url 
-  if (empty($_SESSION['permisosMod']['r'])) {
-?>
-           <p>Acceso restringido</p>
 <?php 
-  }else{ 
-      // dep($_SESSION['permisos']);
-  dep($_SESSION['permisosMod']); 
-?>      
+  headerAdmin($data); 
+  getModal('modalUsuarios', $data);
+?>
+<main class="app-content">    
       <div class="app-title">
         <div>
           <h1>
@@ -54,6 +45,5 @@
           </div>
         </div>
       </div>
-  <?php } ?>
     </main>
 <?php footerAdmin($data); ?>

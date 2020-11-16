@@ -7,10 +7,15 @@
             if (empty($_SESSION['login'])) {
                 header("Location:".base_url()."/login");
             }
+            //permisos por rol de usuario
             getPermisos(2);
         }
 
         public function Usuarios(){
+            //Sí permisosMod en read es igual a true muestra el modulo usuarios 
+            if (empty($_SESSION['permisosMod']['r'])) {
+                header("Location:".base_url().'/dashboard');//redirecciona al dashboard 
+            }
             $data['page_tag'] = 'Usuarios';
             $data['page_title'] = "Usuarios <small>Tienda Virtual</small>";
             $data['page_name'] = 'usuarios';
@@ -86,17 +91,30 @@
             $arrData = $this->model->selectUsuarios();
             
             for ($i=0; $i < count($arrData) ; $i++) { 
+                $btnView = "";
+                $btnEdit =  "";
+                $btnDelete = "";
+
                 if ($arrData[$i]['status'] == 1) {
                     $arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
                 }else{
                     $arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
                 }
-                $arrData[$i]['options'] = '<div class="text-center">
-                <button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="fas fa-eye"></i></button>                        
-                <button class="btn btn-primary btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar Usuario"><i class="far fa-trash-alt"></i></button>
-                <!--el title=Eliminar es un tooltip--> 
-                </div>';
+
+                if ($_SESSION['permisosMod']['r']) {
+                   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="fas fa-eye"></i></button>';
+                }
+
+                if ($_SESSION['permisosMod']['u']) {
+                     $btnEdit =  '<button class="btn btn-primary btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>';
+                }
+
+                if ($_SESSION['permisosMod']['d']) {
+                    $btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar Usuario"><i class="far fa-trash-alt"></i></button>
+                    <!--el title=Eliminar es un tooltip--> ';
+                }
+                //Se concatenan las variables paraque puedan se mostradas en la tabla por medio del array
+                $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
             }
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
             die();
