@@ -70,13 +70,13 @@
                         $requestUpdate =  $this->model->setTokenUser($idpersona,$token);
 
                         $dataUsuario = array('nombreUsuario' => $nombreUsuario,
-                                                'email' => $strEmail,
-                                                'asunto' => 'Recuperar cuenta - '.NOMBRE_REMITENTE,
-                                                'url_recovery' => $url_recovery);
+                                            'email' => $strEmail,
+                                            'asunto' => 'Recuperar cuenta - '.NOMBRE_REMITENTE,
+                                            'url_recovery' => $url_recovery);
                         
                         //La funcio send email en herpers resibe como parametro el array y la pagina en que se va a mostrar el mensaje
                         if($requestUpdate){
-                            $endEmail = sendEmail($dataUsuario,'email_cambioPassword');
+                            $sendEmail = sendEmail($dataUsuario,'email_cambioPassword');
 
                             if($sendEmail){
                             $arrResponse = array('status' => true, 'msg' => 'Se ha enviado un email a tu cuenta de correo electronico para cambiar tu contraceña');
@@ -150,6 +150,7 @@
                     }
                 }
             }
+            sleep(5);//retrasa el codigo que continua de acuedo a la cantidad de segundos 
             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//convierte a formato json y devuelve como un return  hacia el functions_login
             die();
         }

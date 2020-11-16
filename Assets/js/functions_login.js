@@ -2,6 +2,8 @@ $('.login-content [data-toggle="flip"]').click(function() {
     $('.login-box').toggleClass('flipped');
     return false;
 });
+//esta variable se crea para lostrar la animacion loading
+var divLoading = document.querySelector("#divLoading");
 
 document.addEventListener('DOMContentLoaded', function() {
     if (document.querySelector("#formLogin")) {
@@ -17,12 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Por favor", "Escriba usuario y contraceña", "error");
                 return false;
             }else{
+                divLoading.style.display = "flex";// se le da un estilo al loading
                 var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
                 var ajaxUrl = base_url+'/Login/loginUser';
                 var formData = new FormData(formLogin);
                 request.open("POST",ajaxUrl,true);
                 request.send(formData);
-                console.log(request);
+                // console.log(request);
 
                request.onreadystatechange = function(){
 

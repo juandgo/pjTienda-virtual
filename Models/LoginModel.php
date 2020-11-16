@@ -66,7 +66,10 @@
         public function getUsuario(string $email, string $token){
             $this->strUsuario = $email;
             $this->strToken = $token;
-            $sql= "SELECT idpersona FROM persona WHERE email_user = '$this->strUsuario' and token = '$this->strToken' and  status = 1";
+            $sql= "SELECT idpersona FROM persona WHERE 
+                    email_user = '$this->strUsuario' and 
+                    token = '$this->strToken' and  
+                    status = 1";
             $request = $this->select($sql);
             return $request;
 
