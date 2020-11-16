@@ -3,6 +3,10 @@
   getModal('modalUsuarios', $data);//los datos de la modal se envian por parametro a la funcion getmodals ubicada en  helpers
 ?>
     <main class="app-content">
+    <?= 
+                dep($_SESSION['permisos']);
+                dep($_SESSION['permisosMod']);
+            ?>
       <div class="app-title">
         <div>
           <h1><i class="fas fa-user-tag"></i>  <?= $data['page_title'] ?>

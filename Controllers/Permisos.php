@@ -15,7 +15,7 @@
 				$arrPermisosRol = $this->model->selectPermisosRol($rolid);
 				$arrPermisos = array('r' => 0, 'w' => 0, 'u' => 0, 'd' => 0);
 				$arrPermisoRol = array('idrol' => $rolid );
-
+				//si no hay permisos lo setea a todos en 0 
 				if(empty($arrPermisosRol))
 				{
 					for ($i=0; $i < count($arrModulos) ; $i++) { 
@@ -24,15 +24,17 @@
 					}
 				}else{
 					for ($i=0; $i < count($arrModulos); $i++) {
-
-						$arrPermisos = array('r' => $arrPermisosRol[$i]['r'], 
-											 'w' => $arrPermisosRol[$i]['w'], 
-											 'u' => $arrPermisosRol[$i]['u'], 
-											 'd' => $arrPermisosRol[$i]['d'] 
-											);
-						if($arrModulos[$i]['idmodulo'] == $arrPermisosRol[$i]['moduloid']){
-							$arrModulos[$i]['permisos'] = $arrPermisos;
-						}
+						//reinicia el ciclo en 0
+						$arrPermisos = array('r' => 0, 'w' => 0, 'u' => 0, 'd' => 0);
+						//Si existe el modulo en la tabla permisos con algun permiso ya asignado 
+						if(isset($arrPermisosRol[$i])){
+							$arrPermisos = array('r' => $arrPermisosRol[$i]['r'], 
+												'w' => $arrPermisosRol[$i]['w'], 
+												'u' => $arrPermisosRol[$i]['u'], 
+												'd' => $arrPermisosRol[$i]['d'] 
+												);
+											}
+							$arrModulos[$i]['permisos'] = $arrPermisos;//muestra el array de permisos todos en  0
                     }
                 }
 				$arrPermisoRol['modulos'] = $arrModulos;

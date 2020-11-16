@@ -45,6 +45,23 @@
         return $send;
     }
 
+    function getPermisos(int $idmodulo) {
+        require_once("Models/PermisosModel.php");
+        $objPermisos = new PermisosModel($idmodulo);
+        $idrol = $_SESSION['userData']['idrol'];
+        $arrPermisos = $objPermisos->permisosModulo($idrol);
+        $permisos = '';
+        $permisosMod = '';
+        if (count($arrPermisos) > 0) {
+            $permisos = $arrPermisos;//recibe todo el array
+            //Sí existe la variable agarra todos los datos del array 
+            $permisosMod = isset($arrPermisos[$idmodulo]) ?  $arrPermisos[$idmodulo]: "";
+        }
+        //Variables de sesión
+        $_SESSION['permisos'] = $permisos;//almacena permisos de todos los modulos 
+        $_SESSION['permisosMod'] = $permisosMod;//almacena los permisos de modulo segun el rol
+    }
+
     //Elimina exceso de espacions entre palabaras 
     //Esto es para evitar una Inyeccion SQL
     function strClean($strCadena){

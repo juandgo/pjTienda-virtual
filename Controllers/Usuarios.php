@@ -1,13 +1,13 @@
 <?php 
     class Usuarios   extends Controllers{
         public function __construct(){
+            parent::__construct();//ejecuta el metodo constructor de la clase Controllers
             session_start();
             //valida si la sesión existe, si no te regresa al formulario login 
             if (empty($_SESSION['login'])) {
                 header("Location:".base_url()."/login");
             }
-            parent::__construct();//ejecuta el metodo constructor de la clase Controllers
-            
+            getPermisos(2);
         }
 
         public function Usuarios(){
