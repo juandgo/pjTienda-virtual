@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Por favor", "Escriba usuario y contraceña", "error");
                 return false;
             }else{
-                divLoading.style.display = "flex";// se le da un estilo al loading
+                divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
                 var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
                 var ajaxUrl = base_url+'/Login/loginUser';
                 var formData = new FormData(formLogin);
@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }else{
                         swal("Atención", "Error en el proceso", "error");
                     }
+                    divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
                     return false;                   
                 // console.log(request);
                }
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Por favor", "Escriba su correo electronico.", "error");
                 return false;
             }else{
+                divLoading.style.display = "flex";
                 var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
                 var ajaxUrl = base_url+'/Login/resetPass';
                 var formData = new FormData(formResetPass);
@@ -87,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }else{
                         swal("Atención", "Error en el proceso", "error");
                     }
+                    divLoading.style.display = "none";
                     return false;
                 }
             }
@@ -114,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     swal('Atención', 'Las contraseñas son igualess.', "error");
                     return false;
                 }
-                // se crea el objeto web segun el navegador
+                divLoading.style.display = "flex";
                 var request = (window.XMLHttpRequest) ? 
                                 new XMLHttpRequest() : 
                                 new ActiveXObject('Microsoft.XMLHTTP');
@@ -148,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }else{
                         swal("Atención", "Error en el proceso", "error");
                     }
+                    divLoading.style.display = "none";
                 }
             }
         }

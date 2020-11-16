@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="<?= media(); ?>/images/icon8.ico">
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main.css">
+    <link rel="stylesheet" type="text/css" href="<?= media();?>/css/style.css">
     <!-- Font-icon css-->
     <title><?= $data['page_tag']; ?></title>
   </head>
@@ -21,6 +22,11 @@
         <h1><?= $data['page_title']; ?></h1>
       </div>
       <div class="login-box flipped">
+      <div id="divLoading" >
+          <div>
+            <img src="<?= media(); ?>/images/loading.svg" alt="Loading">
+          </div>
+        </div>
         <form id="formCambiarPass" name="formCambiarPass" class="forget-form" action="">
         <input type="hidden" id="idUsuario" name="idUsuario" value="<?= $data['idpersona']; ?>" required="">
         <input type="hidden" id="txtEmail" name="txtEmail" value="<?= $data['email']; ?>" required="">

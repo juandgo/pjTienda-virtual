@@ -8,7 +8,8 @@
     <meta name="theme-color" content="#009688">
     <link rel="shortcut icon" href="<?= media(); ?>/images/icon8.ico">
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="<?= media(); ?>/css/main.css">
+    <link rel="stylesheet" type="text/css" href="<?= media();?>/css/main.css">
+    <link rel="stylesheet" type="text/css" href="<?= media();?>/css/style.css">
     <!-- Font-icon css-->
     <title><?= $data['page_tag']; ?></title>
   </head>
@@ -21,7 +22,7 @@
         <h1><?= $data['page_title']; ?></h1>
       </div>
       <div class="login-box">
-      <div id="divLoading" >
+        <div id="divLoading" >
           <div>
             <img src="<?= media(); ?>/images/loading.svg" alt="Loading">
           </div>

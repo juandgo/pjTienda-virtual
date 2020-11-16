@@ -45,6 +45,8 @@
                         }
                     }
                 }
+                //simulacion de lentitud de una pagina 
+                // sleep(5);//retrasa el codigo que continua de acuedo a la cantidad de segundos 
                 echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//retorna la respuesta 
             }
             die();
@@ -88,6 +90,7 @@
                         }
                     }
                 }
+                // sleep(3);
                 echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
             }
             die();
@@ -150,7 +153,6 @@
                     }
                 }
             }
-            sleep(5);//retrasa el codigo que continua de acuedo a la cantidad de segundos 
             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//convierte a formato json y devuelve como un return  hacia el functions_login
             die();
         }
