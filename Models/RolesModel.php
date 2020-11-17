@@ -12,10 +12,10 @@
         }
 
         public function selectRoles(){
-            //NO extrae a el rol administradore sí el usuario creador no es super administrador 
+            //No extrae a el rol administradore sí el usuario creador no es super administrador 
             $whereAdmin = "";
             if ($_SESSION['idUser'] != 1) {
-                $whereAdmin = " AND p.idpersona != 1 ";
+                $whereAdmin = " AND idrol != 1 ";
             }
             //Extrae Roles 
             $sql = "SELECT * FROM rol WHERE status != 0".$whereAdmin;

@@ -16,8 +16,8 @@
             <div class="tile-body">Create a beautiful dashboard</div>
             <?= dep($_SESSION['userData']);
                 // dep(getPermisos(1));
-                dep($_SESSION['permisos']);
-                dep($_SESSION['permisosMod']);
+                // dep($_SESSION['permisos']);
+                // dep($_SESSION['permisosMod']);
             ?>
           </div>
         </div>
