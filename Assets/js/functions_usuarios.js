@@ -114,7 +114,7 @@ function fntRolesUsuario() {
     request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
         if (request.readyState == 4 && request.status == 200) {
             document.querySelector('#listRolid').innerHTML = request.responseText;//Esto le da respuesta  del getSlectRoles del controlador Roles.php
-            document.querySelector('#listRolid').value = 1;
+            // document.querySelector('#listRolid').value = 1;
             $('#listRolid').selectpicker('render');
         }
     }    
@@ -206,10 +206,6 @@ function fntEditUsuario(idpersona) {
 }
 
 function fntDelUsuario(idpersona) {
-    // var btnDelUsuario = document.querySelectorAll(".btnDelUsuario");//se refiere a todos los elementos que tengan esta clase del usuario
-    // btnDelUsuario.forEach(function(btnDelUsuario){
-    //     btnDelUsuario.addEventListener("click", function(){
-            // var idUsuario = this.getAttribute("us");//Se obtiene el id del usuario
     var idUsuario = idpersona;
     swal({
         title: "Eliminar Usuario",
@@ -235,12 +231,7 @@ function fntDelUsuario(idpersona) {
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableUsuarios.api().ajax.reload(function(){
-                            fntRolesUsuario();
-                            // fntViewUsuario();
-                            // fntEditUsuario();
-                            // fntDelUsuario();
-                        });
+                        tableUsuarios.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }
@@ -249,8 +240,6 @@ function fntDelUsuario(idpersona) {
         }
 
     });
-    //     });
-    // });
 }
 
 function openModal() {

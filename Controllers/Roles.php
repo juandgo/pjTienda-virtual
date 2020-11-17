@@ -25,9 +25,9 @@
         }
 
         public function getRoles(){
-            $btnView = "";
-            $btnEdit =  "";
-            $btnDelete = "";
+            $btnPermisosRol = "";
+            $btnEditRol =  "";
+            $btnDeleteRol = "";
 
             $arrData = $this->model->selectRoles(); 
             //Convierto el array a un formato jSon para que pueda ser interpretado por cualquier lenguaje de programacion 
@@ -37,21 +37,17 @@
                 }else{
                     $arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
                 }
-
-                if ($_SESSION['permisosMod']['r']) {
-                    
-                 }
  
                  if ($_SESSION['permisosMod']['u']) {
-                    $btnView = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrol'].')" title="Permisos"><i class="fas fa-key"></i></button>';
-                    $btnEdit =  '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrol'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
+                    $btnPermisosRol = '<button class="btn btn-secondary btn-sm btnPermisosRol" onClick="fntPermisos('.$arrData[$i]['idrol'].')" title="Permisos"><i class="fas fa-key"></i></button>';
+                    $btnEditRol =  '<button class="btn btn-primary btn-sm btnEditRol" onClick="fntEditRol('.$arrData[$i]['idrol'].')" title="Editar"><i class="fas fa-pencil-alt"></i></button>';
                  }
  
                  if ($_SESSION['permisosMod']['d']) {
-                     $btnDelete = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
+                     $btnDeleteRol = '<button class="btn btn-danger btn-sm btnDelRol" onClick="fntDelRol('.$arrData[$i]['idrol'].')" title="Eliminar"><i class="far fa-trash-alt"></i></button>';
                  }
                  //Se concatenan las variables paraque puedan se mostradas en la tabla por medio del array
-                 $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+                 $arrData[$i]['options'] = '<div class="text-center">'.$btnPermisosRol.' '.$btnEditRol.' '.$btnDeleteRol.'</div>';
             }
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//el unicode forza a que se combierta en un ojeto en caso de que tenga caracteres especiales
             die();//finaliza el proceso

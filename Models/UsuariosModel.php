@@ -55,12 +55,17 @@
         }   
 
         public function selectUsuarios(){
+            //A continuacion se usa una variable $whereAdmin para que un usuariaro comun extraiga los ususarios excepto el super usuario y asi no lo pueda editar ni eliminar   
+            $whereAdmin = "";
+            if ($_SESSION['idUser'] != 1) {
+                $whereAdmin = " AND p.idpersona != 1 ";//Esto es para que no extraiga al super usuario
+            }
             $sql = "SELECT p.idpersona, p.identificacion, p.nombres, p.apellidos, p.telefono,  
-                            p.email_user, p.status, r.nombrerol
+                            p.email_user, p.status, r.idrol, r.nombrerol
                     FROM persona p
                     INNER JOIN rol r
                     ON p.rolid = r.idrol
-                    WHERE p.status != 0";
+                    WHERE p.status != 0".$whereAdmin;
             $request = $this->select_all($sql);
             return $request;
         }

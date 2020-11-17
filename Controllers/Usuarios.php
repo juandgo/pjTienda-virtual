@@ -102,16 +102,32 @@
                 }
 
                 if ($_SESSION['permisosMod']['r']) {
-                   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="fas fa-eye"></i></button>';
+                   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="fas fa-eye"></i></button>'; 
                 }
 
                 if ($_SESSION['permisosMod']['u']) {
-                     $btnEdit =  '<button class="btn btn-primary btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>';
+                    //Sí es el usuario administrador  y si tiene el rol 1(Administrador)
+                    //O sí la variable de sesion en elemento idrol es igul 1 y del array que recorre el for en la posicion que se encuentra en el elemento idrol es diferente de 1, no es un usuario administrador   
+                    if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrol'] == 1) || 
+                        ($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1)){
+                        $btnEdit =  '<button class="btn btn-primary btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>';
+                    }else{
+                        $btnEdit =  '<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-pencil-alt"></i></button>';              
+                    }
                 }
+        
 
                 if ($_SESSION['permisosMod']['d']) {
-                    $btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar Usuario"><i class="far fa-trash-alt"></i></button>
-                    <!--el title=Eliminar es un tooltip--> ';
+                    //Sí es el usuario administrador  y si tiene el rol 1(Administrador)                    
+                    //O sí la variable de sesion en elemento idrol es igul 1 y del array que recorre el for en la posicion que se encuentra en el elemento idrol es diferente de 1, no es un usuario administrador 
+                    if(($_SESSION['idUser'] == 1 and $_SESSION['userData']['idrol'] == 1) || 
+                        ($_SESSION['userData']['idrol'] == 1 and $arrData[$i]['idrol'] != 1) and 
+                        ($_SESSION['userData']['idpersona'] != $arrData[$i]['idpersona'])){//Le bloquea el boton eliminarse a si mismo al super administrador y a los otros admiinistradores no los deja eliminarse a ellos mismos ni a otros administradores y a los usuarios comunes no los deja borrar ningun usuario 
+                        $btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar Usuario"><i class="far fa-trash-alt"></i></button>
+                        <!--el title=Eliminar es un tooltip--> ';
+                    }else{
+                        $btnDelete =  '<button class="btn btn-secondary btn-sm" disabled><i class="fas fa-trash-alt"></i></button>';  
+                    }    
                 }
                 //Se concatenan las variables paraque puedan se mostradas en la tabla por medio del array
                 $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
