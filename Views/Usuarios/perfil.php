@@ -1,4 +1,7 @@
-<?php headerAdmin($data); ?>
+<?php 
+  headerAdmin($data); 
+  getModal('modalPerfil', $data);
+?>
 <<main class="app-content">
   <div class="row user">
     <div class="col-md-12">

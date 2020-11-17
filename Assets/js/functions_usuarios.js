@@ -52,47 +52,50 @@ document.addEventListener('DOMContentLoaded', function () {
        });
 
     //Registrar un Usuario 
-    var formUsuario = document.querySelector('#formUsuario'); 
-    formUsuario.onsubmit = function(e){
-        e.preventDefault();
-        var strIdentificacion = document.querySelector('#txtIdentificacion').value;
-        var strNombre = document.querySelector('#txtNombre').value;
-        var strApellido = document.querySelector('#txtApellido').value;
-        var strEmail = document.querySelector('#txtEmail').value;
-        var intTelefono = document.querySelector('#txtTelefono').value;
-        var intTipoUsuario = document.querySelector('#listRolid').value;
-        var strPassword = document.querySelector('#txtPassword').value;
-        //Esto probablemente no se va a usar debido a que los campos en html son requeridos
-        if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario =='') {
-            swal("Atención", "Todos los campos son obligatorios.", "error");
-            return false;
-        }
-        //valida que los campos sean correctos 
-        let elementsValid = document.getElementsByClassName("valid");
-        for (let i = 0; i < elementsValid.length; i++) {
-            if (elementsValid[i].classList.contains('is-invalid')) {
-                swal("!Atención", "Por favor verifique los campos en rojo.", "error");
+    //Si existe este elemento  ejcuta si no pues no hace nada 
+    if (document.querySelector('#formUsuario')) {
+        var formUsuario = document.querySelector('#formUsuario'); 
+        formUsuario.onsubmit = function(e){
+            e.preventDefault();
+            var strIdentificacion = document.querySelector('#txtIdentificacion').value;
+            var strNombre = document.querySelector('#txtNombre').value;
+            var strApellido = document.querySelector('#txtApellido').value;
+            var strEmail = document.querySelector('#txtEmail').value;
+            var intTelefono = document.querySelector('#txtTelefono').value;
+            var intTipoUsuario = document.querySelector('#listRolid').value;
+            var strPassword = document.querySelector('#txtPassword').value;
+            //Esto probablemente no se va a usar debido a que los campos en html son requeridos
+            if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario =='') {
+                swal("Atención", "Todos los campos son obligatorios.", "error");
                 return false;
             }
-        }
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url+'/Usuarios/setUsuario';
-        var formData = new FormData(formUsuario);
-        request.open("POST",ajaxUrl,true);
-        request.send(formData); 
-        request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
-            if(request.readyState == 4 && request.status == 200){
-                var objData = JSON.parse(request.responseText);
-                if(objData.status){
-                    $('#modalFormUsuario').modal("hide");
-                    formUsuario.reset();
-                    swal("Usuarios", objData.msg ,"success");
-                    tableUsuarios.api().ajax.reload();
-                }else{
-                    swal("Error", objData.msg, "error");
-                } 
+            //valida que los campos sean correctos 
+            let elementsValid = document.getElementsByClassName("valid");
+            for (let i = 0; i < elementsValid.length; i++) {
+                if (elementsValid[i].classList.contains('is-invalid')) {
+                    swal("!Atención", "Por favor verifique los campos en rojo.", "error");
+                    return false;
+                }
+            }
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url+'/Usuarios/setUsuario';
+            var formData = new FormData(formUsuario);
+            request.open("POST",ajaxUrl,true);
+            request.send(formData); 
+            request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
+                if(request.readyState == 4 && request.status == 200){
+                    var objData = JSON.parse(request.responseText);
+                    if(objData.status){
+                        $('#modalFormUsuario').modal("hide");
+                        formUsuario.reset();
+                        swal("Usuarios", objData.msg ,"success");
+                        tableUsuarios.api().ajax.reload();
+                    }else{
+                        swal("Error", objData.msg, "error");
+                    } 
+                }    
             }    
-        }    
+        }
     }
 }, false);
 //Esta es la funcion que ejecuta todas la funciones del modulo usuario
@@ -106,18 +109,21 @@ window.addEventListener('load', function(){
 }, false);
 
 function fntRolesUsuario() {
-    var ajaxUrl = base_url+'/Roles/getSelectRoles';
-    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
-    request.open("GET",ajaxUrl,true);
-    request.send(); 
+    //Sí existe este elemento 
+    if (document.querySelector('#listRolid')) {
+        var ajaxUrl = base_url+'/Roles/getSelectRoles';
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
+        request.open("GET",ajaxUrl,true);
+        request.send(); 
 
-    request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
-        if (request.readyState == 4 && request.status == 200) {
-            document.querySelector('#listRolid').innerHTML = request.responseText;//Esto le da respuesta  del getSlectRoles del controlador Roles.php
-            // document.querySelector('#listRolid').value = 1;
-            $('#listRolid').selectpicker('render');
-        }
-    }    
+        request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
+            if (request.readyState == 4 && request.status == 200) {
+                document.querySelector('#listRolid').innerHTML = request.responseText;//Esto le da respuesta  del getSlectRoles del controlador Roles.php
+                // document.querySelector('#listRolid').value = 1;
+                $('#listRolid').selectpicker('render');
+            }
+        }   
+    }  
 }
 
 function fntViewUsuario(idpersona) {
@@ -251,5 +257,9 @@ function openModal() {
     document.querySelector('#titleModal').innerHTML = "Nuevo Usuario";
     document.querySelector("#formUsuario").reset();
     $('#modalFormUsuario').modal('show');
+}
+
+function openModalPerfil(){
+    $('#modalFormPerfil').modal('show');
 }
     
