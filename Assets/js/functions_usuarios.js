@@ -97,6 +97,64 @@ document.addEventListener('DOMContentLoaded', function () {
             }    
         }
     }
+    //Actualizar Perfil 
+    if (document.querySelector('#formPerfil')) {
+        var formPerfil = document.querySelector('#formPerfil'); 
+        formPerfil.onsubmit = function(e){
+            e.preventDefault();
+            var strIdentificacion = document.querySelector('#txtIdentificacion').value;
+            var strNombre = document.querySelector('#txtNombre').value;
+            var strApellido = document.querySelector('#txtApellido').value;
+            var intTelefono = document.querySelector('#txtTelefono').value;
+            //Esto probablemente no se va a usar debido a que los campos en html son requeridos
+            if (strIdentificacion == '' || strNombre == '' || strApellido == '' || intTelefono =='') {
+                swal("Atención", "Todos los campos son obligatorios.", "error");
+                return false;
+            }
+
+            if(strPassword != "" || strPasswordConfirm != ""){
+                if (strPassword != strPasswordComfirm) {
+                    swal("Atención", "Las contraceñas no son iguales.", "info");
+                    return false 
+                }
+            }
+            //valida que los campos sean correctos 
+            let elementsValid = document.getElementsByClassName("valid");
+            for (let i = 0; i < elementsValid.length; i++) {
+                if (elementsValid[i].classList.contains('is-invalid')) {
+                    swal("!Atención", "Por favor verifique los campos en rojo.", "error");
+                    return false;
+                }
+            }
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url+'/Usuarios/putPerfil';//putPerfil hace referencia a que se va actualizar el perfil
+            var formData = new FormData(formPerfil);
+            request.open("POST",ajaxUrl,true);
+            request.send(formData); 
+            request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
+                if(request.readyState != 4) return; 
+                if(request.status == 200){
+                    var objData = JSON.parse(request.responseText);
+                    if(objData.status){
+                        $('#modalFormPerfil').modal("hide");//Esto corresponde a la modal de bootstrap
+                        swal({
+                            title: "",
+                            text: objData.msg,
+                            type: "success",
+                            confirmButtonText: "Aceptar",
+                            closeOnConfirm: false,
+                        }, function (isConfirm) {
+                            if(isConfirm){//si es verdadero recarca la pagina para actualizar los datos 
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        swal("Error", objData.msg, "error");
+                    } 
+                }    
+            }    
+        }
+    }
 }, false);
 //Esta es la funcion que ejecuta todas la funciones del modulo usuario
 window.addEventListener('load', function(){

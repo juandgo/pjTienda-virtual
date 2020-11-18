@@ -10,7 +10,6 @@
       </div>
       <div class="modal-body">
             <form id="formPerfil" name="formPerfil" class="formHorizontal">
-              <input type="hidden" id="idUsuario" name="idUsuario" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
               <div class="form-row">
                 <div class="form-group col-md-6">
