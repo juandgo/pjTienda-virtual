@@ -106,6 +106,8 @@ document.addEventListener('DOMContentLoaded', function () {
             var strNombre = document.querySelector('#txtNombre').value;
             var strApellido = document.querySelector('#txtApellido').value;
             var intTelefono = document.querySelector('#txtTelefono').value;
+            var strPassword = document.querySelector('#txtPassword').value;
+            var strPasswordConfirm = document.querySelector('#txtPasswordConfirm').value;
             //Esto probablemente no se va a usar debido a que los campos en html son requeridos
             if (strIdentificacion == '' || strNombre == '' || strApellido == '' || intTelefono =='') {
                 swal("Atención", "Todos los campos son obligatorios.", "error");
@@ -113,9 +115,13 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             if(strPassword != "" || strPasswordConfirm != ""){
-                if (strPassword != strPasswordComfirm) {
-                    swal("Atención", "Las contraceñas no son iguales.", "info");
-                    return false 
+                if( strPassword != strPasswordConfirm ){
+                    swal("Atención", "Las contraseñas no son iguales." , "info");
+                    return false;
+                } 
+                if(strPassword.length < 5){
+                    swal("Atención", "La contraseña debe tener un mínimo de 5 caracteres." , "info");
+                    return false;
                 }
             }
             //valida que los campos sean correctos 
