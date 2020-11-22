@@ -2,7 +2,7 @@
     class Usuarios   extends Controllers{
         public function __construct(){
             parent::__construct();//ejecuta el metodo constructor de la clase Controllers
-            session_start();
+            session_start();//Solo con esto se podran crear variables de sesión
             //valida si la sesión existe, si no te regresa al formulario login 
             if (empty($_SESSION['login'])) {
                 header("Location:".base_url()."/login");
@@ -174,9 +174,38 @@
         }
         //Actualiza datos del usuario
         public function putPerfil(){
-            dep($_POST);
+            // dep($_POST);
+            if($_POST){
+                if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono'])){
+                    $arrResponse = array('status' => false, 'msg' => 'Datos incorrectos.');
+                }else{
+                    $idUsuario = $_SESSION['idUser'];//Esta variable de sisión se crea al momento de logearse 
+                    $strIdentificacion = strClean($_POST['txtIdentificacion']);
+                    $strNombre = ucwords(strclean($_POST['txtNombre']));
+                    $strApellido = ucwords(strClean($_POST['txtApellido']));
+                    $intTelefono= intval(strClean($_POST['txtTelefono']));
+                    $strPassword = "";
+                    if (!empty($_POST['txtPassword'])){//Si hay password la encripta 
+                        $strPassword = hash("SHA256", $_POST['txtPassword']);
+                    }
+                    //$request_user obtiene el valor de acuerdo a lo que se haga en el metodo updatePelfil
+                    $request_user = $this->model->updatePelfil($idUsuario, 
+                                                                $strIdentificacion,
+                                                                $strNombre,
+                                                                $strApellido,
+                                                                $intTelefono,
+                                                                $strPassword);
+                    
+                    if ($request_user) {
+                        //esta funcion esta creada en helpers
+                        sessionUser($_SESSION['idUser']);
+                       $arrResponse = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
+                    }else{
+                        $arrResponse = array('status' => false, 'msg' => 'No es posible almacenar los datos.');
+                    }
+                }
+                echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+            }
             die();
         }
     }
-
-?>

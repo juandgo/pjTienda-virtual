@@ -37,7 +37,7 @@
                             $_SESSION['login'] = true;
 
                             $arrData = $this->model->sessionLogin($_SESSION['idUser']);//Se envia por parametro el id del usuario
-                            $_SESSION['userData'] = $arrData;//Se crea la variable user data para almacenar todos los datos allí
+                            sessionUser($_SESSION['idUser']);
 
                             $arrResponse = array('status' => true, 'msg' => 'ok');
                         }else{

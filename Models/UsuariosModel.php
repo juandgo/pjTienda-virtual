@@ -141,6 +141,33 @@
             $request = $this->update($sql,$arrData);
             return $request;
         }
+        //Con este metodo el usuario puede actualizar sus datos 
+        public function updatePerfil(int $idUsuario, string $identificacion, string $nombre, string     $apellido, int $telefono, string $password){
+            $this->intIdUsuario = $idUsuario;
+			$this->strIdentificacion = $identificacion;
+			$this->strNombre = $nombre;
+			$this->strApellido = $apellido;
+			$this->intTelefono = $telefono;
+            $this->strPassword = $password;
+            
+            if($this->strPassword != ""){
+                $sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, password=?, WHERE idpersona = $this->intIdUsuario ";
+					$arrData = array($this->strIdentificacion,
+	        						$this->strNombre,
+	        						$this->strApellido,
+	        						$this->intTelefono,
+	        						$this->strPassword);
+            }else{
+                $sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, 
+                        WHERE idpersona = $this->intIdUsuario ";
+					$arrData = array($this->strIdentificacion,
+	        						$this->strNombre,
+	        						$this->strApellido,
+	        						$this->intTelefono);
+            }
+            $request = $this->update($sql, $arrData);
+            return $request;
+        }
 } 
 
 ?>

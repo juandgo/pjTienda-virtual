@@ -62,6 +62,14 @@
         $_SESSION['permisosMod'] = $permisosMod;//almacena los permisos de modulo segun el rol
     }
 
+    function sessionUser(int $idpersona){
+        require_once("Models/loginModel.php");
+        // se crea el objeto para poder usar todos los metodos del loginModel
+        $objLogin = new LoginModel();
+        $request = $objLogin->sessionLogin($idpersona);
+        return $request;
+    }
+
     //Elimina exceso de espacions entre palabaras 
     //Esto es para evitar una Inyeccion SQL
     function strClean($strCadena){
