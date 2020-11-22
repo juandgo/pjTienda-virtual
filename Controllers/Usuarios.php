@@ -189,7 +189,7 @@
                         $strPassword = hash("SHA256", $_POST['txtPassword']);
                     }
                     //$request_user obtiene el valor de acuerdo a lo que se haga en el metodo updatePelfil
-                    $request_user = $this->model->updatePelfil($idUsuario, 
+                    $request_user = $this->model->updatePerfil($idUsuario, 
                                                                 $strIdentificacion,
                                                                 $strNombre,
                                                                 $strApellido,

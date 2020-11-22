@@ -151,21 +151,21 @@
             $this->strPassword = $password;
             
             if($this->strPassword != ""){
-                $sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, password=?, WHERE idpersona = $this->intIdUsuario ";
+                $sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, password=? WHERE idpersona = $this->intIdUsuario ";
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
 	        						$this->strApellido,
 	        						$this->intTelefono,
 	        						$this->strPassword);
             }else{
-                $sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, 
+                $sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=? 
                         WHERE idpersona = $this->intIdUsuario ";
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
 	        						$this->strApellido,
 	        						$this->intTelefono);
             }
-            $request = $this->update($sql, $arrData);
+            $request = $this->update($sql,$arrData);
             return $request;
         }
 } 
