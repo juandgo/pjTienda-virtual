@@ -168,6 +168,20 @@
             $request = $this->update($sql,$arrData);
             return $request;
         }
+
+        public function updateDataFiscal(int $idUsuario, string $strNit, string $strNombreFiscal, string $strDirFiscal){
+            $this->intIdUsuario = $idUsuario;
+			$this->strNit = $strNit;
+            $this->strNombreFiscal = $strNombreFiscal;
+            $this->strDirFiscal = $strDirFiscal;
+            $sql = "UPDATE persona SET nit=?, nombrefiscal=?, direccionfiscal=? 
+                    WHERE idpersona = $this->intIdUsuario ";
+					$arrData = array($this->strNit,
+                                    $this->strNombreFiscal,
+                                    $this->strDirFiscal);
+            $request = $this->update($sql,$arrData);
+            return $request;                        
+        }
 } 
 
 ?>

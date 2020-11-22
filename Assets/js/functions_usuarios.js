@@ -162,6 +162,48 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 }, false);
+//Actualizar Datos Fiscales 
+if (document.querySelector('#formDataFiscal')) {
+    var formDataFiscal = document.querySelector('#formDataFiscal'); 
+    formDataFiscal.onsubmit = function(e){
+        e.preventDefault();
+        var strNit = document.querySelector('#txtNit').value;
+        var strNombreFiscal = document.querySelector('#txtNombreFiscal').value;
+        var strDirFiscal = document.querySelector('#txtDirFiscal').value;
+        //Esto probablemente no se va a usar debido a que los campos en html son requeridos
+        if (strNit == '' || strNombreFiscal == '' || strDirFiscal == '') {
+            swal("Atención", "Todos los campos son obligatorios.", "error");
+            return false;
+        }
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url+'/Usuarios/putDFiscal';//putPerfil hace referencia a que se va actualizar el perfil
+        var formData = new FormData(formDataFiscal);
+        request.open("POST",ajaxUrl,true);
+        request.send(formData); 
+        request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
+            if(request.readyState != 4) return; 
+            if(request.status == 200){
+                var objData = JSON.parse(request.responseText);
+                if(objData.status){
+                    $('#modalFormPerfil').modal("hide");//Esto corresponde a la modal de bootstrap
+                    swal({
+                        title: "",
+                        text: objData.msg,
+                        type: "success",
+                        confirmButtonText: "Aceptar",
+                        closeOnConfirm: false,
+                    }, function (isConfirm) {
+                        if(isConfirm){//si es verdadero recarca la pagina para actualizar los datos 
+                            location.reload();
+                        }
+                    });
+                }else{
+                    swal("Error", objData.msg, "error");
+                } 
+            }    
+        }    
+    }
+}
 //Esta es la funcion que ejecuta todas la funciones del modulo usuario
 window.addEventListener('load', function(){
     fntRolesUsuario();

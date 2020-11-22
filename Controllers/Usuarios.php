@@ -208,4 +208,32 @@
             }
             die();
         }
+
+        public function putDFiscal(){
+            // dep($_POST);// esto se hace para ver que se esta enviando por el metodo post
+            if($_POST){
+                if (empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtNombreFiscal'])){
+                    $arrResponse = array('status' => false, 'msg' => 'Datos incorrectos.');
+                }else{
+                    $idUsuario = $_SESSION['idUser'];
+                    $strNit = strClean($_POST['txtNit']);
+                    $strNombreFiscal = strclean($_POST['txtNombreFiscal']);
+                    $strDirFiscal = strClean($_POST['txtDirFiscal']);
+
+                    $request_user = $this->model->updateDataFiscal($idUsuario, 
+                                                                    $strNit,
+                                                                    $strNombreFiscal,
+                                                                    $strDirFiscal);
+
+                    if ($request_user) {
+                        sessionUser($_SESSION['idUser']);
+                       $arrResponse = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
+                    }else{
+                        $arrResponse = array('status' => false, 'msg' => 'No es posible almacenar los datos.');
+                    }
+                }   
+                echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);
+            }
+            die();
+        }
     }
