@@ -1,4 +1,5 @@
-
+var tableUsuarios;
+var divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function () {
 
     tableUsuarios = $('#tableUsuarios').dataTable({
@@ -77,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return false;
                 }
             }
+            divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Usuarios/setUsuario';
             var formData = new FormData(formUsuario);
@@ -93,7 +95,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     }else{
                         swal("Error", objData.msg, "error");
                     } 
-                }    
+                } 
+                divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
+                return false;        
             }    
         }
     }
@@ -132,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return false;
                 }
             }
+            divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Usuarios/putPerfil';//putPerfil hace referencia a que se va actualizar el perfil
             var formData = new FormData(formPerfil);
@@ -157,7 +162,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     }else{
                         swal("Error", objData.msg, "error");
                     } 
-                }    
+                }   
+                divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
+                return false;      
             }    
         }
     }
@@ -175,6 +182,7 @@ if (document.querySelector('#formDataFiscal')) {
             swal("Atención", "Todos los campos son obligatorios.", "error");
             return false;
         }
+        divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         var ajaxUrl = base_url+'/Usuarios/putDFiscal';//putPerfil hace referencia a que se va actualizar el perfil
         var formData = new FormData(formDataFiscal);
@@ -200,7 +208,9 @@ if (document.querySelector('#formDataFiscal')) {
                 }else{
                     swal("Error", objData.msg, "error");
                 } 
-            }    
+            }
+            divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
+            return false;     
         }    
     }
 }
