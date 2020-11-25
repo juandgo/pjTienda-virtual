@@ -11,19 +11,19 @@
       <div class="modal-body">
             <form id="formCliente" name="formCliente" class="formHorizontal">
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
-              <p class="text-primary">Todos los campos son obligatorios.</p>
+              <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
               <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="txtIdentificacion">Identificación</label>
-                    <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="txtIdentificacion">Identificación</label>
+                        <input type="text" class="form-control" id="txtIdentificacion" name="txtIdentificacion" required="">
+                    </div>
+                      <div class="form-group col-md-4">
                     <label for="txtNombre">Nombres</label>
                     <input type="text" class="form-control valid validText" id="txtNombre" name="txtNombre" required="">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="txtApellido">Apellidos</label>
                     <input type="text" class="form-control valid validText" id="txtApellido" name="txtApellido" required="">
                 </div>
