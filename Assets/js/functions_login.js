@@ -2,7 +2,7 @@ $('.login-content [data-toggle="flip"]').click(function() {
     $('.login-box').toggleClass('flipped');
     return false;
 });
-//esta variable se crea para lostrar la animacion loading
+//esta variable se crea para mostrar la animacion loading
 var divLoading = document.querySelector("#divLoading");
 
 document.addEventListener('DOMContentLoaded', function() {
