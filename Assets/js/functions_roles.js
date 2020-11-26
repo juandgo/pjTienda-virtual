@@ -1,4 +1,5 @@
 var tableRoles;
+var divLoading = document.querySelector("#divLoading");
 //Se agrega un evento. 
 //En el momento que se carge todo ejecuta la funcion.
 document.addEventListener('DOMContentLoaded', function() {
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 swal("Atención","Todos los campos son obligatorios.", "error");
                 return false;
             }
+            divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
             var ajaxUrl = base_url+'/Roles/setRol'; 
             var formData = new FormData(formRol);
@@ -58,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         swal("Error", objData.msg,"error");//muestra mensaje de error segun  la opcion dada por el controlador
                     }
                 }
+                divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
+                return false;    
             }
         }
     });
@@ -73,7 +77,7 @@ function openModal() {
     document.querySelector('#btnText').innerHTML = "Guardar";
     $('#modalFormRol').modal('show');
 } 
-
+// Ya no se usa porque se estan cargando desde el html 
 window.addEventListener('load', function(){//cuando se carge todo el documento va a cargar la funcion
     // fntEditRol();
     // fntDelRol();
@@ -113,6 +117,7 @@ function fntEditRol(idrol){
                 swal("Error", objData.msg, "error");
             }
         }
+        
     }
 }
 

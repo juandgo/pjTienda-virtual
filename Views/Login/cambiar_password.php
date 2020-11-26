@@ -31,7 +31,7 @@
         <input type="hidden" id="idUsuario" name="idUsuario" value="<?= $data['idpersona']; ?>" required="">
         <input type="hidden" id="txtEmail" name="txtEmail" value="<?= $data['email']; ?>" required="">
         <input type="hidden" id="txtToken" name="txtToken" value="<?= $data['token']; ?>" required="">
-        <h3 class="login-head"><i class="fas fa-key"></i> Cambiar Contraceña</h3>
+        <h3 class="login-head"><i class="fas fa-key"></i> Cambiar Contraseña</h3>
           <div class="form-group">
             <input id="txtPassword" name="txtPassword" class="form-control" type="password" placeholder="Nueva Contraceña" required>
           </div>

@@ -20,7 +20,7 @@
 }
 /*Estilos Login*/
 #divLoading{
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
   height: 100%;
@@ -31,7 +31,7 @@
   /*El .65 es para que tenga trasparencia*/
   background: rgba(245, 245, 255, .65);
   /*El es  z-index: 1; es para que se pocisione sobre todos los elementos*/
-  z-index: 1;
+  z-index: 9999;
   display: none;
 }
 
