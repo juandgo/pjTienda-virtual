@@ -1,8 +1,4 @@
 var tableUsuarios;
-<<<<<<< HEAD
-//esta variable se crea para mostrar la animacion loading
-=======
->>>>>>> refs/remotes/origin/master
 var divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -140,11 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return false;
                 }
             }
-<<<<<<< HEAD
-            divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animación
-=======
             divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
->>>>>>> refs/remotes/origin/master
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
             var ajaxUrl = base_url+'/Usuarios/putPerfil';//putPerfil hace referencia a que se va actualizar el perfil
             var formData = new FormData(formPerfil);
@@ -169,17 +161,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     }else{
                         swal("Error", objData.msg, "error");
-<<<<<<< HEAD
-                    }
-                }  
-                divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
-                return false; //detiene el proceso del divloading     
-=======
                     } 
                 }   
                 divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
                 return false;      
->>>>>>> refs/remotes/origin/master
             }    
         }
     }
