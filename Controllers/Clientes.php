@@ -24,5 +24,68 @@
     
         }
 
+        public function setCliente(){
+            if ($_POST) {
+                //Valida si no existe algun dato en el elemento//Nota: esta validacion ya se hizo en js pero tambien es importante hacerlo aca del lado del backend
+                if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['#txtNit']) || empty($_POST['#txtNombreFiscal']) || empty($_POST['#txtDirFiscal'])) {
+                    $arrRespose = array("status" => false, "msg" =>'Datos incorrectos. ');
+                }else{
+                    $idUsuario = intval($_POST['idUsuario']);
+                    $strIdentificacion = strClean($_POST['txtIdentificacion']);
+                    $strNombre = ucwords(strclean($_POST['txtNombre']));
+                    $strApellido = ucwords(strClean($_POST['txtApellido']));
+                    $intTelefono= intval(strClean($_POST['txtTelefono']));
+                    $strEmail = strtolower(strClean($_POST['txtEmail']));
+                    $strNit = intval(strClean($_POST['txtNit']));
+                    $intStatus = intval(strclean($_POST['listStatus']));
+                    //Si el id no existe es por que s va a gregar un nuevo usuario 
+                    if ($idUsuario == 0) {
+                        $option = 1;
+                        //la funcion hash encripta la contraceña con SHA256
+                        $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
+                        
+                        $request_user = $this->model->insertUsuario($strIdentificacion,
+                                                                        $strNombre,
+                                                                        $strApellido,
+                                                                        $intTelefono,
+                                                                        $strEmail,
+                                                                        $strPassword,
+                                                                        $intTipoUsuario,
+                                                                        $intStatus); 
+                    }else{//Actualiza Datos 
+                        $option = 2;
+                        //la funcion hash encripta la contraceña con SHA256
+                        //Si la contraceña es vacia no se actualiza de lo contrario si actualiza
+                        $strPassword = empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
+                        
+                        $request_user = $this->model->updateUsuario($idUsuario,
+                                                                    $strIdentificacion,
+                                                                    $strNombre,
+                                                                    $strApellido,
+                                                                    $intTelefono,
+                                                                    $strEmail,
+                                                                    $strPassword,
+                                                                    $intTipoUsuario,
+                                                                    $intStatus); 
+                    }
+
+                    if($request_user > 0){
+                        if ($option == 1) {
+                            $arrRespose = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+                        }else{
+                            $arrRespose = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
+                        }
+                    }elseif ($request_user == "exist") {
+                        $arrRespose = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro. ');
+                    }else{
+                        $arrRespose = array('status' => false, 'msg' => 'No es posible almacenar los datos. ');
+                    }
+                    echo json_encode($arrRespose,JSON_UNESCAPED_UNICODE);//El array se convierte en formato json
+                }
+            }
+            die();
+
+        }
+
     }
 ?>

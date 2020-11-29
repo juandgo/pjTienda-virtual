@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function(){
             var strDirFiscal = document.querySelector('#txtDirFiscal').value;
             var strPassword = document.querySelector('#txtPassword').value;
             //Esto probablemente no se va a usar debido a que los campos en html son requeridos
-            if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || intTipoUsuario =='') {
+            if (strIdentificacion == '' || strNombre == '' || strApellido == '' || strEmail == '' || intTelefono =='' || strNit =='' || strNombreFiscal =='' || strDirFiscal =='') {
                 swal("Atención", "Todos los campos son obligatorios.", "error");
                 return false;
             }
@@ -27,17 +27,17 @@ document.addEventListener('DOMContentLoaded', function(){
             }
             divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
             var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url+'/Usuarios/setUsuario';
-            var formData = new FormData(formUsuario);
+            var ajaxUrl = base_url+'/Clientes/setCliente';
+            var formData = new FormData(formCliente);
             request.open("POST",ajaxUrl,true);
             request.send(formData); 
             request.onreadystatechange = function() {//esta funcion obtiene los resultados del ajax
                 if(request.readyState == 4 && request.status == 200){
                     var objData = JSON.parse(request.responseText);
                     if(objData.status){
-                        $('#modalFormUsuario').modal("hide");
+                        $('#modalFormCliente').modal("hide");
                         formUsuario.reset();
-                        swal("Usuarios", objData.msg ,"success");
+                        swal("Clientes", objData.msg ,"success");
                         tableUsuarios.api().ajax.reload();
                     }else{
                         swal("Error", objData.msg, "error");
