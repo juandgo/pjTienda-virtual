@@ -15,11 +15,20 @@
     <title><?= $data['page_tag'] ?></title>
   </head>
   <body class="app sidebar-mini">
+<<<<<<< HEAD
+    <!-- Este es el loading y s pone aqui para no tener que ponerlo en cada una de las vistas en la que se requiera usar -->
+    <!-- <div id="divLoading" >
+      <div>
+        <img src="<?= media(); ?>/images/loading.svg" alt="Loading">
+      </div>
+    <div> -->
+=======
   <div id="divLoading" >
       <div>
           <img src="<?= media(); ?>/images/loading.svg" alt="Loading">
       </div>
   </div>
+>>>>>>> refs/remotes/origin/master
     <!-- Navbar-->
     <header class="app-header"><a class="app-header__logo" href="<?= base_url(); ?>/dashboard">Tienda Virtual</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>

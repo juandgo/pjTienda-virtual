@@ -12,6 +12,9 @@
         private $strToken;
         private $intTipoId;
         private $intStatus;
+        private $strNit;
+		private $strNomFiscal;
+		private $strDirFiscal;
 
         public function __construct(){
             parent::__construct();
@@ -26,7 +29,7 @@
             $this->strEmail = $email;
             $this->strPassword = $password;
             $this->intTipoId = $tipoid;
-            $this->strStatus = $status;
+            $this->intStatus = $status;
             $respuesta = 0;
             //Se coloca '{$this->strEmail}'  por que es un dato varchar 
         $sql = "SELECT * FROM persona WHERE email_user = '{$this->strEmail}' OR identificacion = '{$this->strIdentificacion}'";
@@ -43,7 +46,7 @@
                                 $this->strEmail,
                                 $this->strPassword,
                                 $this->intTipoId,
-                                $this->strStatus);
+                                $this->intStatus);
                 $request_insert = $this->insert($query_insert,$arrData);
                 $respuesta = $request_insert;
             }else{

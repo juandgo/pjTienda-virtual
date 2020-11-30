@@ -184,7 +184,7 @@ if (document.querySelector('#formDataFiscal')) {
         }
         divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url+'/Usuarios/putDFiscal';//putPerfil hace referencia a que se va actualizar el perfil
+        var ajaxUrl = base_url+'/Usuarios/putDFiscal';
         var formData = new FormData(formDataFiscal);
         request.open("POST",ajaxUrl,true);
         request.send(formData); 
