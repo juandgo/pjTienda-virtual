@@ -27,18 +27,18 @@
         public function setCliente(){
             if ($_POST) {
                 //Valida si no existe algun dato en el elemento//Nota: esta validacion ya se hizo en js pero tambien es importante hacerlo aca del lado del backend
-                if (empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['#txtNit']) || empty($_POST['#txtNombreFiscal']) || empty($_POST['#txtDirFiscal'])) {
-                    $arrRespose = array("status" => false, "msg" =>'Datos incorrectos. ');
-                }else{
+            if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) ||  empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) ){
+				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+			}else{ 
                     $idUsuario = intval($_POST['idUsuario']);
                     $strIdentificacion = strClean($_POST['txtIdentificacion']);
-                    $strNombre = ucwords(strclean($_POST['txtNombre']));
+                    $strNombre = ucwords(strClean($_POST['txtNombre']));
                     $strApellido = ucwords(strClean($_POST['txtApellido']));
-                    $intTelefono= intval(strClean($_POST['txtTelefono']));
+                    $intTelefono = intval(strClean($_POST['txtTelefono']));
                     $strEmail = strtolower(strClean($_POST['txtEmail']));
                     $strNit = strClean($_POST['txtNit']);
-                    $strNombreFiscal = strclean($_POST['txtNombreFiscal']);
-                    $strDirFiscal = strclean($_POST['txtDirFiscal']);
+                    $strNomFiscal = strClean($_POST['txtNombreFiscal']);
+                    $strDirFiscal = strClean($_POST['txtDirFiscal']);
                     $intTipoId = 7;
                     //Si el id no existe es por que s va a gregar un nuevo usuario 
                     if ($idUsuario == 0) {
@@ -54,7 +54,7 @@
                                                                         $strPassword,
                                                                         $intTipoId,
                                                                         $strNit,
-                                                                        $strNombreFiscal,
+                                                                        $strNomFiscal,
                                                                         $strDirFiscal); 
                     }else{//Actualiza Datos 
                         // $option = 2;
@@ -90,6 +90,40 @@
             die();
 
         }
+
+        public function getClientes(){
+            $arrData = $this->model->selectClientes();
+            
+            for ($i=0; $i < count($arrData) ; $i++) { 
+                $btnView = "";
+                $btnEdit =  "";
+                $btnDelete = "";
+
+                if ($arrData[$i]['status'] == 1) {
+                    $arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                }else{
+                    $arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                }
+
+                if ($_SESSION['permisosMod']['r']) {
+                   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="fas fa-eye"></i></button>'; 
+                }
+
+                if ($_SESSION['permisosMod']['u']) {
+                    $btnEdit =  '<button class="btn btn-primary btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>';
+                    }
+                }
+        
+                if ($_SESSION['permisosMod']['d']) {
+                    $btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar Usuario"><i class="far fa-trash-alt"></i></button>
+                    <!--el title=Eliminar es un tooltip--> '; 
+                }
+                //Se concatenan las variables paraque puedan se mostradas en la tabla por medio del array
+                $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+            }
+            echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
+            die();
+    }
 
     }
 ?>
