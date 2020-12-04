@@ -67,11 +67,12 @@
   </div>
 </div>
 
-<!-- modalViewUser -->
-<div class="modal fade" id="modalViewUser" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- modalViewCliente -->
+<div class="modal fade" id="modalViewCliente" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Datos del usuario</h5>
+        <h5 class="modal-title" id="titleModal">Datos del cliente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -100,12 +101,16 @@
               <td id="celEmail">Larry</td>
             </tr>
             <tr>
-              <td>Tipo Usuario:</td>
-              <td id="celTipoUsuario">Larry</td>
+              <td>Identificacioón Tributaria:</td>
+              <td id="celIde">Larry</td>
             </tr>
             <tr>
-              <td>Estado:</td>
-              <td id="celEstado">Larry</td>
+              <td>Nombre Fiscal:</td>
+              <td id="celNomFiscal">Larry</td>
+            </tr>
+            <tr>
+              <td>Dirección Fiscal:</td>
+              <td id="celdirFiscal">Larry</td>
             </tr>
             <tr>
               <td>Fecha registro:</td>

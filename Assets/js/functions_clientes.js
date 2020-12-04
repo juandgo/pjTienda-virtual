@@ -1,4 +1,56 @@
+var tableClientes;
+var divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
+
+    tableClientes = $('#tableClientes').dataTable({
+        "aProcessing":true,
+        "aServerSide":true,
+        "language":{
+            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"//fromato json con configuracion del lenguaje en español
+        },
+        "ajax":{
+            "url": ""+base_url+"/Clientes/getClientes",
+            "dataSrc": ""
+        },
+        "columns":[
+            {"data":"idpersona"},
+            {"data":"identificacion"},
+            {"data":"nombres"},
+            {"data":"apellidos"},
+            {"data":"email_user"},
+            {"data":"telefono"},
+            {"data":"options"}
+        ],
+        'dom': 'lBfrtip',
+        'buttons': [
+            {
+                "extend": "copyHtml5",
+                "text": "<i class='far fa-copy'></i> Copiar",
+                "titleAttr":"Copiar",
+                "className": "btn btn-secondary"
+            },{
+                "extend": "excelHtml5",
+                "text": "<i class='fas fa-file-excel'></i> Excel",
+                "titleAttr":"Esportar a Excel",
+                "className": "btn btn-success"
+            },{
+                "extend": "pdfHtml5",
+                "text": "<i class='fas fa-file-pdf'></i> PDF",
+                "titleAttr":"Esportar a PDF",
+                "className": "btn btn-danger"
+            },{
+                "extend": "csvHtml5",
+                "text": "<i class='fas fa-file-csv'></i> CSV",
+                "titleAttr":"Esportar a CSV",
+                "className": "btn btn-info"
+            }
+        ],
+        "responsieve":"true",
+        "bDestroy": true,
+        "iDisplayLength": 10,
+        "order": [[0, "desc"]]
+       });
+
     if(document.querySelector("#formCliente")){
         var formCliente = document.querySelector("#formCliente");
         formCliente.onsubmit = function(e) {
@@ -40,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         $('#modalFormCliente').modal("hide");
                         formCliente.reset();
                         swal("Usuarios", objData.msg ,"success");
-                        // tableClientes.api().ajax.reload();
+                        tableClientes.api().ajax.reload();//actualisa tabla con 
                     }else{
                         swal("Error", objData.msg , "error");
                     }
@@ -52,6 +104,37 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
 }, false);
+
+function fntViewInfo(idpersona) {
+
+    var idpersona = idpersona;
+    var ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    request.open("GET",ajaxUrl,true);
+    request.send(); 
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            var objData = JSON.parse(request.responseText)
+            if (objData.status) {
+                
+                //Agarra los valores
+                document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
+                document.querySelector("#celNombre").innerHTML = objData.data.nombres;
+                document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
+                document.querySelector("#celEmail").innerHTML = objData.data.email_user;
+                document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
+                document.querySelector("#celIde").innerHTML = objData.data.nit;
+                document.querySelector("#celNomFiscal").innerHTML = objData.data.nombrefiscal;
+                document.querySelector("#celDirFiscal").innerHTML = objData.data.direccionfiscal;
+                document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro;
+                $('#modalViewCliente').modal('show');//muestra model por su id
+            }else{
+                swal("Error, objData.msg, error");
+            }
+        }
+        
+    }
+}
 
 function openModal() {
     //Configuracion de Apariencia

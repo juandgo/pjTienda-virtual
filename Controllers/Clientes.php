@@ -93,37 +93,49 @@
 
         public function getClientes(){
             $arrData = $this->model->selectClientes();
-            
+            // dep($arrData);
+            // exit;
+            //Recorro los registros del array
             for ($i=0; $i < count($arrData) ; $i++) { 
                 $btnView = "";
                 $btnEdit =  "";
                 $btnDelete = "";
 
-                if ($arrData[$i]['status'] == 1) {
-                    $arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
-                }else{
-                    $arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
-                }
-
                 if ($_SESSION['permisosMod']['r']) {
-                   $btnView = '<button class="btn btn-info btn-sm btnViewUsuario" onClick="fntViewUsuario('.$arrData[$i]['idpersona'].')" title="Ver usuario"><i class="fas fa-eye"></i></button>'; 
+                   $btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idpersona'].')" title="Ver cliente"><i class="fas fa-eye"></i></button>'; 
                 }
 
                 if ($_SESSION['permisosMod']['u']) {
-                    $btnEdit =  '<button class="btn btn-primary btn-sm btnEditUsuario" onClick="fntEditUsuario('.$arrData[$i]['idpersona'].')" title="Editar Usuario"><i class="fas fa-pencil-alt"></i></button>';
-                    }
+                    $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo('.$arrData[$i]['idpersona'].')" title="Editar cliente"><i class="fas fa-pencil-alt"></i></button>';
                 }
         
+
                 if ($_SESSION['permisosMod']['d']) {
-                    $btnDelete = '<button class="btn btn-danger btn-sm btnDelUsuario" onClick="fntDelUsuario('.$arrData[$i]['idpersona'].')" title="Eliminar Usuario"><i class="far fa-trash-alt"></i></button>
-                    <!--el title=Eliminar es un tooltip--> '; 
+                    $btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idpersona'].')" title="Eliminar cliente"><i class="far fa-trash-alt"></i></button>
+                    <!--el title=Eliminar es un tooltip--> ';  
                 }
                 //Se concatenan las variables paraque puedan se mostradas en la tabla por medio del array
                 $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
             }
             echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
             die();
-    }
+        }
+
+        public function getCliente(int $idpersona){
+            $idusuario = intval($idpersona);
+            if ($idusuario > 0) {
+                $arrData = $this->model->selectCliente($idusuario);
+                dep($arrData);exit;
+				if(empty($arrData)){
+					$arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+				}else{
+					$arrResponse = array('status' => true, 'data' => $arrData);
+				}
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            }
+            // dep($arrResponse);
+			die();
+        }
 
     }
 ?>

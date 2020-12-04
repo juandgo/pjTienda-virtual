@@ -24,20 +24,28 @@
           <div class="tile">
             <div class="tile-body">
               <div class="table-responsive">
-                <table class="table table-hover table-bordered" id="tableUsuarios">
+                <table class="table table-hover table-bordered" id="tableClientes">
                   <thead>
                     <tr>
                       <th>ID</th>
+                      <th>Identificación</th>
                       <th>Nombres</th>
                       <th>Apellidos</th>
                       <th>Email</th>
-                      <th>Telefono</th>
-                      <th>Rol</th>
-                      <th>Status</th>
+                      <th>Teléfono</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <th>1</th>
+                      <th>Carlos</th>
+                      <th>Hernandes</th>
+                      <th>carlos@info.com</th>
+                      <th>78542155</th>
+                      <th>Administrador</th>
+                      <th>Activo</th>
+                    </tr>
                   </tbody>
                 </table>
               </div>
