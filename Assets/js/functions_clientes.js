@@ -2,15 +2,15 @@ var tableClientes;
 var divLoading = document.querySelector("#divLoading");
 document.addEventListener('DOMContentLoaded', function(){
 
-    tableClientes = $('#tableClientes').dataTable({
+    tableClientes = $('#tableClientes').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
-        "language":{
-            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"//fromato json con configuracion del lenguaje en español
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax":{
-            "url": ""+base_url+"/Clientes/getClientes",
-            "dataSrc": ""
+            "url": " "+base_url+"/Clientes/getClientes",
+            "dataSrc":""
         },
         "columns":[
             {"data":"idpersona"},
@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function(){
         "responsieve":"true",
         "bDestroy": true,
         "iDisplayLength": 10,
-        "order": [[0, "desc"]]
-       });
+        "order":[[0,"desc"]]  
+    });
 
     if(document.querySelector("#formCliente")){
         var formCliente = document.querySelector("#formCliente");
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function(){
                         $('#modalFormCliente').modal("hide");
                         formCliente.reset();
                         swal("Usuarios", objData.msg ,"success");
-                        tableClientes.api().ajax.reload();//actualisa tabla con 
+                        tableClientes.api().ajax.reload();//actualisa y recarga tabla 
                     }else{
                         swal("Error", objData.msg , "error");
                     }

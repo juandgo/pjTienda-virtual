@@ -83,7 +83,7 @@
             return $request;
         }
 
-        public function updateCliente(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password){
+        public function updateCliente(int $idUsuario, string $identificacion, string $nombre, string $apellido, int $telefono, string $email, string $password, $nit, $nomFiscal, $dirFiscal){
 
 			$this->intIdUsuario = $idUsuario;
 			$this->strIdentificacion = $identificacion;
@@ -114,7 +114,7 @@
 	        						$this->strEmail,
 	        						$this->strPassword,
                                     $this->strNit,
-                                    $this->strNombreFiscal,
+                                    $this->strNomFiscal,
                                     $this->strDirFiscal);
 				}else{
                     //Actualiza sin password
@@ -125,9 +125,8 @@
 	        						$this->strApellido,
 	        						$this->intTelefono,
 	        						$this->strEmail,
-	        						$this->strPassword,
                                     $this->strNit,
-                                    $this->strNombreFiscal,
+                                    $this->strNomFiscal,
                                     $this->strDirFiscal);
 				}
 				$request = $this->update($sql,$arrData);
