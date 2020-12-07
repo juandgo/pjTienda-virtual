@@ -110,7 +110,7 @@
             </tr>
             <tr>
               <td>Dirección Fiscal:</td>
-              <td id="celdirFiscal">Larry</td>
+              <td id="celDirFiscal">Larry</td>
             </tr>
             <tr>
               <td>Fecha registro:</td>

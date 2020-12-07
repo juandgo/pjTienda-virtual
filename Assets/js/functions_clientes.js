@@ -116,13 +116,12 @@ function fntViewInfo(idpersona) {
         if (request.readyState == 4 && request.status == 200) {
             var objData = JSON.parse(request.responseText)
             if (objData.status) {
-                
                 //Agarra los valores
                 document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
                 document.querySelector("#celNombre").innerHTML = objData.data.nombres;
                 document.querySelector("#celApellido").innerHTML = objData.data.apellidos;
-                document.querySelector("#celEmail").innerHTML = objData.data.email_user;
                 document.querySelector("#celTelefono").innerHTML = objData.data.telefono;
+                document.querySelector("#celEmail").innerHTML = objData.data.email_user;
                 document.querySelector("#celIde").innerHTML = objData.data.nit;
                 document.querySelector("#celNomFiscal").innerHTML = objData.data.nombrefiscal;
                 document.querySelector("#celDirFiscal").innerHTML = objData.data.direccionfiscal;

@@ -75,10 +75,9 @@
             //la funcion DATE_FORMAT sirve para mostra la fecha a preferecia del desarrollados ya sea con hora o sin hora  o tambien su orden. 
             $this->intIdUsuario = $idpersona;
             $sql = "SELECT idpersona,identificacion,nombres,apellidos,telefono,email_user,nit,nombrefiscal,         
-                            direccionfiscal, status,
-                    DATE_FORMAT(datecreated, '%d-%m-%y') as fechaRegistro
+                            direccionfiscal, status, DATE_FORMAT(datecreated, '%d-%m-%y') as fechaRegistro
                     FROM persona 
-                    WHERE idpersona = $this->intIdUsuario";
+                    WHERE idpersona = $this->intIdUsuario AND rolid = 7";
                     // echo $sql;exit;
             $request = $this->select($sql);
             return $request;
