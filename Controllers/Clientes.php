@@ -41,6 +41,7 @@
                     $strDirFiscal = strClean($_POST['txtDirFiscal']);
                     $intTipoId = 7;
                     //Si el id no existe es por que s va a gregar un nuevo usuario 
+                    //Crea Usuario 
                     if ($idUsuario == 0) {
                         $option = 1;
                         //la funcion hash encripta la contraceña con SHA256
@@ -56,21 +57,21 @@
                                                                         $strNit,
                                                                         $strNomFiscal,
                                                                         $strDirFiscal); 
-                    }else{//Actualiza Datos 
-                        // $option = 2;
-                        // //la funcion hash encripta la contraceña con SHA256
-                        // //Si la contraceña es vacia no se actualiza de lo contrario si actualiza
-                        // $strPassword = empty($_POST['txtPassword']) ? "" : hash("SHA256", $_POST['txtPassword']);
-                        
-                        // $request_user = $this->model->updateUsuario($idUsuario,
-                        //                                             $strIdentificacion,
-                        //                                             $strNombre,
-                        //                                             $strApellido,
-                        //                                             $intTelefono,
-                        //                                             $strEmail,
-                        //                                             $strPassword,
-                        //                                             $intTipoUsuario,
-                        //                                             $intStatus); 
+                    }else{//Actualiza Usuario
+                        $option = 2;
+                        //la funcion hash encripta la contraceña con SHA256
+                        //Si la contraceña es vacia no se actualiza de lo contrario si actualiza
+                        $strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
+                        $request_user = $this->model->updateCliente($idUsuario,
+                                                                    $strIdentificacion, 
+                                                                    $strNombre,
+                                                                    $strApellido, 
+                                                                    $intTelefono, 
+                                                                    $strEmail,
+                                                                    $strPassword, 
+                                                                    $strNit,
+                                                                    $strNomFiscal, 
+                                                                    $strDirFiscal);
                     }
 
                     if($request_user > 0){
