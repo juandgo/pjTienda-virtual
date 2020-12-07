@@ -135,6 +135,15 @@
 			}
 			return $request;
         }
+
+        public function deleteCliente(int $idtipousuario){
+            //Se pone en 0 ya que no es recomendado eliminar la informacion ya que puede ser de utilidad
+            $this->intIdUsuario = $idtipousuario;
+            $sql = "UPDATE persona SET status = ? WHERE idpersona = $this->intIdUsuario";
+            $arrData = array(0);//el array se pone en cero 
+            $request = $this->update($sql,$arrData);
+            return $request;
+        }
         
     }
 ?>

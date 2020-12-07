@@ -166,6 +166,45 @@ function fntEditInfo(idpersona) {
     }
 }
 
+function fntDelInfo(idpersona) {
+    var idUsuario = idpersona;
+    //Alerta
+    swal({
+        title: "Eliminar Cliente",
+        text: "¿Realmente quiere eliminar el Xliente?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm){
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url+'/Clientes/delCliente';
+            var strData = "idUsuario="+idUsuario;
+            request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
+                    var objData = JSON.parse(request.responseText);
+                    if(objData.status)
+                    {
+                        swal("Eliminar!", objData.msg , "success");
+                        tableClientes.api().ajax.reload();
+                    }else{
+                        swal("Atención!", objData.msg , "error");
+                    }
+                }
+            }
+        }
+
+    });
+}
+
+
 function openModal() {
     //Configuracion de Apariencia
     document.querySelector('#idUsuario').value ="";

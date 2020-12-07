@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Recuperar Cuenta</title>
+	<title>Bienvenido Usuario</title>
 	<style type="text/css">
 		p{
 			font-family: arial;
@@ -93,14 +93,12 @@
 					<div class="x_sgwrap">
 						<p>Hola <?= $data['nombreUsuario']; ?></p>
 					</div>
-					<p>Solicitud de acceso para el usuario: <strong><?= $data['email']; ?></strong></p>
-					<p>Has solicitado los datos de tu usuario, accede al enlace de abajo para confirmar tu contraseña. </p>
-					<p class="x_text_white">
-					<a href="<?= $data['url_recovery']; ?>" target="_blank" class="x_button_link x_link_blue">Confirmar datos</a>
-					</p>
-					<br>
-					<p>Si no te funciona el botón puedes copiar y pegar la siguiente dirección en tu navegador.</p>
-					<span><?= $data['url_recovery']; ?></span>
+                    <p>Bienvenida a nuestra tienda en linea.
+                    <br>Ahora puedes realizar compras en línea sin salir de casa.
+                    <br>Accede a tu cuenta con tus credenciales:
+                    <br>Usuario: <strong><?= $data['email']; ?></strong>
+                    <br>Contraseña: <strong><?= $data['password']; ?></strong></p>
+                    <a href="<?= BASE_URL; ?>" target="_blank" class="x_button_link x_link_blue">Comprar ahora</a>
 					<p class="x_title_gray"><a href="<?= WEB_EMPRESA; ?>" target="_blanck"><?= WEB_EMPRESA; ?></a></p>
 				</td>
 			</tr>

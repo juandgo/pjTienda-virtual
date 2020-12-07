@@ -44,15 +44,15 @@
                     //Crea Usuario 
                     if ($idUsuario == 0) {
                         $option = 1;
-                        //la funcion hash encripta la contraceña con SHA256
-                        $strPassword = empty($_POST['txtPassword']) ? hash("SHA256",passGenerator()) : hash("SHA256", $_POST['txtPassword']);
-                        
+                        //No se encripta para que el cliente pueda visualizar su clave
+                        $strPassword = empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
+                        $strPasswordEncript = hash("SHA256",$strPassword);
                         $request_user = $this->model->insertCliente($strIdentificacion,
                                                                         $strNombre,
                                                                         $strApellido,
                                                                         $intTelefono,
                                                                         $strEmail,
-                                                                        $strPassword,
+                                                                        $strPasswordEncript,
                                                                         $intTipoId,
                                                                         $strNit,
                                                                         $strNomFiscal,
@@ -62,6 +62,7 @@
                         //la funcion hash encripta la contraceña con SHA256
                         //Si la contraceña es vacia no se actualiza de lo contrario si actualiza
                         $strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
+                        
                         $request_user = $this->model->updateCliente($idUsuario,
                                                                     $strIdentificacion, 
                                                                     $strNombre,
@@ -77,6 +78,13 @@
                     if($request_user > 0){
                         if ($option == 1) {
                             $arrRespose = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+                            $nombreUsuario = $strNombre.' '.$strApellido;
+                            $dataUsuario = array('nombreUsuario' => $nombreUsuario,
+                                            'email' => $strEmail,
+                                            'password' => $strPassword,
+                                            'asunto' => 'Bienvenido a tu tienda en línea',
+                                            'url_recovery' => $url_recovery);
+                            $sendEmail = sendEmail($dataUsuario,'email_cambioPassword');
                         }else{
                             $arrRespose = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
                         }
@@ -134,6 +142,20 @@
 				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
             }
             // dep($arrResponse);
+			die();
+        }
+
+        public function delCliente(){
+            if ($_POST) {
+                $intIdUsuario = intval($_POST['idUsuario']);
+                $requestDelete = $this->model->deleteCliente($intIdUsuario);
+                if ($requestDelete) {
+                    $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el cliente.');
+				}else{
+					$arrResponse = array('status' => false, 'data' => 'Error al eliminar el cliente.');
+                }
+				echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            }
 			die();
         }
 
