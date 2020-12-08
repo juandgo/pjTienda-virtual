@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function(){
         "responsieve":"true",
         "bDestroy": true,
         "iDisplayLength": 10,
-        "order":[[0,"desc"]]  
-    });
+        "order": [[0, "desc"]]
+       });
 
     if(document.querySelector("#formCliente")){
         var formCliente = document.querySelector("#formCliente");

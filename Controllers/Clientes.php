@@ -82,9 +82,9 @@
                             $dataUsuario = array('nombreUsuario' => $nombreUsuario,
                                             'email' => $strEmail,
                                             'password' => $strPassword,
-                                            'asunto' => 'Bienvenido a tu tienda en línea',
-                                            'url_recovery' => $url_recovery);
-                            $sendEmail = sendEmail($dataUsuario,'email_cambioPassword');
+                                            'asunto' => 'Bienvenido a tu tienda en línea');
+                            //Los parametros son el array de datos y el template
+                            $sendEmail = sendEmail($dataUsuario,'email_bienvenida');
                         }else{
                             $arrRespose = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
                         }
