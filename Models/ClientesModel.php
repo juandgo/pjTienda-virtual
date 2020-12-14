@@ -106,7 +106,8 @@
                 //Actualiza con password
 				if($this->strPassword  != ""){
 					$sql = "UPDATE persona SET identificacion=?, nombres=?, apellidos=?, telefono=?, email_user=?, password=?, nit=?, nombrefiscal=?, direccionfiscal=? 
-							WHERE idpersona = $this->intIdUsuario ";
+                            WHERE idpersona = $this->intIdUsuario ";
+                            
 					$arrData = array($this->strIdentificacion,
 	        						$this->strNombre,
 	        						$this->strApellido,
