@@ -12,8 +12,7 @@
             <form id="formCategoria" name="formCategoria" class="formHorizontal">
               <input type="hidden" id="idUsuario" name="idUsuario" value="">
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
-              
-              <div class="tile-footer">
+            
                   <div class="row">
                       <div class="col-md-6">
                       <input type="hidden" id="idCategoria" name="idCategoria" value="">
@@ -33,27 +32,28 @@
                             </select>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="photo">
-                            <label for="foto">Foto (570x380)</label>
-                            <div class="prevPhoto">
-                              <span class="delPhoto notBlock">X</span>
-                              <label for="foto"></label>
-                              <div>
-                                <img id="img" src="<?= media(); ?>/images/portada_categoria.png">
-                              </div>
+                     <div class="col-md-6">
+                      <div class="photo">
+                      <label for="foto">Foto (570x380)</label>
+                          <div class="prevPhoto">
+                            <span class="delPhoto notBlock">X</span>
+                            <label for="foto"></label>
+                            <div>
+                              <img id="img" src="<?= media(); ?>/images/uploads/portada_categoria.png">
                             </div>
-                            <div class="upimg">
-                              <input type="file" name="foto" id="foto">
-                            </div>
-                            <div id="form_alert"></div>
+                          </div>
+                          <div class="upimg">
+                            <input type="file" name="foto" id="foto">
+                          </div>
+                          <div id="form_alert"></div>
                         </div>
-                        </div>
-                      </div>
-                  </div>
+                     </div>
+                    </div>
+          
+                <div class="tile-footer">
                   <button  id="btnActionForm"class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i> Cerrar</button>
-              </div>
+                  <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i> Cerrar</button>
+                </div>
             </form>
       </div>
     </div>
