@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
         }
         divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
-        var ajaxUrl = base_url+'/Roles/setRol'; 
+        var ajaxUrl = base_url+'/Categorias/setCategoria'; 
         var formData = new FormData(formRol);
         request.open("POST",ajaxUrl,true);
         request.send(formData); 
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
                 var objData = JSON.parse(request.responseText);
 
                 if (objData.status) {
-                    $('#modalFormRol').modal('hide');//Cierra el modal
+                    $('#modalFormCategorias').modal('hide');//Cierra el modal
                     formRol.reset();//limpia los campos
                     swal("Roles de usuarios", objData.msg ,"success");
                     tableRoles.api().ajax.reload();

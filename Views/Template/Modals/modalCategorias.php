@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Descripción <span class="required">*</span></label>
-                            <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripcion del Rol" required=""></textarea>
+                            <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="2" placeholder="Descripcion del Categoría" required=""></textarea>
                         </div>
                         <div class="form-group">
                             <label for="exampleSelect1">Estado <span class="required">*</span></label>
@@ -39,7 +39,7 @@
                             <span class="delPhoto notBlock">X</span>
                             <label for="foto"></label>
                             <div>
-                              <img id="img" src="<?= media(); ?>/images/uploads/portada_categoria.png">
+                              <img id="img" src="<?= media(); ?>/images/portada_categoria.png">
                             </div>
                           </div>
                           <div class="upimg">
