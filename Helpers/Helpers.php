@@ -70,6 +70,13 @@
         return $request;
     }
 
+    function uploadImage(array $data, string $name){
+        $url_temp = $data['tmp_name'];
+        $destino = 'Assets/images/uploads/'.$name;
+        $move = move_uploaded_file($url_temp, $destino);
+        return $move;
+    }
+
     //Elimina exceso de espacions entre palabaras 
     //Esto es para evitar una Inyeccion SQL
     function strClean($strCadena){

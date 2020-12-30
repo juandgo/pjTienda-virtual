@@ -12,7 +12,7 @@
             parent::__construct();
         }
 
-        public function insertRol(string $nomCategoria, string $descripcion, string $strPortada, int $status){
+        public function insertCategoria(string $nomCategoria, string $descripcion, string $strPortada, int $status){
             $return = 0;
             $this->strCategoria = $nomCategoria;
             $this->strDescripcion = $descripcion;
@@ -23,12 +23,12 @@
             $request = $this->select_all($sql);
             //Sí la consulta no exite  se puede insertar 
             if (empty($request)) {
-                $query_insert = "INSERT INTO rol(nombrerol, descripcion, portada, status) values(?,?,?,?)";
+                $query_insert = "INSERT INTO categoria(nombre, descripcion, portada, status) values(?,?,?,?)";
                 $arrData = array($this->strCategoria,
                                 $this->strDescripcion,
                                 $this->strPortada,
                                 $this->intStatus);
-                                
+
                 $request_insert = $this->insert($query_insert,$arrData);
                 $return = $request_insert;
             }else{

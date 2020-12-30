@@ -24,9 +24,6 @@
     
         }
         public function setCategoria(){
-            dep($_POST);
-            dep($_FILES);
-            exit;
             if($_POST){
                 if (empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus'])) {
                     $arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
@@ -40,8 +37,6 @@
                     $nombre_foto       = $foto['name'];
                     $type              = $foto['type'];
                     $url_temp          = $foto['tmp_name'];
-                    $fecha             = date('vmd');
-                    $hora              = date('hms');
                     $imgPortada        = 'portada_categoria.png';
 
                     if ($nombre_foto != '') {
@@ -53,7 +48,7 @@
                         $option = 1;
                     }else {
                         //Acrtualizar
-                        $request_categoria = $this->model->updateCategoria($intIdCategoria, $strCategoria, $strDescripcion, $intStatus);
+                        $request_categoria = $this->model->updateRol($intIdCategoria, $strCategoria, $strDescripcion, $intStatus);
                         $option = 2;
                     }
                     //Si la respuesta anterior es igual a 1 o 2 quiere decir que si se guardo o se actualizo la categoria 
