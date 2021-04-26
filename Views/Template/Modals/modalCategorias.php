@@ -1,4 +1,4 @@
-<!-- modalUsuarios -->
+<!-- Modal nueva categoria-->
 <div class="modal fade" id="modalFormCategorias" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -11,6 +11,8 @@
       <div class="modal-body">
             <form id="formCategoria" name="formCategoria" class="formHorizontal">
               <input type="hidden" id="idCategoria" name="idCategoria" value="">
+              <input type="hidden" id="foto_actual" name="foto_actual" value="">
+              <input type="hidden" id="foto_remove" name="foto_remove" value="0"> 
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
             
                   <div class="row">
@@ -26,7 +28,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleSelect1">Estado <span class="required">*</span></label>
-                            <select class="form-control" id="listStatus" name="listStatus" required="">
+                            <select class="form-control selectpicker" id="listStatus" name="listStatus" required="">
                             <option value="1">Activo</option>
                             <option value="2">Inactivo</option>
                             </select>
@@ -39,7 +41,7 @@
                             <span class="delPhoto notBlock">X</span>
                             <label for="foto"></label>
                             <div>
-                              <img id="img" src="<?= media(); ?>/images/portada_categoria.png">
+                              <img id="img" src="<?= media(); ?>/images/uploads/portada_categoria.png">
                             </div>
                           </div>
                           <div class="upimg">
@@ -60,12 +62,12 @@
   </div>
 </div>
 
-<!-- modalViewCliente -->
+<!-- modalViewCategoria -->
 <div class="modal fade" id="modalViewCategoria" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" >
     <div class="modal-content">
       <div class="modal-header header-primary">
-        <h5 class="modal-title" id="titleModal">Datos del cliente</h5>
+        <h5 class="modal-title" id="titleModal">Datos de la categoria</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -74,40 +76,24 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>Identificación:</td>
-              <td id="celIdentificacion">654654654</td>
+              <td>ID:</td>
+              <td id="celId">654654654</td>
             </tr>
             <tr>
               <td>Nombres:</td>
-              <td id="celNombre">Jacob</td>
+              <td id="celNombre"></td>
             </tr>
             <tr>
-              <td>Apellidos:</td>
-              <td id="celApellido">Jacob</td>
+              <td>Descripción:</td>
+              <td id="celDescripcion"></td>
             </tr>
             <tr>
-              <td>Teléfono:</td>
-              <td id="celTelefono">Larry</td>
+              <td>Estado:</td>
+              <td id="celEstado"></td>
             </tr>
             <tr>
-              <td>Email (Usuario):</td>
-              <td id="celEmail">Larry</td>
-            </tr>
-            <tr>
-              <td>Identificacioón Tributaria:</td>
-              <td id="celIde">Larry</td>
-            </tr>
-            <tr>
-              <td>Nombre Fiscal:</td>
-              <td id="celNomFiscal">Larry</td>
-            </tr>
-            <tr>
-              <td>Dirección Fiscal:</td>
-              <td id="celDirFiscal">Larry</td>
-            </tr>
-            <tr>
-              <td>Fecha registro:</td>
-              <td id="celFechaRegistro">Larry</td>
+              <td>Foto:</td>
+              <td id="imgCategoria"></td>
             </tr>
           </tbody>
         </table>

@@ -46,6 +46,7 @@
   font-weight: bold;
 }
 /* Style foto portada categoria */
+/* Nueva categoria */
 .prevPhoto {
   display: flex;
   justify-content: space-between;
@@ -54,7 +55,7 @@
   border: 1px solid #CCC;
   position: relative;
   cursor: pointer;
-  background: url(../images/portada_categoria.png);
+  background: url(../images/uploads/portada_categoria.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -107,4 +108,12 @@ width: 50px;
 }
 .imgProductoDelete{
 width: 175px;
+}
+#imgCategoria{
+  text-align: center;
+}
+#imgCategoria img{
+  width: 200px;
+  /* centra */
+  margin: auto;
 }

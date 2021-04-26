@@ -132,16 +132,79 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
             return false;    
         }
     }
-
-    
-    
-    function removePhoto(){
-        document.querySelector('#foto').value ="";
-        document.querySelector('.delPhoto').classList.add("notBlock");
-        document.querySelector('#img').remove();
-    }
-
 }, false);
+
+//esto es para ver la modal info de categoria 
+function fntViewInfo(idcategoria) {
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    let ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
+
+    request.open("GET",ajaxUrl,true);
+    request.send(); 
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText)
+            if (objData.status) {
+                //Agarra los valores y los pone en el modal
+                var estado = objData.data.status == 1 ?// si es 1 es activo
+                '<span class="badge badge-succes">Activo</span>':'<span class="badge badge-succes">Inactivo</span>';     
+
+                document.querySelector("#celId").innerHTML = objData.data.idcategoria;           
+                document.querySelector("#celNombre").innerHTML = objData.data.nombre;           
+                document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;           
+                document.querySelector("#celEstado").innerHTML = estado;           
+                document.querySelector("#imgCategoria").innerHTML = '<img src="'+objData.data.url_portada+'"></img>';           
+
+                $('#modalViewCategoria').modal('show');//muestra por su id en el modal
+            }else{
+                swal("Error, objData.msg, error");
+            }
+        }
+        
+    }
+}
+
+function fntEditInfo(idcategoria) {
+    //Cambia apariencia del formulario porque es el mismo que se esta usando para crear una nueva categoria.
+    document.querySelector('#titleModal').innerHTML = "Acatualizar Categoria";
+    document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );// cambia la clase por la de actualizar
+    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnText').innerHTML = "Acatualizar";
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    let ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
+
+    request.open("GET",ajaxUrl,true);
+    request.send(); 
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText)
+            if (objData.status) {
+                //Agarra los valores y los pone en el modal
+                document.querySelector("#idCategoria").value = objData.data.idcategoria;           
+                document.querySelector("#txtNombre").value = objData.data.nombre;           
+                document.querySelector("#txtDescripcion").value = objData.data.descripcion;           
+                document.querySelector("#foto_actual").value = objData.data.portada;    
+                
+                if (objData.data.status == 1) {
+                    document.querySelector("#listStatus").value = 1;
+                } else {
+                    document.querySelector("#listStatus").value = 2;
+                }
+                $('#listStatus').selectpicker('render');
+                $('#modalFormCategorias').modal('show');//muestra por su id en el modal
+            }else{
+                swal("Error, objData.msg, error");
+            }
+        }
+        
+    }
+}
+
+function removePhoto(){
+    document.querySelector('#foto').value ="";
+    document.querySelector('.delPhoto').classList.add("notBlock");
+    document.querySelector('#img').remove();
+}
 
 function openModal() {
     //Configuracion de Apariencia

@@ -116,12 +116,15 @@
             $intIdCategoria = intval(strClean($idcategoria));//se convierte a int con intval y el strClean limpia en caso de que sea un string o inyeccion sql
             if ($intIdCategoria > 0) {
                 $arrData = $this->model->selectCategoria($intIdCategoria);
-                dep($arrData);exit;
+                // dep($arrData);exit;
                 if (empty($arrData)) {
                     $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
                 }else {
+                    $arrData['url_portada'] = media().'/images/uploads/'.$arrData['portada'];//la direccion es agregada al array
                     $arrResponse = array('status' => true, 'data' => $arrData);
                 }
+                // dep($arrData);
+                // exit;
                 echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);//da la respuesta
             }
             die();

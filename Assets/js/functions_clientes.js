@@ -145,7 +145,7 @@ function fntViewInfo(idpersona) {
 
 function fntEditInfo(element, idpersona) {
     //Agarra toda la fila. subiendo niveles segun el elemento padre
-    rowTable = element.parentNode.parentNode.parentNode;
+    // rowTable = element.parentNode.parentNode.parentNode;
     // console.log(rowTable);
     //Configuracion de Apariencia
     document.querySelector('#titleModal').innerHTML = "Acatualizar Cliente";
