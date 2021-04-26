@@ -45,5 +45,13 @@
             return $request;
         }
 
+        public function selectCategoria(int $idcategoria){
+            //Extrae un rol
+            $this->intIdCategoria = $idcategoria;
+            $sql = "SELECT * FROM categoria WHERE idcategoria = $this->intIdCategoria";
+            $request = $this->select($sql);
+            return $request;
+        }
+
     }
 ?>
