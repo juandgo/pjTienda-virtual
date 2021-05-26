@@ -143,7 +143,7 @@ function fntViewInfo(idpersona) {
     }
 }
 
-function fntEditInfo(element, idpersona) {
+function fntEditInfo(idpersona) {
     //Agarra toda la fila. subiendo niveles segun el elemento padre
     // rowTable = element.parentNode.parentNode.parentNode;
     // console.log(rowTable);
@@ -152,8 +152,10 @@ function fntEditInfo(element, idpersona) {
     document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML = "Acatualizar";
-    let ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
-    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+
+    var idpersona = idpersona;
+    var ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
     request.open("GET",ajaxUrl,true);
     request.send(); 
     request.onreadystatechange = function() {

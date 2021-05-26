@@ -147,7 +147,7 @@ function fntViewInfo(idcategoria) {
             if (objData.status) {
                 //Agarra los valores y los pone en el modal
                 var estado = objData.data.status == 1 ?// si es 1 es activo
-                '<span class="badge badge-succes">Activo</span>':'<span class="badge badge-succes">Inactivo</span>';     
+                '<span class="badge badge-success">Activo</span>':'<span class="badge badge-success">Inactivo</span>';     
 
                 document.querySelector("#celId").innerHTML = objData.data.idcategoria;           
                 document.querySelector("#celNombre").innerHTML = objData.data.nombre;           
@@ -167,23 +167,25 @@ function fntViewInfo(idcategoria) {
 function fntEditInfo(idcategoria) {
     //Cambia apariencia del formulario porque es el mismo que se esta usando para crear una nueva categoria.
     document.querySelector('#titleModal').innerHTML = "Acatualizar Categoria";
-    document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );// cambia la clase por la de actualizar
+    document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML = "Acatualizar";
-    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
-    let ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
+     
+    var idcategoria = idcategoria;
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    var ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
 
     request.open("GET",ajaxUrl,true);
     request.send(); 
     request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200) {
-            let objData = JSON.parse(request.responseText)
-            if (objData.status) {
+        if (request.readyState == 4 && request.status == 200) {//esto quiere decir que esta devolviendo informacion
+            var objData = JSON.parse(request.responseText);//esto esta agarrando la respuesta del formato jackson de categorias php//ssi tienes problema con esto el problema puede estar en los parametros de esta funcion 
+            if (objData.status) {// si es verdadro  
                 //Agarra los valores y los pone en el modal
-                document.querySelector("#idCategoria").value = objData.data.idcategoria;           
-                document.querySelector("#txtNombre").value = objData.data.nombre;           
-                document.querySelector("#txtDescripcion").value = objData.data.descripcion;           
-                document.querySelector("#foto_actual").value = objData.data.portada;    
+                document.querySelector("#idCategoria").value = objData.data.idcategoria;
+                document.querySelector("#txtNombre").value = objData.data.nombre;
+                document.querySelector("#txtDescripcion").value = objData.data.descripcion;
+                document.querySelector('#foto_actual').value = objData.data.portada;   
                 
                 if (objData.data.status == 1) {
                     document.querySelector("#listStatus").value = 1;
@@ -196,7 +198,6 @@ function fntEditInfo(idcategoria) {
                 swal("Error, objData.msg, error");
             }
         }
-        
     }
 }
 

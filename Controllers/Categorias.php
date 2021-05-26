@@ -111,9 +111,9 @@
             die();
         }
 
-        public function getCategoria(int $idcategoria){
+        public function getCategoria($idcategoria){
 
-            $intIdCategoria = intval(strClean($idcategoria));//se convierte a int con intval y el strClean limpia en caso de que sea un string o inyeccion sql
+            $intIdCategoria = intval($idcategoria);//se convierte a int con intval y el strClean limpia en caso de que sea un string o inyeccion sql
             if ($intIdCategoria > 0) {
                 $arrData = $this->model->selectCategoria($intIdCategoria);
                 // dep($arrData);exit;

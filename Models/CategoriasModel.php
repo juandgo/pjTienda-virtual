@@ -52,6 +52,5 @@
             $request = $this->select($sql);
             return $request;
         }
-
     }
 ?>
