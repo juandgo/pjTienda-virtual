@@ -89,6 +89,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
     if(document.querySelector(".delPhoto")){
         var delPhoto = document.querySelector(".delPhoto");
         delPhoto.onclick = function(e) {
+            document.querySelector("#foto_remove").value = 1;// elimina foto
             removePhoto();
         }
     }
@@ -192,7 +193,20 @@ function fntEditInfo(idcategoria) {
                 } else {
                     document.querySelector("#listStatus").value = 2;
                 }
+                
                 $('#listStatus').selectpicker('render');
+
+                if (document.querySelector('#img')) {//si existe imagen 
+                    document.querySelector('#img').src = objData.data.url_portada;//url de la portada osea de la imagen //pone imagen 
+                } else {
+                    document.querySelector('.prevPhoto div').innerHTML = "<img id='img' src="+objData.data.url_portada+">";// crea el elemnto y pone imagen por defecto
+                }
+
+                if (objData.data.portada == 'portada_categoria.png') {//si es igual a la imagen por defecto 
+                    document.querySelector('.delPhoto').classList.add("notBlock");//quita X para borrar foto de categoria
+                } else {
+                    document.querySelector('.delPhoto').classList.remove("notBlock");//pone X para borrar foto de categoria
+                }
                 $('#modalFormCategorias').modal('show');//muestra por su id en el modal
             }else{
                 swal("Error, objData.msg, error");
@@ -201,10 +215,12 @@ function fntEditInfo(idcategoria) {
     }
 }
 
-function removePhoto(){
+function removePhoto(){//remueve la foto que se visualiza al ejecuatar la funcion editar 
     document.querySelector('#foto').value ="";
     document.querySelector('.delPhoto').classList.add("notBlock");
-    document.querySelector('#img').remove();
+    if (document.querySelector('#img')) {//si hay foto creada la remueve y si no deja la que esta por defecto para que no salga ningun error 
+        document.querySelector('#img').remove();
+    }
 }
 
 function openModal() {
@@ -216,4 +232,5 @@ function openModal() {
     document.querySelector('#titleModal').innerHTML = "Nueva Categoria";
     document.querySelector("#formCategoria").reset();
     $('#modalFormCategorias').modal('show');
+    removePhoto();// se añade esta fucion para quitar la foto vista en editar categoria
 }
