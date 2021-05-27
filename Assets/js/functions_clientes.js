@@ -116,13 +116,14 @@ document.addEventListener('DOMContentLoaded', function(){
 }, false);
 
 function fntViewInfo(idpersona) {
-    let ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
-    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    var idpersona = idpersona;
+    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
     request.open("GET",ajaxUrl,true);
-    request.send(); 
-    request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200) {
-            let objData = JSON.parse(request.responseText)
+    request.send();
+    request.onreadystatechange = function(){
+        if(request.readyState == 4 && request.status == 200){
+            var objData = JSON.parse(request.responseText);
             if (objData.status) {
                 //Agarra los valores
                 document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
@@ -133,7 +134,7 @@ function fntViewInfo(idpersona) {
                 document.querySelector("#celIde").innerHTML = objData.data.nit;
                 document.querySelector("#celNomFiscal").innerHTML = objData.data.nombrefiscal;
                 document.querySelector("#celDirFiscal").innerHTML = objData.data.direccionfiscal;
-                document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro;
+                document.querySelector("#celFechaRegistro").innerHTML = objData.data.fechaRegistro; 
                 $('#modalViewCliente').modal('show');//muestra model por su id
             }else{
                 swal("Error, objData.msg, error");

@@ -136,25 +136,20 @@
             die();
         }
 
-        public function getCliente($idpersona){
-            if (empty($_SESSION['permisosMod']['r'])) {
-
-                $idusuario = intval($idpersona);
-                if ($idusuario > 0) {
-                    $arrData = $this->model->selectCliente($idusuario);
-                    // dep($arrData);exit;
-                    if(empty($arrData)){
-                        $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
-                    }else{
-                        $arrResponse = array('status' => true, 'data' => $arrData);
-                    }
-                    echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+        public function getCliente(int $idpersona){
+            $idusuario = intval($idpersona);
+            if($idusuario > 0){
+                $arrData = $this->model->selectCliente($idusuario);
+                if(empty($arrData))
+                {
+                    $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+                }else{
+                    $arrResponse = array('status' => true, 'data' => $arrData);
                 }
-                // dep($arrResponse);
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
             }
-			die();
+            die();
         }
-
         public function delCliente(){
             if ($_POST) {
                 if (empty($_SESSION['permisosMod']['d'])) {
@@ -172,4 +167,3 @@
         }
 
     }
-?>

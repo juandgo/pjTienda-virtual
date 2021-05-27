@@ -96,7 +96,7 @@
                     }
 
                     if ($_SESSION['permisosMod']['u']) {
-                        $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idcategoria'].')" title="Editar categoria"><i class="fas fa-pencil-alt"></i></button>';
+                        $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo('.$arrData[$i]['idcategoria'].')" title="Editar categoria"><i class="fas fa-pencil-alt"></i></button>';
                     }
                     
                     if ($_SESSION['permisosMod']['d']) {
