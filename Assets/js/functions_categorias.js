@@ -96,11 +96,10 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
     
     //NUEVA CATEGORIA
     //envio de datos por ajax 
-    var formRol = document.querySelector("#formCategoria");//se coloca # por que es un id  el . es para una clase
-    formRol.onsubmit = function(e){
+    var formCategoria = document.querySelector("#formCategoria");//se coloca # por que es un id  el . es para una clase
+    formCategoria.onsubmit = function(e){
         e.preventDefault();//previene de que se recarge el formularion con la pagina
 
-        var intICategoria = document.querySelector('#idCategoria').value;//evita que no se abra otro boton
         var strNombre = document.querySelector("#txtNombre").value;
         var strDescripcion = document.querySelector("#txtDescripcion").value;
         var intStatus = document.querySelector("#listStatus").value;
@@ -111,13 +110,12 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
         divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
         var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
         var ajaxUrl = base_url+'/Categorias/setCategoria'; 
-        var formData = new FormData(formRol);
+        var formData = new FormData(formCategoria);
         request.open("POST",ajaxUrl,true);
         request.send(formData); 
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
-
-                var objData = JSON.parse(request.responseText);
+                var objData = JSON.parse(request.responseText)
 
                 if (objData.status) {
                     $('#modalFormCategorias').modal('hide');//Cierra el modal
@@ -144,7 +142,7 @@ function fntViewInfo(idcategoria) {
     request.send(); 
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            let objData = JSON.parse(request.responseText)
+            var objData = JSON.parse(request.responseText)
             if (objData.status) {
                 //Agarra los valores y los pone en el modal
                 var estado = objData.data.status == 1 ?// si es 1 es activo
@@ -171,11 +169,8 @@ function fntEditInfo(idcategoria) {
     document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML = "Acatualizar";
-     
-    var idcategoria = idcategoria;
     var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
     var ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
-
     request.open("GET",ajaxUrl,true);
     request.send(); 
     request.onreadystatechange = function() {
@@ -187,6 +182,7 @@ function fntEditInfo(idcategoria) {
                 document.querySelector("#txtNombre").value = objData.data.nombre;
                 document.querySelector("#txtDescripcion").value = objData.data.descripcion;
                 document.querySelector('#foto_actual').value = objData.data.portada;   
+                document.querySelector("#foto_remove").value = 0;// elimina foto
                 
                 if (objData.data.status == 1) {
                     document.querySelector("#listStatus").value = 1;

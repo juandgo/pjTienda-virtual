@@ -25,6 +25,9 @@
         }
         public function setCategoria(){
             if($_POST){
+                dep($_POST);
+                dep($_FILES);
+                exit();
                 if (empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus'])) {
                     $arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
                 }else{
@@ -38,28 +41,34 @@
                     $type              = $foto['type'];
                     $url_temp          = $foto['tmp_name'];
                     $imgPortada        = 'portada_categoria.png';
-
+                    $request_categoria = "";
                     if ($nombre_foto != '') {
                         $imgPortada = 'img_'.md5(date('d-m-Y H:m:s')).'.jpg';//La funcion md5 encripta la imagen  y con esto se le daun nombre aleatorio para que no se repita, esto es por si no se le da imagen a la categoria  
                     }
                     if ($intIdCategoria == 0) {
                         //Crear
-                        $request_categoria = $this->model->insertCategoria($strCategoria, $strDescripcion, $imgPortada, $intStatus);
-                        $option = 1;
+                        $request_cateria = $this->model->inserCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
+							$option = 1;
                     }else {
                         //Acrtualizar
-                        $request_categoria = $this->model->updateRol($intIdCategoria, $strCategoria, $strDescripcion, $intStatus);
-                        $option = 2;
+                        $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$intStatus);
+						$option = 2;
                     }
                     //Si la respuesta anterior es igual a 1 o 2 quiere decir que si se guardo o se actualizo la categoria 
                     if ($request_categoria > 0) {
                         if ($option == 1) {
                             $arrResponse = array('status'=> true, 'msg'=>'Datos guardados correctamente');
                             if($nombre_foto != ''){
-                                uploadImage($foto, $imgPortada);
+                                uploadImage($foto, $imgPortada);//sube la imagen
                             }
                         }else {
                             $arrResponse = array('status'=> true, 'msg'=>'Datos actualizados correctamente');
+                            // if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }
+
+							// if(($nombre_foto == '' && $_POST['foto_remove'] == 1 && $_POST['foto_actual'] != 'portada_categoria.png')
+							// 	|| ($nombre_foto != '' && $_POST['foto_actual'] != 'portada_categoria.png')){
+							// 	deleteFile($_POST['foto_actual']);
+							// }
                         }
                     }else if($request_categoria == 'exist'){
                         $arrResponse = array('status'=> false, 'msg'=>'¡Atención! La csategoria ya existe.');
@@ -130,4 +139,3 @@
             die();
         }
     }
-?>

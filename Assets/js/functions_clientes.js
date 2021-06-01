@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function(){
         "order": [[0, "desc"]]
        });
 
+    //NUEVO CLIENTE
     if(document.querySelector("#formCliente")){
         let formCliente = document.querySelector("#formCliente");
         formCliente.onsubmit = function(e) {
