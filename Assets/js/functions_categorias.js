@@ -94,43 +94,56 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
         }
     }
     
-    //NUEVA CATEGORIA
     //envio de datos por ajax 
-    var formCategoria = document.querySelector("#formCategoria");//se coloca # por que es un id  el . es para una clase
-    formCategoria.onsubmit = function(e){
-        e.preventDefault();//previene de que se recarge el formularion con la pagina
-
-        var strNombre = document.querySelector("#txtNombre").value;
-        var strDescripcion = document.querySelector("#txtDescripcion").value;
-        var intStatus = document.querySelector("#listStatus").value;
-        if (strNombre == '' || strDescripcion == '' || intStatus == '') {
-            swal("Atención","Todos los campos son obligatorios.", "error");
+    //NUEVA CATEGORIA
+    let formCategoria = document.querySelector("#formCategoria");
+    formCategoria.onsubmit = function(e) {
+        e.preventDefault();
+        let strNombre = document.querySelector('#txtNombre').value;
+        let strDescripcion = document.querySelector('#txtDescripcion').value;
+        let intStatus = document.querySelector('#listStatus').value;        
+        if(strNombre == '' || strDescripcion == '' || intStatus == '')
+        {
+            swal("Atención", "Todos los campos son obligatorios." , "error");
             return false;
         }
-        divLoading.style.display = "flex";// se le da un estilo al loading y comienza la animacion
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');//Valida si es un vegador Chrome o firefox y se obtiene el objeto correspondiente al navegador 
-        var ajaxUrl = base_url+'/Categorias/setCategoria'; 
-        var formData = new FormData(formCategoria);
+        divLoading.style.display = "flex";
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url+'/Categorias/setCategoria'; 
+        let formData = new FormData(formCategoria);
         request.open("POST",ajaxUrl,true);
-        request.send(formData); 
-        request.onreadystatechange = function () {
-            if (request.readyState == 4 && request.status == 200) {
-                var objData = JSON.parse(request.responseText);
+        request.send(formData);
+        request.onreadystatechange = function(){
+           if(request.readyState == 4 && request.status == 200){
+                
+                let objData = JSON.parse(request.responseText);
+                if(objData.status)
+                {
+                    if(rowTable == ""){
+                        tableCategorias.api().ajax.reload();
+                    }else{
+                        htmlStatus = intStatus == 1 ? 
+                            '<span class="badge badge-success">Activo</span>' : 
+                            '<span class="badge badge-danger">Inactivo</span>';
+                        rowTable.cells[1].textContent = strNombre;
+                        rowTable.cells[2].textContent = strDescripcion;
+                        rowTable.cells[3].innerHTML = htmlStatus;
+                        rowTable = "";
+                    }
 
-                if (objData.status) {
-                    $('#modalFormCategorias').modal('hide');//Cierra el modal
-                    formCategorias.reset();//limpia los campos
+                    $('#modalFormCategorias').modal("hide");
+                    formCategoria.reset();
                     swal("Categoria", objData.msg ,"success");
                     removePhoto();
-                    tableCategoria.api().ajax.reload();//recarga la tabla categorias
                 }else{
-                    swal("Error", objData.msg,"error");//muestra mensaje de error segun  la opcion dada por el controlador
-                }
-            }
-            divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
-            return false;    
+                    swal("Error", objData.msg , "error");
+                }              
+            } 
+            divLoading.style.display = "none";
+            return false;
         }
     }
+
 }, false);
 
 //esto es para ver la modal info de categoria 

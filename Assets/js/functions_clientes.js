@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function(){
         "order": [[0, "desc"]]
        });
 
-    //NUEVO CLIENTE
-    if(document.querySelector("#formCliente")){
-        let formCliente = document.querySelector("#formCliente");
+        //NUEVO CLIENTE
+	if(document.querySelector("#formCliente")){
+        var formCliente = document.querySelector("#formCliente");
         formCliente.onsubmit = function(e) {
             e.preventDefault();
             var strIdentificacion = document.querySelector('#txtIdentificacion').value;
@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         }
     }
+
 
 }, false);
 
@@ -175,7 +176,7 @@ function fntDelInfo(idpersona) {
     //Alerta
     swal({
         title: "Eliminar Cliente",
-        text: "¿Realmente quiere eliminar el Xliente?",
+        text: "¿Realmente quiere eliminar el cliente?",
         type: "warning",
         showCancelButton: true,
         confirmButtonText: "Si, eliminar!",
@@ -193,7 +194,7 @@ function fntDelInfo(idpersona) {
             request.send(strData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    let objData = JSON.parse(request.responseText);
+                    var objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");

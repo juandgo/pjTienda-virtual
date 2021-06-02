@@ -41,13 +41,13 @@
                     $type              = $foto['type'];
                     $url_temp          = $foto['tmp_name'];
                     $imgPortada        = 'portada_categoria.png';
-                    // $request_categoria = "";
+                    $request_categoria = "";
                     if ($nombre_foto != '') {
                         $imgPortada = 'img_'.md5(date('d-m-Y H:m:s')).'.jpg';//La funcion md5 encripta la imagen  y con esto se le daun nombre aleatorio para que no se repita, esto es por si no se le da imagen a la categoria  
                     }
                     if ($intIdCategoria == 0) {
                         //Crear
-                        $request_cateria = $this->model->inserCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
+                        $request_categoria = $this->model->inserCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
 							$option = 1;
                     }else {
                         //Acrtualizar
@@ -59,8 +59,7 @@
                         if ($option == 1) {
                             $arrResponse = array('status'=> true, 'msg'=>'Datos guardados correctamente');
                             if($nombre_foto != ''){
-                                uploadImage($foto, $imgPortada);//sube la imagen
-                            }
+                                uploadImage($foto, $imgPortada);}//sube la imagen
                         }else {
                             $arrResponse = array('status'=> true, 'msg'=>'Datos actualizados correctamente');
                             // if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }

@@ -26,11 +26,10 @@
         }
 
         public function setCliente(){
-            if ($_POST) {
-                //Valida si no existe algun dato en el elemento//Nota: esta validacion ya se hizo en js pero tambien es importante hacerlo aca del lado del backend
-            if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) ||  empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) ){
-				$arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
-			}else{ 
+            if($_POST){
+                if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) ){
+                    $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
+                }else{ 
                     $idUsuario = intval($_POST['idUsuario']);
                     $strIdentificacion = strClean($_POST['txtIdentificacion']);
                     $strNombre = ucwords(strClean($_POST['txtNombre']));
@@ -41,69 +40,59 @@
                     $strNomFiscal = strClean($_POST['txtNombreFiscal']);
                     $strDirFiscal = strClean($_POST['txtDirFiscal']);
                     $intTipoId = 7;
-                    //Si el id no existe es por que s va a gregar un nuevo usuario 
-                    //Crea Usuario 
-                    $request_user = "";
-                    if ($idUsuario == 0) {
+    
+                    if($idUsuario == 0){
                         $option = 1;
-                        //No se encripta para que el cliente pueda visualizar su clave
-                        $strPassword = empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
+                        $strPassword =  empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
                         $strPasswordEncript = hash("SHA256",$strPassword);
-                        if (empty($_SESSION['permisosMod']['w'])) {
-                            $request_user = $this->model->insertCliente($strIdentificacion,
-                                                                            $strNombre,
-                                                                            $strApellido,
-                                                                            $intTelefono,
+                        $request_user = $this->model->insertCliente($strIdentificacion,
+                                                                            $strNombre, 
+                                                                            $strApellido, 
+                                                                            $intTelefono, 
                                                                             $strEmail,
                                                                             $strPasswordEncript,
-                                                                            $intTipoId,
+                                                                            $intTipoId, 
                                                                             $strNit,
                                                                             $strNomFiscal,
-                                                                            $strDirFiscal); 
-                        }
-                    }else{//Actualiza Usuario
+                                                                            $strDirFiscal );
+                    }else{
                         $option = 2;
-                        //la funcion hash encripta la contraceña con SHA256
-                        //Si la contraceña es vacia no se actualiza de lo contrario si actualiza
                         $strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
-                        if (empty($_SESSION['permisosMod']['u'])) {
-                            $request_user = $this->model->updateCliente($idUsuario,
-                                                                        $strIdentificacion, 
-                                                                        $strNombre,
-                                                                        $strApellido, 
-                                                                        $intTelefono, 
-                                                                        $strEmail,
-                                                                        $strPassword, 
-                                                                        $strNit,
-                                                                        $strNomFiscal, 
-                                                                        $strDirFiscal);
-                        }
+                        $request_user = $this->model->updateCliente($idUsuario,
+                                                                    $strIdentificacion, 
+                                                                    $strNombre,
+                                                                    $strApellido, 
+                                                                    $intTelefono, 
+                                                                    $strEmail,
+                                                                    $strPassword, 
+                                                                    $strNit,
+                                                                    $strNomFiscal, 
+                                                                    $strDirFiscal);
                     }
-
-                    if($request_user > 0){
-                        if ($option == 1) {
-                            $arrRespose = array('status' => true, 'msg' => 'Datos guardados correctamente.');
+    
+                    if($request_user > 0 ){
+                        if($option == 1){
+                            $arrResponse = array('status' => true, 'msg' => 'Datos guardados correctamente.');
                             $nombreUsuario = $strNombre.' '.$strApellido;
                             $dataUsuario = array('nombreUsuario' => $nombreUsuario,
-                                            'email' => $strEmail,
-                                            'password' => $strPassword,
-                                            'asunto' => 'Bienvenido a tu tienda en línea');
-                            //Los parametros son el array de datos y el template
-                            $sendEmail = sendEmail($dataUsuario,'email_bienvenida');
+                                                 'email' => $strEmail,
+                                                 'password' => $strPassword,
+                                                 'asunto' => 'Bienvenido a tu tienda en línea');
+                            sendEmail($dataUsuario,'email_bienvenida');
                         }else{
-                            $arrRespose = array('status' => true, 'msg' => 'Datos actualizados correctamente.');
+                            $arrResponse = array('status' => true, 'msg' => 'Datos Actualizados correctamente.');
                         }
-                    }elseif ($request_user == "exist") {
-                        $arrRespose = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro. ');
+                    }else if($request_user == 'exist'){
+                        $arrResponse = array('status' => false, 'msg' => '¡Atención! el email o la identificación ya existe, ingrese otro.');		
                     }else{
-                        $arrRespose = array('status' => false, 'msg' => 'No es posible almacenar los datos. ');
+                        $arrResponse = array("status" => false, "msg" => 'No es posible almacenar los datos.');
                     }
-                    echo json_encode($arrRespose,JSON_UNESCAPED_UNICODE);//El array se convierte en formato json
                 }
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
             }
             die();
-
         }
+    
 
         public function getClientes(){
             if ($_SESSION['permisosMod']['r']) {//estas validaciones se hacen para ponerle seguridad a la pagina
@@ -152,7 +141,7 @@
         }
         public function delCliente(){
             if ($_POST) {
-                if (empty($_SESSION['permisosMod']['d'])) {
+                // if (empty($_SESSION['permisosMod']['d'])) {
                     $intIdUsuario = intval($_POST['idUsuario']);
                     $requestDelete = $this->model->deleteCliente($intIdUsuario);
                     if ($requestDelete) {
@@ -161,7 +150,7 @@
                         $arrResponse = array('status' => false, 'data' => 'Error al eliminar el cliente.');
                     }
                     echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-                }
+                // }
             }    
 			die();
         }
