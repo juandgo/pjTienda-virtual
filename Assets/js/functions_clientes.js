@@ -57,15 +57,15 @@ document.addEventListener('DOMContentLoaded', function(){
         let formCliente = document.querySelector("#formCliente");
         formCliente.onsubmit = function(e) {
             e.preventDefault();
-            let strIdentificacion = document.querySelector('#txtIdentificacion').value;
-            let strNombre = document.querySelector('#txtNombre').value;
-            let strApellido = document.querySelector('#txtApellido').value;
-            let strEmail = document.querySelector('#txtEmail').value;
-            let intTelefono = document.querySelector('#txtTelefono').value;
-            let strNit = document.querySelector('#txtNit').value;
-            let strNomFical = document.querySelector('#txtNombreFiscal').value;
-            let strDirFiscal = document.querySelector('#txtDirFiscal').value;
-            let strPassword = document.querySelector('#txtPassword').value;
+            var strIdentificacion = document.querySelector('#txtIdentificacion').value;
+            var strNombre = document.querySelector('#txtNombre').value;
+            var strApellido = document.querySelector('#txtApellido').value;
+            var strEmail = document.querySelector('#txtEmail').value;
+            var intTelefono = document.querySelector('#txtTelefono').value;
+            var strNit = document.querySelector('#txtNit').value;
+            var strNomFical = document.querySelector('#txtNombreFiscal').value;
+            var strDirFiscal = document.querySelector('#txtDirFiscal').value;
+            var strPassword = document.querySelector('#txtPassword').value;
 
             if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || strNit == '' || strDirFiscal == '' || strNomFical=='' )
             {
@@ -81,29 +81,20 @@ document.addEventListener('DOMContentLoaded', function(){
                 } 
             } 
             divLoading.style.display = "flex";
-            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Clientes/setCliente'; 
-            let formData = new FormData(formCliente);
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url+'/Clientes/setCliente'; 
+            var formData = new FormData(formCliente);
             request.open("POST",ajaxUrl,true);
             request.send(formData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    let objData = JSON.parse(request.responseText);
-                    if(rowTable == ""){
-                        tableClientes.api().ajax.reload();//actualisa y recarga tabla 
-                    }else{
-                        rowTable.cells[1].textContent = strIdentificacion;
-                        rowTable.cells[2].textContent = strNombre;
-                        rowTable.cells[3].textContent = strApellido;
-                        rowTable.cells[4].textContent = strEmail;
-                        rowTable.cells[5].textContent = intTelefono;
-                        rowTable = "";//limpia esta variable
-                    }
+                    var objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
-                        $('#modalFormCliente').modal("hide");//Cierra la modal 
-                        formCliente.reset();//resetea el formulario     
-                        swal("Usuarios", objData.msg ,"success");//Muestra Alerta
+                        $('#modalFormCliente').modal("hide");
+                        formCliente.reset();
+                        swal("Usuarios", objData.msg ,"success");
+                        tableClientes.api().ajax.reload();
                     }else{
                         swal("Error", objData.msg , "error");
                     }

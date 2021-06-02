@@ -115,14 +115,14 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
         request.send(formData); 
         request.onreadystatechange = function () {
             if (request.readyState == 4 && request.status == 200) {
-                var objData = JSON.parse(request.responseText)
+                var objData = JSON.parse(request.responseText);
 
                 if (objData.status) {
                     $('#modalFormCategorias').modal('hide');//Cierra el modal
-                    formRol.reset();//limpia los campos
+                    formCategorias.reset();//limpia los campos
                     swal("Categoria", objData.msg ,"success");
                     removePhoto();
-                    // tableRoles.api().ajax.reload();
+                    tableCategoria.api().ajax.reload();//recarga la tabla categorias
                 }else{
                     swal("Error", objData.msg,"error");//muestra mensaje de error segun  la opcion dada por el controlador
                 }

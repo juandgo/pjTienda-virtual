@@ -41,7 +41,7 @@
                     $type              = $foto['type'];
                     $url_temp          = $foto['tmp_name'];
                     $imgPortada        = 'portada_categoria.png';
-                    $request_categoria = "";
+                    // $request_categoria = "";
                     if ($nombre_foto != '') {
                         $imgPortada = 'img_'.md5(date('d-m-Y H:m:s')).'.jpg';//La funcion md5 encripta la imagen  y con esto se le daun nombre aleatorio para que no se repita, esto es por si no se le da imagen a la categoria  
                     }
