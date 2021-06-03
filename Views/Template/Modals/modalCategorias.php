@@ -14,7 +14,6 @@
               <input type="hidden" id="foto_actual" name="foto_actual" value="">
               <input type="hidden" id="foto_remove" name="foto_remove" value="0"> 
               <p class="text-primary">Los campos con asterisco (<span class="required">*</span>) son obligatorios.</p>
-            
                   <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -52,7 +51,7 @@
                     </div>
           
                 <div class="tile-footer">
-                  <button  id="btnActionForm"class="btn btn-success" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <button  id="btnActionForm"class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle" aria-hidden="true"></i><span id="btnText">Guardar</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
                   <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-fw fa-lg fa-check-circle"></i> Cerrar</button>
                 </div>
             </form>

@@ -117,8 +117,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
            if(request.readyState == 4 && request.status == 200){
                 
                 let objData = JSON.parse(request.responseText);
-                if(objData.status)
-                {
+                if(objData.status){
                     if(rowTable == ""){
                         tableCategorias.api().ajax.reload();
                     }else{
