@@ -108,27 +108,27 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
             return false;
         }
         divLoading.style.display = "flex";
-        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        let ajaxUrl = base_url+'/Categorias/setCategoria'; 
-        let formData = new FormData(formCategoria);
+        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        var ajaxUrl = base_url+'/Categorias/setCategoria'; 
+        var formData = new FormData(formCategoria);
         request.open("POST",ajaxUrl,true);
         request.send(formData);
         request.onreadystatechange = function(){
            if(request.readyState == 4 && request.status == 200){
                 
-                let objData = JSON.parse(request.responseText);
+            var objData = JSON.parse(request.responseText);
                 if(objData.status){
-                    if(rowTable == ""){
-                        tableCategorias.api().ajax.reload();
-                    }else{
-                        htmlStatus = intStatus == 1 ? 
-                            '<span class="badge badge-success">Activo</span>' : 
-                            '<span class="badge badge-danger">Inactivo</span>';
-                        rowTable.cells[1].textContent = strNombre;
-                        rowTable.cells[2].textContent = strDescripcion;
-                        rowTable.cells[3].innerHTML = htmlStatus;
-                        rowTable = "";
-                    }
+                    // if(rowTable == ""){
+                    //     tableCategorias.api().ajax.reload();
+                    // }else{
+                    //     htmlStatus = intStatus == 1 ? 
+                    //         '<span class="badge badge-success">Activo</span>' : 
+                    //         '<span class="badge badge-danger">Inactivo</span>';
+                    //     rowTable.cells[1].textContent = strNombre;
+                    //     rowTable.cells[2].textContent = strDescripcion;
+                    //     rowTable.cells[3].innerHTML = htmlStatus;
+                    //     rowTable = "";
+                    // }
 
                     $('#modalFormCategorias').modal("hide");
                     formCategoria.reset();
@@ -154,7 +154,7 @@ function fntViewInfo(idcategoria) {
     request.send(); 
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            var objData = JSON.parse(request.responseText)
+            var objData = JSON.parse(request.responseText);
             if (objData.status) {
                 //Agarra los valores y los pone en el modal
                 var estado = objData.data.status == 1 ?// si es 1 es activo

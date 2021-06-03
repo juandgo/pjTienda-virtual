@@ -25,6 +25,7 @@
         }
         public function setCategoria(){
             if($_POST){
+                //Atencion el dep(); exit(); solo imprime e interrumpe el proceso de la funcion 
                 dep($_POST);
                 dep($_FILES);
                 exit();
@@ -48,7 +49,7 @@
                     if ($intIdCategoria == 0) {
                         //Crear
                         $request_categoria = $this->model->insertCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
-							$option = 1;
+						$option = 1;
                     }else {
                         //Acrtualizar
                         $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$intStatus);
@@ -58,8 +59,7 @@
                     if ($request_categoria > 0) {
                         if ($option == 1) {
                             $arrResponse = array('status'=> true, 'msg'=>'Datos guardados correctamente');
-                            if($nombre_foto != ''){
-                                uploadImage($foto, $imgPortada);}//sube la imagen
+                            if($nombre_foto != ''){uploadImage($foto, $imgPortada);}//sube la imagen
                         }else {
                             $arrResponse = array('status'=> true, 'msg'=>'Datos actualizados correctamente');
                             // if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }

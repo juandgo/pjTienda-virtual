@@ -12,11 +12,11 @@
             parent::__construct();
         }
 
-        public function insertCategoria(string $nomCategoria, string $descripcion, string $strPortada, int $status){
+        public function insertCategoria(string $nomCategoria, string $descripcion, string $portada, int $status){
             $return = 0;
             $this->strCategoria = $nomCategoria;
             $this->strDescripcion = $descripcion;
-            $this->strPortada = $strPortada;
+            $this->strPortada = $portada;
             $this->intStatus = $status;
 
             $sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCategoria}'";
