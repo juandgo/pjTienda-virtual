@@ -59,12 +59,11 @@
 			$this->strDescripcion = $descripcion;
 			$this->strPortada = $portada;
 			$this->intStatus = $status;
-
+            //Esto es para que no se dupliquen las categorias
 			$sql = "SELECT * FROM categoria WHERE nombre = '{$this->strCategoria}' AND idcategoria != $this->intIdcategoria";
 			$request = $this->select_all($sql);
 
-			if(empty($request))
-			{
+			if(empty($request)){// Si esta Vacia
 				$sql = "UPDATE categoria SET nombre = ?, descripcion = ?, portada = ?, status = ? WHERE idcategoria = $this->intIdcategoria ";
 				$arrData = array($this->strCategoria, 
 								 $this->strDescripcion, 
@@ -76,5 +75,27 @@
 			}
 		    return $request;			
 		}
+
+        public function deleteCategoria(int $idCategoria){
+            $this->intIdCategoria = $idCategoria;
+            //Se busca si el rol esta asociado a un usuario y  sí ya lo esta no se debe permitir la eliminacion     
+            $sql = "SELECT * FROM categorias WHERE rolid = $this->intIdCategoria";
+            $request = $this->select_all($sql);
+            //sí no existe el usuario  ejecutael query  
+            if (empty($request)) {
+                //No se elimina si no que actualiza, por que es recomendable no eliminar los registros de una base de datos  
+                $sql = "UPDATE rol SET status = ? WHERE idrol = $this->intIdCategoria";// es estado va a ser 0
+                $arrData = array(0);
+                $request = $this->update($sql, $arrData);
+                if ($request) {
+                    $request = 'ok';
+                }else{
+                    $request = 'exist';
+                }
+            }else{
+                $request = 'exist';
+            }
+            return $request;
+        }
     }
 ?>

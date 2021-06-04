@@ -26,9 +26,9 @@
         public function setCategoria(){
             if($_POST){
                 //Atencion el dep(); exit(); solo imprime e interrumpe el proceso de la funcion 
-                dep($_POST);
-                dep($_FILES);
-                exit();
+                // dep($_POST);
+                // dep($_FILES);
+                // exit();
                 if (empty($_POST['txtNombre']) || empty($_POST['txtDescripcion']) || empty($_POST['listStatus'])) {
                     $arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
                 }else{
@@ -54,6 +54,11 @@
                         //Acrtualizar
                         $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$intStatus);
 						$option = 2;
+                        if ($nombre_foto == '') {
+                            if ($_POST['foto_actual'] != 'portada_categoria.png'  && $_POST['foto_remove'] == 0) {
+                                $imgPortada = $_POST['foto_actual'];
+                            }
+                        }
                     }
                     //Si la respuesta anterior es igual a 1 o 2 quiere decir que si se guardo o se actualizo la categoria 
                     if ($request_categoria > 0) {
@@ -62,12 +67,12 @@
                             if($nombre_foto != ''){uploadImage($foto, $imgPortada);}//sube la imagen
                         }else {
                             $arrResponse = array('status'=> true, 'msg'=>'Datos actualizados correctamente');
-                            // if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }
-
-							// if(($nombre_foto == '' && $_POST['foto_remove'] == 1 && $_POST['foto_actual'] != 'portada_categoria.png')
-							// 	|| ($nombre_foto != '' && $_POST['foto_actual'] != 'portada_categoria.png')){
-							// 	deleteFile($_POST['foto_actual']);
-							// }
+                            if($nombre_foto != ''){ uploadImage($foto,$imgPortada); }//sube la imagen
+                            //si tiene o no tiene foto  validando que el valor sea igual a 1 se borra la imagen actual.
+							if(($nombre_foto == '' && $_POST['foto_remove'] == 1 && $_POST['foto_actual'] != 'portada_categoria.png')
+								|| ($nombre_foto != '' && $_POST['foto_actual'] != 'portada_categoria.png')){
+								deleteFile($_POST['foto_actual']);
+							}
                         }
                     }else if($request_categoria == 'exist'){
                         $arrResponse = array('status'=> false, 'msg'=>'¡Atención! La csategoria ya existe.');
@@ -136,5 +141,22 @@
                 echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);//da la respuesta
             }
             die();
+        }
+
+        public function delCategoria(){
+
+            if ($_POST) {
+                $intIdCategoria = intval($_POST['idCategoria']);//Este es el idrol del dato
+                $requestDelete = $this->model->deleteCategoria($intIdCategoria);
+                if ($requestDelete == 'ok'){
+                    $arrResponse = array('status'=> true, 'msg'=>'Se ha eliminado la categoria.');
+                }else if($requestDelete == 'exist'){
+                    $arrResponse = array('status'=> false, 'msg'=>'No es posible eliminar una categoria con productos asociados.');
+                }else {
+                    $arrResponse = array('status'=> false, 'msg'=>'Error al elimnar la categoria.');
+                }
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            }
+            die();//Se detiene el proceso.
         }
     }

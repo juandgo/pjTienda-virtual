@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
             var objData = JSON.parse(request.responseText);
                 if(objData.status){
                     // if(rowTable == ""){
-                    //     tableCategorias.api().ajax.reload();
+                        tableCategorias.api().ajax.reload();//Refresca la tabla de categorias 
                     // }else{
                     //     htmlStatus = intStatus == 1 ? 
                     //         '<span class="badge badge-success">Activo</span>' : 
@@ -229,6 +229,44 @@ function removePhoto(){//remueve la foto que se visualiza al ejecuatar la funcio
     if (document.querySelector('#img')) {//si hay foto creada la remueve y si no deja la que esta por defecto para que no salga ningun error 
         document.querySelector('#img').remove();
     }
+}
+
+function fntDelInfo(idcategoria) {
+    var idCategoria = idcategoria;
+    //Alerta
+    swal({
+        title: "Eliminar Categoria",
+        text: "¿Realmente quiere eliminar la categoria?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm){
+            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
+            var ajaxUrl = base_url+'/Categorias/delCategoria';
+            var strData = "idCategoria="+idCategoria;
+            request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
+                    var objData = JSON.parse(request.responseText);
+                    if(objData.status)
+                    {
+                        swal("Eliminar!", objData.msg , "success");
+                        tableClientes.api().ajax.reload();
+                    }else{
+                        swal("Atención!", objData.msg , "error");
+                    }
+                }
+            }
+        }
+
+    });
 }
 
 function openModal() {

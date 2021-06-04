@@ -16,7 +16,7 @@
         $view_footer= "Views/Template/footer_admin.php";
         require_once($view_footer);
     }
-    //Muestra informacion formateada
+    //Imprime por consola la  informacion formateada
     function dep($data){
         $format = print_r('<pre>');
         $format .= print_r($data);
@@ -75,6 +75,10 @@
         $destino = 'Assets/images/uploads/'.$name;
         $move = move_uploaded_file($url_temp, $destino);
         return $move;
+    }
+
+    function deleteFile(string $name){
+        unlink('Assets/images/uploads/'.$name); //unlink es una funcion propia de php, lo que hace es buscar el archivo por el nombre y eliminarlo 
     }
 
     //Elimina exceso de espacions entre palabaras 
