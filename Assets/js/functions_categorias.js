@@ -1,5 +1,6 @@
-var tableCategorias;
-var divLoading = document.querySelector('#divLoading');
+let tableCategorias;
+let rowTable = "";//Toma el valor de toda la fila en que se va a actualizar los datos 
+let divLoading = document.querySelector('#divLoading');
 document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los eventos al momento de cargar el html
 
     tableCategorias = $('#tableCategorias').dataTable( {
@@ -51,15 +52,15 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
 
     //Script para cargar foto
     if(document.querySelector("#foto")){
-        var foto = document.querySelector("#foto");
+        let foto = document.querySelector("#foto");
         foto.onchange = function(e) {
-            var uploadFoto = document.querySelector("#foto").value;//Captura el valor 
-            var fileimg = document.querySelector("#foto").files;
-            var nav = window.URL || window.webkitURL;
-            var contactAlert = document.querySelector('#form_alert');
+            let uploadFoto = document.querySelector("#foto").value;//Captura el valor 
+            let fileimg = document.querySelector("#foto").files;
+            let nav = window.URL || window.webkitURL;
+            let contactAlert = document.querySelector('#form_alert');
             if(uploadFoto !=''){
-                var type = fileimg[0].type;
-                var name = fileimg[0].name;
+                let type = fileimg[0].type;
+                let name = fileimg[0].name;
                 if(type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png'){//Valida el tipo de formato 
                     contactAlert.innerHTML = '<p class="errorArchivo">El archivo no es válido.</p>';
                     if(document.querySelector('#img')){
@@ -74,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
                             document.querySelector('#img').remove();
                         }
                         document.querySelector('.delPhoto').classList.remove("notBlock");
-                        var objeto_url = nav.createObjectURL(this.files[0]);
+                        let objeto_url = nav.createObjectURL(this.files[0]);
                         document.querySelector('.prevPhoto div').innerHTML = "<img id='img' src="+objeto_url+">";
                     }
             }else{
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
     }
     
     if(document.querySelector(".delPhoto")){
-        var delPhoto = document.querySelector(".delPhoto");
+        let delPhoto = document.querySelector(".delPhoto");
         delPhoto.onclick = function(e) {
             document.querySelector("#foto_remove").value = 1;// elimina foto
             removePhoto();
@@ -102,33 +103,33 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
         let strNombre = document.querySelector('#txtNombre').value;
         let strDescripcion = document.querySelector('#txtDescripcion').value;
         let intStatus = document.querySelector('#listStatus').value;        
-        if(strNombre == '' || strDescripcion == '' || intStatus == '')
-        {
+        if(strNombre == '' || strDescripcion == '' || intStatus == ''){
             swal("Atención", "Todos los campos son obligatorios." , "error");
             return false;
         }
         divLoading.style.display = "flex";
-        var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-        var ajaxUrl = base_url+'/Categorias/setCategoria'; 
-        var formData = new FormData(formCategoria);
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+        let ajaxUrl = base_url+'/Categorias/setCategoria'; 
+        let formData = new FormData(formCategoria);
         request.open("POST",ajaxUrl,true);
         request.send(formData);
         request.onreadystatechange = function(){
            if(request.readyState == 4 && request.status == 200){
                 
-            var objData = JSON.parse(request.responseText);
+            let objData = JSON.parse(request.responseText);
                 if(objData.status){
-                    // if(rowTable == ""){
+                    if(rowTable == ""){//si es  igual a vacio se crea otro registro 
                         tableCategorias.api().ajax.reload();//Refresca la tabla de categorias 
-                    // }else{
-                    //     htmlStatus = intStatus == 1 ? 
-                    //         '<span class="badge badge-success">Activo</span>' : 
-                    //         '<span class="badge badge-danger">Inactivo</span>';
-                    //     rowTable.cells[1].textContent = strNombre;
-                    //     rowTable.cells[2].textContent = strDescripcion;
-                    //     rowTable.cells[3].innerHTML = htmlStatus;
-                    //     rowTable = "";
-                    // }
+                    }else{
+                        //Con esto no retrocede a la primer pagina al cargar sino que se queda en la misma que esta el registro 
+                        htmlStatus = intStatus == 1 ? //Velida si esta activo 
+                            '<span class="badge badge-success">Activo</span>' : 
+                            '<span class="badge badge-danger">Inactivo</span>';
+                        rowTable.cells[1].textContent = strNombre;
+                        rowTable.cells[2].textContent = strDescripcion;
+                        rowTable.cells[3].innerHTML = htmlStatus;//se coloca innerHTML porque lo que se integra el la celda es html 
+                        rowTable = "";//Limpia la variable
+                    }
 
                     $('#modalFormCategorias').modal("hide");
                     formCategoria.reset();
@@ -149,16 +150,15 @@ document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los 
 function fntViewInfo(idcategoria) {
     let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
     let ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
-
     request.open("GET",ajaxUrl,true);
     request.send(); 
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            var objData = JSON.parse(request.responseText);
+            let objData = JSON.parse(request.responseText);
             if (objData.status) {
                 //Agarra los valores y los pone en el modal
-                var estado = objData.data.status == 1 ?// si es 1 es activo
-                '<span class="badge badge-success">Activo</span>':'<span class="badge badge-success">Inactivo</span>';     
+                let estado = objData.data.status == 1 ?// si es 1 es activo
+                '<span class="badge badge-success">Activo</span>':'<span class="badge badge-danger">Inactivo</span>';     
 
                 document.querySelector("#celId").innerHTML = objData.data.idcategoria;           
                 document.querySelector("#celNombre").innerHTML = objData.data.nombre;           
@@ -175,19 +175,22 @@ function fntViewInfo(idcategoria) {
     }
 }
 
-function fntEditInfo(idcategoria) {
+function fntEditInfo(element, idcategoria) {
+    rowTable = element.parentNode.parentNode.parentNode;//Obtenemos el elemento padre del elemento como el div, td, tr. Lo que hace es subir tres niveles a partir del boton.
+    // rowTable.cells[1].textContent = "Hola estoy aqui";
+    // console.log(rowTable);
     //Cambia apariencia del formulario porque es el mismo que se esta usando para crear una nueva categoria.
     document.querySelector('#titleModal').innerHTML = "Acatualizar Categoria";
     document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML = "Acatualizar";
-    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
-    var ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    let ajaxUrl = base_url+'/Categorias/getCategoria/'+idcategoria;
     request.open("GET",ajaxUrl,true);
     request.send(); 
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {//esto quiere decir que esta devolviendo informacion
-            var objData = JSON.parse(request.responseText);//esto esta agarrando la respuesta del formato jackson de categorias php//ssi tienes problema con esto el problema puede estar en los parametros de esta funcion 
+            let objData = JSON.parse(request.responseText);//esto esta agarrando la respuesta del formato jackson de categorias php//ssi tienes problema con esto el problema puede estar en los parametros de esta funcion 
             if (objData.status) {// si es verdadro  
                 //Agarra los valores y los pone en el modal
                 document.querySelector("#idCategoria").value = objData.data.idcategoria;
@@ -232,7 +235,6 @@ function removePhoto(){//remueve la foto que se visualiza al ejecuatar la funcio
 }
 
 function fntDelInfo(idcategoria) {
-    var idCategoria = idcategoria;
     //Alerta
     swal({
         title: "Eliminar Categoria",
@@ -246,19 +248,19 @@ function fntDelInfo(idcategoria) {
     }, function(isConfirm) {
         
         if (isConfirm){
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url+'/Categorias/delCategoria';
-            var strData = "idCategoria="+idCategoria;
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url+'/Categorias/delCategoria';
+            let strData = "idCategoria="+idcategoria;
             request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             request.send(strData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    var objData = JSON.parse(request.responseText);
+                    let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
-                        tableClientes.api().ajax.reload();
+                        tableCategorias.api().ajax.reload();
                     }else{
                         swal("Atención!", objData.msg , "error");
                     }
@@ -271,6 +273,7 @@ function fntDelInfo(idcategoria) {
 
 function openModal() {
     //Configuracion de Apariencia
+    rowTable = "";//Limpia la variable
     document.querySelector('#idCategoria').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");

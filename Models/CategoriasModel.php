@@ -78,16 +78,17 @@
 
         public function deleteCategoria(int $idCategoria){
             $this->intIdCategoria = $idCategoria;
-            //Se busca si el rol esta asociado a un usuario y  sí ya lo esta no se debe permitir la eliminacion     
-            $sql = "SELECT * FROM categorias WHERE rolid = $this->intIdCategoria";
+            //Se busca si la categoria esta asociado a un producto y  sí ya lo esta no se debe permitir la eliminacion     
+            $sql = "SELECT * FROM producto WHERE categoriaid
+             = $this->intIdCategoria";
             $request = $this->select_all($sql);
             //sí no existe el usuario  ejecutael query  
-            if (empty($request)) {
+            if (empty($request)) {//Si esta vacio significa que no hay elementos relacionados con esta categoria asi que permite eliminar 
                 //No se elimina si no que actualiza, por que es recomendable no eliminar los registros de una base de datos  
-                $sql = "UPDATE rol SET status = ? WHERE idrol = $this->intIdCategoria";// es estado va a ser 0
+                $sql = "UPDATE categoria SET status = ? WHERE idcategoria = $this->intIdCategoria";// es estado va a ser 0
                 $arrData = array(0);
                 $request = $this->update($sql, $arrData);
-                if ($request) {
+                if ($request) { 
                     $request = 'ok';
                 }else{
                     $request = 'exist';
