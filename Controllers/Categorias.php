@@ -3,11 +3,12 @@
         public function __construct(){
             parent::__construct();//ejecuta el metodo constructor de la clase Controllers
             session_start();//Solo con esto se podran crear variables de sesión
+            session_regenerate_id(true);//Genera un nuevo Id y Borra el aterior, esto con el fin de que no quede en las cokies 
             //valida si la sesión existe, si no te regresa al formulario login 
             if (empty($_SESSION['login'])) {
                 header("Location:".base_url()."/login");
             }
-            //permisos por rol de usuario
+            //permisos por el id de categorias
             getPermisos(6);
         }
 
@@ -42,21 +43,28 @@
                     $type              = $foto['type'];
                     $url_temp          = $foto['tmp_name'];
                     $imgPortada        = 'portada_categoria.png';
+                    $request_categoria = "";
                     // $request_categoria = "";
                     if ($nombre_foto != '') {
                         $imgPortada = 'img_'.md5(date('d-m-Y H:m:s')).'.jpg';//La funcion md5 encripta la imagen  y con esto se le daun nombre aleatorio para que no se repita, esto es por si no se le da imagen a la categoria  
                     }
                     if ($intIdCategoria == 0) {
                         //Crear
-                        $request_categoria = $this->model->insertCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
-						$option = 1;
+                        //si la variable de session tiene valor 1 en w (write) realiza el proceso para crear las categorias, esto por consola con el script $('#modalFormCategorias').modal("show"); que muestra el modal 
+                        if ($_SESSION['permisosMod']['w']) { 
+                            $request_categoria = $this->model->insertCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
+                            $option = 1;
+                        }
                     }else {
                         //Acrtualizar
+                        //si la variable de session tiene valor 1 en u (udate) realiza el proceso para Actualizar las categorias, esto por consola con el script $('#modalFormCategorias').modal("show"); que muestra el modal 
+                        if ($_SESSION['permisosMod']['u']) {
                         $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$intStatus);
 						$option = 2;
-                        if ($nombre_foto == '') {
-                            if ($_POST['foto_actual'] != 'portada_categoria.png'  && $_POST['foto_remove'] == 0) {
-                                $imgPortada = $_POST['foto_actual'];
+                            if ($nombre_foto == '') {
+                                if ($_POST['foto_actual'] != 'portada_categoria.png'  && $_POST['foto_remove'] == 0) {
+                                    $imgPortada = $_POST['foto_actual'];
+                                }
                             }
                         }
                     }
@@ -75,7 +83,7 @@
 							}
                         }
                     }else if($request_categoria == 'exist'){
-                        $arrResponse = array('status'=> false, 'msg'=>'¡Atención! La csategoria ya existe.');
+                        $arrResponse = array('status'=> false, 'msg'=>'¡Atención! La categoria ya existe.');
                     }else {
                         $arrResponse = array('status'=> false, 'msg'=>'No es posible almacenar los datos.');
                     }
@@ -85,8 +93,8 @@
             }
             die();//Se detiene el proceso.
         }
-
         public function getCategorias(){
+            //si la variable de session tiene valor 1 en r (read) realiza el proceso para devolver las categorias, esto espor si intentan acceder a este metodo por medio de la url  
             if ($_SESSION['permisosMod']['r']) {//estas validaciones se hacen para ponerle seguridad a la pagina
                 $arrData = $this->model->selectCategorias();
                 // dep($arrData);
@@ -124,40 +132,42 @@
             }    
             die();
         }
-
         public function getCategoria($idcategoria){
-
-            $intIdCategoria = intval($idcategoria);//se convierte a int con intval y el strClean limpia en caso de que sea un string o inyeccion sql
-            if ($intIdCategoria > 0) {
-                $arrData = $this->model->selectCategoria($intIdCategoria);
-                // dep($arrData);exit;
-                if (empty($arrData)) {
-                    $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
-                }else {
-                    $arrData['url_portada'] = media().'/images/uploads/'.$arrData['portada'];//la direccion es agregada al array
-                    $arrResponse = array('status' => true, 'data' => $arrData);
+            //si la variable de session tiene valor 1 en r (read) realiza el proceso para devolver las categorias, esto espor si intentan acceder a este metodo por medio de la url  
+            if ($_SESSION['permisosMod']['r']) {
+                $intIdCategoria = intval($idcategoria);//se convierte a int con intval y el strClean limpia en caso de que sea un string o inyeccion sql
+                if ($intIdCategoria > 0) {
+                    $arrData = $this->model->selectCategoria($intIdCategoria);
+                    // dep($arrData);exit;
+                    if (empty($arrData)) {
+                        $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+                    }else {
+                        $arrData['url_portada'] = media().'/images/uploads/'.$arrData['portada'];//la direccion es agregada al array
+                        $arrResponse = array('status' => true, 'data' => $arrData);
+                    }
+                    // dep($arrData);
+                    // exit;
+                    echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);//da la respuesta
                 }
-                // dep($arrData);
-                // exit;
-                echo json_encode($arrResponse, JSON_UNESCAPED_UNICODE);//da la respuesta
-            }
+            }    
             die();
         }
-
         public function delCategoria(){
-
             if ($_POST) {
-                $intIdCategoria = intval($_POST['idCategoria']);//Este es el idrol del dato
-                $requestDelete = $this->model->deleteCategoria($intIdCategoria);
-                if ($requestDelete == 'ok'){
-                    $arrResponse = array('status'=> true, 'msg'=>'Se ha eliminado la categoria.');
-                }else if($requestDelete == 'exist'){
-                    $arrResponse = array('status'=> false, 'msg'=>'No es posible eliminar una categoria con productos asociados.');
-                }else {
-                    $arrResponse = array('status'=> false, 'msg'=>'Error al elimnar la categoria.');
+                //si la variable de session tiene valor 1 en d (delete) realiza el proceso para borrar la categoria, esto por consola 
+                if ($_SESSION['permisosMod']['d']) { 
+                    $intIdCategoria = intval($_POST['idCategoria']);//Este es el idrol del dato
+                    $requestDelete = $this->model->deleteCategoria($intIdCategoria);
+                    if ($requestDelete == 'ok'){
+                        $arrResponse = array('status'=> true, 'msg'=>'Se ha eliminado la categoria.');
+                    }else if($requestDelete == 'exist'){
+                        $arrResponse = array('status'=> false, 'msg'=>'No es posible eliminar una categoria con productos asociados.');
+                    }else {
+                        $arrResponse = array('status'=> false, 'msg'=>'Error al elimnar la categoria.');
+                    }
+                    echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
                 }
-                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-            }
+            }    
             die();//Se detiene el proceso.
         }
     }
