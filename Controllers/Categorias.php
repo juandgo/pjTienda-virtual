@@ -132,6 +132,7 @@
             }    
             die();
         }
+        
         public function getCategoria($idcategoria){
             //si la variable de session tiene valor 1 en r (read) realiza el proceso para devolver las categorias, esto espor si intentan acceder a este metodo por medio de la url  
             if ($_SESSION['permisosMod']['r']) {

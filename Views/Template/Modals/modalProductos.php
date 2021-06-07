@@ -20,14 +20,22 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Descripción Producto</label>
-                            <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" rows="4"></textarea>
+                            <textarea class="form-control" id="txtDescripcion" name="txtDescripcion" ></textarea>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="control-label">Código <span class="required">*</span></label>
-                          <input type="text" class="form-control" id="txtCodigo" name="txtCodigo" placeholder="Código de barras" required="">
+                          <input class="form-control" id="txtCodigo" name="txtCodigo"  type="text" placeholder="Código de barras" required="">
                           <br> 
+                          <!-- El notblock esta hecho en el style y sirve para ocultar -->
+                          <div class="notBlock textcenter" id="divBarCode">
+                            <div id="printCode">
+                              <svg id="barcode"></svg>
+                            </div>
+                            <button class="btn btn-success btn-sm" type="button" onclick="fntPrintBarCode('#printCode')">
+                            <i class="fa fa-print"></i> Impimir</button>
+                          </div>
                         </div>
                         <div class="row">
                           <div class="form-group col-md-6">

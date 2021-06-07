@@ -15,8 +15,8 @@
   color: #fff;
 }
 
-.notBlock{
-    display: none;
+.textcenter{
+  text-align: center;
 }
 /*Estilos Login*/
 #divLoading{
