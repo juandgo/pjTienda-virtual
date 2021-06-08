@@ -18,6 +18,11 @@
 .textcenter{
   text-align: center;
 }
+
+.bootstrap-select>.dropdown-toggle {
+  border: 1px solid #CCC;
+}
+
 /*Estilos Login*/
 #divLoading{
   position: fixed;

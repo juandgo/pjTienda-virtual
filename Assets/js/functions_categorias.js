@@ -3,20 +3,22 @@ let rowTable = "";//Toma el valor de toda la fila en que se va a actualizar los 
 let divLoading = document.querySelector('#divLoading');
 document.addEventListener('DOMContentLoaded', function(){ // Con esto cargo los eventos al momento de cargar el html
 
-    tableCategorias = $('#tableCategorias').dataTable( {
+    tableProductos = $('#tableProductos').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Categorias/getCategorias",
+            "url": " "+base_url+"/Productos/getProductos",
             "dataSrc":""
         },
         "columns":[
-            {"data":"idcategoria"},
+            {"data":"idproducto"},
+            {"data":"codigo"},
             {"data":"nombre"},
-            {"data":"descripcion"},
+            {"data":"stock"},
+            {"data":"precio"},
             {"data":"status"},
             {"data":"options"}
         ],

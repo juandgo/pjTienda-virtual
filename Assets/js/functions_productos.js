@@ -1,5 +1,8 @@
 //Esto es para incluir el plugin de codigo de barras, las comillas invertidas me ayudan para que siva el ${base_url}.
 document.write(`<script src="${base_url}/Assets/js/plugins/JsBarcode.all.min.js"></script>`);
+let tableProductos;
+
+
 
 //Con esto soluciono  el funcionamiento del tinymce
 $(document).on('focusin', function(e) {
@@ -7,6 +10,58 @@ $(document).on('focusin', function(e) {
         e.stopImmediatePropagation();
     }
 });
+//Agrego los eventos al momento que se cargue todo el documento 
+window.addEventListener('load',function(){
+
+    tableCategorias = $('#tableCategorias').dataTable( {
+        "aProcessing":true,
+        "aServerSide":true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
+        },
+        "ajax":{
+            "url": " "+base_url+"/Categorias/getCategorias",
+            "dataSrc":""
+        },
+        "columns":[
+            {"data":"idcategoria"},
+            {"data":"nombre"},
+            {"data":"descripcion"},
+            {"data":"status"},
+            {"data":"options"}
+        ],
+        'dom': 'lBfrtip',
+        'buttons': [
+            {
+                "extend": "copyHtml5",
+                "text": "<i class='far fa-copy'></i> Copiar",
+                "titleAttr":"Copiar",
+                "className": "btn btn-secondary"
+            },{
+                "extend": "excelHtml5",
+                "text": "<i class='fas fa-file-excel'></i> Excel",
+                "titleAttr":"Esportar a Excel",
+                "className": "btn btn-success"
+            },{
+                "extend": "pdfHtml5",
+                "text": "<i class='fas fa-file-pdf'></i> PDF",
+                "titleAttr":"Esportar a PDF",
+                "className": "btn btn-danger"
+            },{
+                "extend": "csvHtml5",
+                "text": "<i class='fas fa-file-csv'></i> CSV",
+                "titleAttr":"Esportar a CSV",
+                "className": "btn btn-info"
+            }
+        ],
+        "responsieve":"true",
+        "bDestroy": true,
+        "iDisplayLength": 10,
+        "order": [[0, "desc"]]
+       });
+
+    fntCategorias();
+},false);
 
 if (document.querySelector("#txtCodigo")) {
     let inputCodigo = document.querySelector("#txtCodigo");
@@ -19,6 +74,22 @@ if (document.querySelector("#txtCodigo")) {
             document.querySelector('#divBarCode').classList.add('notBlock');
         }  
     };
+}
+
+function fntCategorias() {
+    if (document.querySelector('#listCategoria')) {
+        let ajaxUrl = base_url+'/Categorias/getSelectCategorias';
+        let request = (window.XMLHttpRequest) ? new XMLHttpRequest() :new ActivexObject("Microsoft.XMLHTTP");
+        request.open("GET", ajaxUrl, true);
+        request.send();
+        request.onreadystatechange = function(){
+            if (request.readyState == 4 && request.status == 200){
+                //Obtengo todos los options de la lista
+                document.querySelector('#listCategoria').innerHTML = request.responseText;
+                $('#listCategoria').selectpicker('render');
+            }
+        }
+    }
 }
 
 //Metodo para mostrar el codigo de barras

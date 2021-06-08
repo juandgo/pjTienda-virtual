@@ -24,4 +24,46 @@
             $this->views->getView($this,'productos',$data);
     
         }
+
+        public function getProductos(){
+            //si la variable de session tiene valor 1 en r (read) realiza el proceso para devolver las categorias, esto espor si intentan acceder a este metodo por medio de la url  
+            if ($_SESSION['permisosMod']['r']) {//estas validaciones se hacen para ponerle seguridad a la pagina
+                $arrData = $this->model->selectProductos();
+                // dep($arrData);
+                // exit;
+                //Recorro los registros del array
+                for ($i=0; $i < count($arrData) ; $i++) { 
+                    $btnView = "";
+                    $btnEdit =  "";
+                    $btnDelete = "";
+
+                    if ($arrData[$i]['status'] == 1) {
+                        $arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
+                    } else {
+                        $arrData[$i]['status'] = '<span class="badge badge-danger">Inactivo</span>';
+                    }
+                    
+ 
+                    if ($_SESSION['permisosMod']['r']) {
+                        $btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idcategoria'].')" title="Ver categoria"><i class="fas fa-eye"></i></button>'; 
+                    }
+
+                    if ($_SESSION['permisosMod']['u']) {
+                        //con el this ya se que voy a enviar todo el boton 
+                        $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idcategoria'].')" title="Editar categoria"><i class="fas fa-pencil-alt"></i></button>';
+                    }
+                    
+                    if ($_SESSION['permisosMod']['d']) {
+                        $btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idcategoria'].')" title="Eliminar categoria"><i class="far fa-trash-alt"></i></button>
+                        <!--el title=Eliminar es un tooltip--> ';  
+                    }
+                    //Se concatenan las variables paraque puedan se mostradas en la tabla por medio del array
+                    $arrData[$i]['options'] = '<div class="text-center">'.$btnView.' '.$btnEdit.' '.$btnDelete.'</div>';
+                }
+                echo json_encode($arrData,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
+            }    
+            die();
+        }
+
+        
     }
