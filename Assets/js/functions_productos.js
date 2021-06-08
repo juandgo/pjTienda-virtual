@@ -1,9 +1,6 @@
 //Esto es para incluir el plugin de codigo de barras, las comillas invertidas me ayudan para que siva el ${base_url}.
 document.write(`<script src="${base_url}/Assets/js/plugins/JsBarcode.all.min.js"></script>`);
 let tableProductos;
-
-
-
 //Con esto soluciono  el funcionamiento del tinymce
 $(document).on('focusin', function(e) {
     if ($(e.target).closest(".tox-dialog").length) {
@@ -13,20 +10,22 @@ $(document).on('focusin', function(e) {
 //Agrego los eventos al momento que se cargue todo el documento 
 window.addEventListener('load',function(){
 
-    tableCategorias = $('#tableCategorias').dataTable( {
+    tableCategorias = $('#tableProductos').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Spanish.json"
         },
         "ajax":{
-            "url": " "+base_url+"/Categorias/getCategorias",
+            "url": " "+base_url+"/Productos/getProductos",
             "dataSrc":""
         },
         "columns":[
-            {"data":"idcategoria"},
+            {"data":"idproducto"},
+            {"data":"codigo"},
             {"data":"nombre"},
-            {"data":"descripcion"},
+            {"data":"stock"},
+            {"data":"precio"},
             {"data":"status"},
             {"data":"options"}
         ],
