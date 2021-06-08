@@ -78,8 +78,8 @@ window.addEventListener('load',function(){
         "order": [[0, "desc"]]
        });
 
-        if(documento.querySelector("#formProducto")){
-            let formProductos = document.querySelector("#formProductos");
+        if(document.querySelector("#formProducto")){
+            let formProductos = document.querySelector("#formProducto");
             formProductos.onsubmit = function(e){
                 e.preventDefault();
                 let strNombre = document.querySelector('#txtNombre').value; 
@@ -99,14 +99,15 @@ window.addEventListener('load',function(){
                 //esto es para evitar que usuario le de varias veces al boton, lo que hace esta funcion es pasar todo lo que tiene el editor de texto a l textarea
                 tinyMCE.triggerSave; 
                 let request  = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-                let ajaxUrl = base_url+'/Productos/setProductos';
+                let ajaxUrl = base_url+'/Productos/setProducto';
                 let formData = new FormData(formProducto);
                 request.open("POST", ajaxUrl, true);
                 request.send(formData);
                 request.onreadystatechange = function(){
                     if (request.readyState == 4 && request.status == 200) {
-                        
+                        console.log(request.responseText);
                     }
+                divLoading.style.display = "none";
                 }
             }
         }

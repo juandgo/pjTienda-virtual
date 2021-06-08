@@ -25,6 +25,38 @@
     
         }
 
+        public function setProducto(){
+            if($_POST){
+                //Atencion el dep(); exit(); solo imprime e interrumpe el proceso de la funcion, esto lo ago para ver que informacion se esta enviando por ajax
+                // dep($_POST);
+                // dep($_FILES);
+                // exit();
+                // die();
+                if (empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) || empty($_POST['txtPrecio']) || empty($_POST['listStatus'])) {
+                    $arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
+                }else{
+                    $idProducto = intval($_POST['idProducto']);
+                    $strNombre = strClean($_POST['txtNombre']);
+                    $strDescripcion = strClean($_POST['txtDescripcion']);
+                    $strCodigo = strClean($_POST['txtCodigo']);
+                    $intCategoriaId = intval(strClean($_POST['listCategoria']));
+                    $strPrecio= strClean($_POST['txtPrecio']);
+                    $intStock= intval(strClean($_POST['txtStock']));
+                    $intStatus = intVal($_POST['listStatus']);//intVal convierte a entero 
+                    //Se envia la informacion al modelo 
+                    
+                    if ($idProducto == 0 ) {
+                        $option = 1;
+                        $request_producto = $this->model->insertProducto
+                    }
+                    
+                }
+                // sleep(3);
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
+            }
+            die();//Se detiene el proceso.
+        }
+
         public function getProductos(){
             //si la variable de session tiene valor 1 en r (read) realiza el proceso para devolver las categorias, esto espor si intentan acceder a este metodo por medio de la url  
             if ($_SESSION['permisosMod']['r']) {//estas validaciones se hacen para ponerle seguridad a la pagina
