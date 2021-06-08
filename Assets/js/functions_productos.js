@@ -10,7 +10,7 @@ $(document).on('focusin', function(e) {
 //Agrego los eventos al momento que se cargue todo el documento 
 window.addEventListener('load',function(){
 
-    tableCategorias = $('#tableProductos').dataTable( {
+    tableProductos = $('#tableProductos').dataTable( {
         "aProcessing":true,
         "aServerSide":true,
         "language": {
@@ -29,28 +29,47 @@ window.addEventListener('load',function(){
             {"data":"status"},
             {"data":"options"}
         ],
+        //Con esto configuro las columnas del datat table en la hoja de estilo  
+        "columnDefs":[
+            {'className': 'textcenter', 'targets': [3]},
+            {'className': 'textright', 'targets': [4]},
+            {'className': 'textcenter', 'targets': [5]}
+        ],
         'dom': 'lBfrtip',
         'buttons': [
             {
                 "extend": "copyHtml5",
                 "text": "<i class='far fa-copy'></i> Copiar",
                 "titleAttr":"Copiar",
-                "className": "btn btn-secondary"
+                "className": "btn btn-secondary",
+                "exportOptions":{
+                    "columns": [0,1,2,3,4,5]
+                }
             },{
                 "extend": "excelHtml5",
                 "text": "<i class='fas fa-file-excel'></i> Excel",
                 "titleAttr":"Esportar a Excel",
-                "className": "btn btn-success"
+                "className": "btn btn-success",
+                //esto es para que al exporatar no salga la fila 6 de acciones
+                "exportOptions":{
+                    "columns": [0,1,2,3,4,5]
+                }
             },{
                 "extend": "pdfHtml5",
                 "text": "<i class='fas fa-file-pdf'></i> PDF",
                 "titleAttr":"Esportar a PDF",
-                "className": "btn btn-danger"
+                "className": "btn btn-danger",
+                "exportOptions":{
+                    "columns": [0,1,2,3,4,5]
+                }
             },{
                 "extend": "csvHtml5",
                 "text": "<i class='fas fa-file-csv'></i> CSV",
                 "titleAttr":"Esportar a CSV",
-                "className": "btn btn-info"
+                "className": "btn btn-info",
+                "exportOptions":{
+                    "columns": [0,1,2,3,4,5]
+                }
             }
         ],
         "responsieve":"true",
@@ -58,6 +77,39 @@ window.addEventListener('load',function(){
         "iDisplayLength": 10,
         "order": [[0, "desc"]]
        });
+
+        if(documento.querySelector("#formProducto")){
+            let formProductos = document.querySelector("#formProductos");
+            formProductos.onsubmit = function(e){
+                e.preventDefault();
+                let strNombre = document.querySelector('#txtNombre').value; 
+                let intCodigo = document.querySelector('#txtCodigo').value;
+                let strPrecio = document.querySelector('#txtPrecio').value;
+                let strStock = document.querySelector('#txtStock').value;
+                if (strNombre == '' || intCodigo == '' || strPrecio == '' || strStock == '') {
+                    swal("Atención", "Todos los campos son obligatorios.", "error");
+                    return false;
+                }
+                if (intCodigo.length < 5) {
+                    swal("Atención", "El código debe ser mayor que 5 dígitos.", "error");
+                    return false;
+                }
+                //muestra el loading 
+                divLoading.style.display = "flex";
+                //esto es para evitar que usuario le de varias veces al boton, lo que hace esta funcion es pasar todo lo que tiene el editor de texto a l textarea
+                tinyMCE.triggerSave; 
+                let request  = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                let ajaxUrl = base_url+'/Productos/setProductos';
+                let formData = new FormData(formProducto);
+                request.open("POST", ajaxUrl, true);
+                request.send(formData);
+                request.onreadystatechange = function(){
+                    if (request.readyState == 4 && request.status == 200) {
+                        
+                    }
+                }
+            }
+        }
 
     fntCategorias();
 },false);

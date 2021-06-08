@@ -36,6 +36,8 @@
                     $btnView = "";
                     $btnEdit =  "";
                     $btnDelete = "";
+                    //cONCATENO EL SIMBOLO DE LA MODENDA CON EL METODO FORMAT MONEY CREADO EN HELPERS
+                    $arrData[$i]['precio'] = SMONEY.'  '.formatMoney($arrData[$i]['precio']);
 
                     if ($arrData[$i]['status'] == 1) {
                         $arrData[$i]['status'] = '<span class="badge badge-success">Activo</span>';
