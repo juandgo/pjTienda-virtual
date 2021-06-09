@@ -105,7 +105,15 @@ window.addEventListener('load',function(){
                 request.send(formData);
                 request.onreadystatechange = function(){
                     if (request.readyState == 4 && request.status == 200) {
-                        console.log(request.responseText);
+                        // console.log(request.responseText);
+                        let objData = JSON.parse(request.responseText); 
+                        if (objData.status) { // si el status = true en el objeto ajax hace
+                            swal("", objData.msg, "success");
+                            document.querySelector("#idProducto").value = objData.idproducto;// Uso el id que me da el ajax para las imagenes
+                            tableProductos.api().ajax.reload();//El dataTable es un api :D
+                        }else{
+                            swal("Error", objData.msg, "success");
+                        }
                     }
                 divLoading.style.display = "none";
                 }

@@ -47,7 +47,23 @@
                     
                     if ($idProducto == 0 ) {
                         $option = 1;
-                        $request_producto = $this->model->insertProducto
+                        $request_producto = $this->model->insertProducto($strNombre,
+                                                                        $strDescripcion,
+                                                                        $strCodigo,
+                                                                        $intCategoriaId,
+                                                                        $strPrecio,
+                                                                        $intStock,
+                                                                        $intStatus);
+                    }else{
+                        $option = 2;
+                    }
+
+                    if($request_producto > 0){//Si es mayor que cero quiere decir que si se almaceno o actualizo.
+                        if ($option == 1) {//Si se almacena muestra mensaje.
+                            $arrResponse = array('status' => true, 'idproducto' => $request_producto, 'msg' => 'Datos guardados correctamente.');
+                        }
+                    }else if($request_producto == 'exist'){
+                        $arrResponse = array('status' => false, 'msg' => '¡Atención! ya existe un producto con el Codigo de Barras Ingresado.');
                     }
                     
                 }

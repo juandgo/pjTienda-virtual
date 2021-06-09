@@ -2,43 +2,17 @@
     
     class ProductosModel extends Mysql{
 
-        public $intIdPoducto;
+        public $intCategoriaId;
         public $strNombre;
         public $strDescripcion;
         public $strCodigo;
         public $intPrecio;
         public $intStock;
         public $intStatus;
-
-
+        
         public function __construct(){
             parent::__construct();
         }
-
-        // public function insertProducto(string $nomProducto, string $descripcion, string $portada, int $status){
-        //     $return = 0;
-        //     $this->strProducto = $nomProducto;
-        //     $this->strDescripcion = $descripcion;
-        //     $this->strPortada = $portada;
-        //     $this->intStatus = $status;
-
-        //     $sql = "SELECT * FROM producto WHERE nombre = '{$this->strProducto}'";
-        //     $request = $this->select_all($sql);
-        //     //Sí la consulta no exite  se puede insertar 
-        //     if (empty($request)) {
-        //         $query_insert = "INSERT INTO producto(nombre, descripcion, portada, status) VALUES(?,?,?,?)";
-        //         $arrData = array($this->strProducto,
-        //                         $this->strDescripcion,
-        //                         $this->strPortada,
-        //                         $this->intStatus);
-
-        //         $request_insert = $this->insert($query_insert,$arrData);
-        //         $return = $request_insert;
-        //     }else{
-        //         $return = "exist";
-        //     }
-        //     return $return;
-        // }
 
         public function selectProductos(){
             
@@ -57,5 +31,44 @@
                     WHERE p.status != 0";
                     $request = $this->select_all($sql);
             return $request;
+        }
+
+        public function insertProducto(string $nomProducto, string $descripcion, string $codigo, int $categoriaid, string $precio, 
+        int $stock, int $status){
+            $return = 0;
+            $this->strNombre = $nomProducto;
+            $this->strDescripcion = $descripcion;
+            $this->intCodigo = $codigo;
+            $this->intCategoriaId = $categoriaid;
+            $this->strPrecio = $precio;
+            $this->intStock = $stock;
+            $this->intStatus = $status;
+
+            $sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}'";
+            $request = $this->select_all($sql);
+            //Sí la consulta no exite  se puede insertar 
+            if (empty($request)) {//Si no existe el producto lo crea
+                $query_insert = "INSERT INTO producto(categoriaid,
+                                                        codigo,
+                                                        nombre, 
+                                                        descripcion, 
+                                                        precio, 
+                                                        stock, 
+                                                        status) 
+                                VALUES(?,?,?,?,?,?,?)";
+                $arrData = array($this->intCategoriaId,
+                                $this->intCodigo,
+                                $this->strNombre,
+                                $this->strDescripcion,
+                                $this->strPrecio,
+                                $this->intStock,
+                                $this->intStatus);
+
+                $request_insert = $this->insert($query_insert,$arrData);
+                $return = $request_insert;
+            }else{
+                $return = "exist";
+            }
+            return $return;
         }
     }    
