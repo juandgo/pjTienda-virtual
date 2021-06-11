@@ -130,3 +130,56 @@ width: 175px;
   /* centra */
   margin: auto;
 }
+
+/* Upload fotos */
+#containerImages{
+  /* display; flex es apra que toeodos los elementos se coloquen uno al lado del otro */
+  display: flex;
+  /* Para que comiencen a la izquierda */
+  justify-content: flex-start;
+  align-items: center;
+  /* Esto es para que al momento de que todos los elementos no quepa se bajen */
+  flex-wrap: wrap;
+}
+/* Aplica los cambios a los div que contenga */
+#containerImages > div{
+  margin-right: 10px;
+  margin-bottom: 8px;
+}
+.prevImage{
+  border: 1px solid #CCC;
+  width:120px;
+  height: 148px;
+  display: flex;
+  justify-content: center;
+  /* Pone un item como un svg en todo el centro del espacio */
+  align-items: center;
+}
+/* Se dirige a img */
+.prevImage img{
+  width: 100%;
+}
+.inputUploadfile{
+  /* quita el tipo como se muestan las cosas */
+  display: none;
+}
+.btnUploadfile, .btnDeleteImage{
+  border: 0;
+  background-color: #009688;
+  text-align: center;
+  padding: 2px 3px;
+  color: #FFF;
+  font-size: 9pt;
+  /* Cambia el icono por una mano señalando */
+  cursor: pointer;
+  width: 100%; 
+}
+
+.btnDeleteImage{
+  background-color: #dc3545;
+}
+
+.prevImage .loading{
+  width: 30px;
+  height: 30px;
+}
