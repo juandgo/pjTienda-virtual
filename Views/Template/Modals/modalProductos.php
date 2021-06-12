@@ -84,7 +84,7 @@
                         <div class="prevImage">
                           <img src="<?= media(); ?>/images/uploads/tesla.jpg">
                         </div>
-                        <input type="file" name="foto" id="img1" class="inputUploadfile">
+                        <input id="img1" type="file" name="foto" class="inputUploadfile">
                         <label for="img1" class="btnUploadfile"><i class="fas fa-upload"></i></label>
                         <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24');">
                           <i class="fas fa-trash-alt"></i>
@@ -93,16 +93,6 @@
                       <div id="div24">
                         <div class="prevImage">
                           <img class="loading" src="<?= media(); ?>/images/loading.svg">
-                        </div>
-                        <input type="file" name="foto" id="img1" class="inputUploadfile">
-                        <label for="img1" class="btnUploadfile"><i class="fas fa-upload"></i></label>
-                        <button class="btnDeleteImage" type="button" onclick="fntDelItem('div24');">
-                          <i class="fas fa-trash-alt"></i>
-                        </button>
-                      </div>
-                      <div id="div24">
-                        <div class="prevImage">
-                          <img src="<?= media(); ?>/images/uploads/tesla.jpg">
                         </div>
                         <input type="file" name="foto" id="img1" class="inputUploadfile">
                         <label for="img1" class="btnUploadfile"><i class="fas fa-upload"></i></label>

@@ -120,6 +120,29 @@ window.addEventListener('load',function(){
             }
         }
 
+        if (document.querySelector('.btnAddImage')) {
+            let btnAddImage = document.querySelector('.btnAddImage');
+            btnAddImage.onclick = function(e){
+            // Date.now(); retorna la fecha,la hora y los segundos; esto va a funcionar como un id unico.
+            let key = Date.now();
+            //Muestra una alerta con el id generado 
+            // alert(key);
+            //creo un elemento div
+            let newElement = document.createElement("div");
+            newElement.id = "div" + key;//conncateno la llave "key" osea le da el valor a la variable id que es key el html 
+            newElement.innerHTML = `
+                <div class="prevImage">
+                </div>
+                <input id="img${key}" type="file" name="foto" class="inputUploadfile">
+                <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload"></i></label>
+                <button class="btnDeleteImage" type="button" onclick="fntDelItem('#div{key}');">
+                    <i class="fas fa-trash-alt"></i>
+                </button>`;
+            document.querySelector('#containerImages').appendChild(newElement);
+            document.querySelector(".btnUploadfile").click();
+            }
+        }
+
     fntCategorias();
 },false);
 
