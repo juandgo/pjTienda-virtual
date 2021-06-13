@@ -246,13 +246,13 @@ function fntInputFile(){
                     let formData = new FormData();
                     formData.append('idproducto', idProducto);
                     formData.append('foto', this.files[0]);
-                    request.open('POST',ajaxUrl,true);
+                    request.open("POST",ajaxUrl,true);
                     request.send(formData);
                     request.onreadystatechange = function() {
                         if(request.readyState != 4) return; 
                         if (request.status == 200) {
-                            let objData = JSON.parse(request.responseText);
-                            prevImg.innerHTML = `<img src="${base_url}">`;
+                            let objData = JSON.parse(request.responseText); 
+                            prevImg.innerHTML = `<img src="${objeto_url}">`;
                         }
                     }
                 }
