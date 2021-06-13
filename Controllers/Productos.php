@@ -114,7 +114,10 @@
         }
 
         public function setImage(){
-            dep($_POST);
+            // dep($_POST);
+            // dep($_FILES);
+            $arrResponse = array('status' => true, 'imgname' => "img_654sd65f4654f.jpg");
+            echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
             die();
         }
             

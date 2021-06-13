@@ -120,8 +120,8 @@ window.addEventListener('load',function(){
             }
         }
 
-        if (document.querySelector('.btnAddImage')) {
-            let btnAddImage = document.querySelector('.btnAddImage');
+        if (document.querySelector(".btnAddImage")) {
+            let btnAddImage = document.querySelector(".btnAddImage");
             btnAddImage.onclick = function(e){
             // Date.now(); retorna la fecha,la hora y los segundos; esto va a funcionar como un id unico.
             let key = Date.now();
@@ -133,14 +133,14 @@ window.addEventListener('load',function(){
             newElement.innerHTML = `
                 <div class="prevImage">
                 </div>
-                <input id="img${key}" type="file" name="foto" class="inputUploadfile">
+                <input type="file" id="img${key}" name="foto" class="inputUploadfile">
                 <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload"></i></label>
                 <button class="btnDeleteImage" type="button" onclick="fntDelItem('#div${key}');">
                     <i class="fas fa-trash-alt"></i>
                 </button>`;
                 //Agrega el nuevo html con su id 
             document.querySelector('#containerImages').appendChild(newElement);
-            document.querySelector(".btnUploadfile").click();
+            document.querySelector("#div"+key+" .btnUploadfile").click();
             //se invocan cuando se crea el documento
             fntInputFile();
             }
@@ -226,7 +226,7 @@ function fntInputFile(){
             //le contcatena el idfile  para obtener la foto 
             let fileimg = document.querySelector("#"+idFile).files;
             //Concatena parentId con el elemento que le sigue prevImg
-            let prevImg = document.querySelector("#"+parentId+".prevImage");
+            let prevImg = document.querySelector("#"+parentId+" .prevImage");
             //esto es para que dependa del navegador donde se encuentre 
             let nav = window.URL || window.webkitURL;
             //Valida si tiene una imagen 
@@ -240,8 +240,8 @@ function fntInputFile(){
                 }else{
                     let objeto_url = nav.createObjectURL(this.files[0]);
                     prevImg.innerHTML = `<img class="loading" src="${base_url}/Assets/images/loading.svg">`;
-
-                    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                    
+                    let request  = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
                     let ajaxUrl = base_url+'/Productos/setImage';
                     let formData = new FormData();
                     formData.append('idproducto', idProducto);
@@ -252,7 +252,15 @@ function fntInputFile(){
                         if(request.readyState != 4) return; 
                         if (request.status == 200) {
                             let objData = JSON.parse(request.responseText); 
-                            prevImg.innerHTML = `<img src="${objeto_url}">`;
+                            // si es verdadero
+                            if (objData.status) {
+                                prevImg.innerHTML = `<img src="${objeto_url}">`;
+                                document.querySelector("#"+parentId+".btnDeleteImage").setAttribute("imgname",objData.imgname);
+                                document.querySelector("#"+parentId+".btnUploadfile").classList.add(notBlock);
+                                document.querySelector("#"+parentId+".btnDeleteImage").classList.remove(notBlock);
+                            }else{
+                                swal("Error", objData.msg, "error");
+                            }
                         }
                     }
                 }
