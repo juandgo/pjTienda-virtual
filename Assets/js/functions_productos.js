@@ -135,7 +135,7 @@ window.addEventListener('load',function(){
                 </div>
                 <input id="img${key}" type="file" name="foto" class="inputUploadfile">
                 <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload"></i></label>
-                <button class="btnDeleteImage" type="button" onclick="fntDelItem('#div{key}');">
+                <button class="btnDeleteImage" type="button" onclick="fntDelItem('#div${key}');">
                     <i class="fas fa-trash-alt"></i>
                 </button>`;
                 //Agrega el nuevo html con su id 
@@ -226,7 +226,7 @@ function fntInputFile(){
             //le contcatena el idfile  para obtener la foto 
             let fileimg = document.querySelector("#"+idFile).files;
             //Concatena parentId con el elemento que le sigue prevImg
-            let prevImg = document.querySelector("#"+parentId+" .prevImage");
+            let prevImg = document.querySelector("#"+parentId+".prevImage");
             //esto es para que dependa del navegador donde se encuentre 
             let nav = window.URL || window.webkitURL;
             //Valida si tiene una imagen 
@@ -245,7 +245,7 @@ function fntInputFile(){
                     let ajaxUrl = base_url+'/Productos/setImage';
                     let formData = new FormData();
                     formData.append('idproducto', idProducto);
-                    formData.append('foto', this.files[0]);
+                    formData.append("foto", this.files[0]);
                     request.open("POST",ajaxUrl,true);
                     request.send(formData);
                     request.onreadystatechange = function() {
