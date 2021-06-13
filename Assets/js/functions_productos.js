@@ -138,11 +138,15 @@ window.addEventListener('load',function(){
                 <button class="btnDeleteImage" type="button" onclick="fntDelItem('#div{key}');">
                     <i class="fas fa-trash-alt"></i>
                 </button>`;
+                //Agrega el nuevo html con su id 
             document.querySelector('#containerImages').appendChild(newElement);
             document.querySelector(".btnUploadfile").click();
+            //se invocan cuando se crea el documento
+            fntInputFile();
             }
         }
-
+        //se invocan cuando se cargue todo el documento "file"
+    fntInputFile();
     fntCategorias();
 },false);
 
@@ -193,7 +197,6 @@ function fntPrintBarCode(area){
     vprint.close();
 }
 
-
 //Con esto pongo el area tinymce y tambien lo puedo customisar 
 tinymce.init({
     selector: '#txtDescripcion',
@@ -207,6 +210,57 @@ tinymce.init({
     ],
     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustifys | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
   });
+
+function fntInputFile(){
+    let inputUploadfile = document.querySelectorAll(".inputUploadfile");
+    inputUploadfile.forEach(function(inputUploadfile){
+        inputUploadfile.addEventListener('change', function(){ 
+           //Esta variable correspode a #idProducto de tipo hiden y sirve para saber a que id se le va asignar la imagen 
+            let idProducto = document.querySelector("#idProducto").value;
+            //Esta variabla agarra el valor de elemento padre que es el id="div24" del html
+            let parentId = this.parentNode.getAttribute("id");
+            //Agrra el id del elemento file 
+            let idFile = this.getAttribute("id");
+            //le contcatena el idfile  
+            let uploadFoto = document.querySelector("#"+idFile).value;
+            //le contcatena el idfile  para obtener la foto 
+            let fileimg = document.querySelector("#"+idFile).files;
+            //Concatena parentId con el elemento que le sigue prevImg
+            let prevImg = document.querySelector("#"+parentId+" .prevImage");
+            //esto es para que dependa del navegador donde se encuentre 
+            let nav = window.URL || window.webkitURL;
+            //Valida si tiene una imagen 
+            if (uploadFoto != '') {
+                let type = fileimg[0].type;
+                let name = fileimg[0].name;
+                if (type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png') {
+                    prevImg.innerHTML = "Archivo no válido";
+                    uploadFoto.value = "";
+                    return false; 
+                }else{
+                    let objeto_url = nav.createObjectURL(this.files[0]);
+                    prevImg.innerHTML = `<img class="loading" src="${base_url}/Assets/images/loading.svg">`;
+
+                    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                    let ajaxUrl = base_url+'/Productos/setImage';
+                    let formData = new FormData();
+                    formData.append('idproducto', idProducto);
+                    formData.append('foto', this.files[0]);
+                    request.open('POST',ajaxUrl,true);
+                    request.send(formData);
+                    request.onreadystatechange = function() {
+                        if(request.readyState != 4) return; 
+                        if (request.status == 200) {
+                            let objData = JSON.parse(request.responseText);
+                            prevImg.innerHTML = `<img src="${base_url}">`;
+                        }
+                    }
+                }
+            }
+        }); 
+    });
+    
+}
 
 function openModal() {
     //Configuracion de Apariencia

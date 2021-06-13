@@ -113,5 +113,10 @@
             die();
         }
 
-        
+        public function setImage(){
+            dep($_POST);
+            die();
+        }
+            
     }
+?>    
