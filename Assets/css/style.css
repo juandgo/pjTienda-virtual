@@ -183,3 +183,9 @@ width: 175px;
   width: 30px;
   height: 30px;
 }
+/* con el id celfotos en el elemento img  doy estilo a las imagenes*/
+#celFotos img{
+  width: 150px;
+  margin-left: 10px;
+  height: 150px;
+}

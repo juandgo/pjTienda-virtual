@@ -53,70 +53,76 @@ document.addEventListener('DOMContentLoaded', function(){
        });
 
         //NUEVO CLIENTE
-	if(document.querySelector("#formCliente")){
-        var formCliente = document.querySelector("#formCliente");
-        formCliente.onsubmit = function(e) {
-            e.preventDefault();
-            var strIdentificacion = document.querySelector('#txtIdentificacion').value;
-            var strNombre = document.querySelector('#txtNombre').value;
-            var strApellido = document.querySelector('#txtApellido').value;
-            var strEmail = document.querySelector('#txtEmail').value;
-            var intTelefono = document.querySelector('#txtTelefono').value;
-            var strNit = document.querySelector('#txtNit').value;
-            var strNomFical = document.querySelector('#txtNombreFiscal').value;
-            var strDirFiscal = document.querySelector('#txtDirFiscal').value;
-            var strPassword = document.querySelector('#txtPassword').value;
-
-            if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || strNit == '' || strDirFiscal == '' || strNomFical=='' )
-            {
-                swal("Atención", "Todos los campos son obligatorios." , "error");
-                return false;
-            }
-
-            let elementsValid = document.getElementsByClassName("valid");
-            for (let i = 0; i < elementsValid.length; i++) { 
-                if(elementsValid[i].classList.contains('is-invalid')) { 
-                    swal("Atención", "Por favor verifique los campos en rojo." , "error");
+        if(document.querySelector("#formCliente")){
+            let formCliente = document.querySelector("#formCliente");
+            formCliente.onsubmit = function(e) {
+                e.preventDefault();
+                let strIdentificacion = document.querySelector('#txtIdentificacion').value;
+                let strNombre = document.querySelector('#txtNombre').value;
+                let strApellido = document.querySelector('#txtApellido').value;
+                let strEmail = document.querySelector('#txtEmail').value;
+                let intTelefono = document.querySelector('#txtTelefono').value;
+                let strNit = document.querySelector('#txtNit').value;
+                let strNomFical = document.querySelector('#txtNombreFiscal').value;
+                let strDirFiscal = document.querySelector('#txtDirFiscal').value;
+                let strPassword = document.querySelector('#txtPassword').value;
+    
+                if(strIdentificacion == '' || strApellido == '' || strNombre == '' || strEmail == '' || intTelefono == '' || strNit == '' || strDirFiscal == '' || strNomFical=='' ){
+                    swal("Atención", "Todos los campos son obligatorios." , "error");
                     return false;
-                } 
-            } 
-            divLoading.style.display = "flex";
-            var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-            var ajaxUrl = base_url+'/Clientes/setCliente'; 
-            var formData = new FormData(formCliente);
-            request.open("POST",ajaxUrl,true);
-            request.send(formData);
-            request.onreadystatechange = function(){
-                if(request.readyState == 4 && request.status == 200){
-                    var objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
-                        $('#modalFormCliente').modal("hide");
-                        formCliente.reset();
-                        swal("Usuarios", objData.msg ,"success");
-                        tableClientes.api().ajax.reload();
-                    }else{
-                        swal("Error", objData.msg , "error");
-                    }
                 }
-                divLoading.style.display = "none";
-                return false;
+    
+                let elementsValid = document.getElementsByClassName("valid");
+                for (let i = 0; i < elementsValid.length; i++) { 
+                    if(elementsValid[i].classList.contains('is-invalid')) { 
+                        swal("Atención", "Por favor verifique los campos en rojo." , "error");
+                        return false;
+                    } 
+                } 
+                divLoading.style.display = "flex";
+                let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+                let ajaxUrl = base_url+'/Clientes/setCliente'; 
+                let formData = new FormData(formCliente);
+                request.open("POST",ajaxUrl,true);
+                request.send(formData);
+                request.onreadystatechange = function(){
+                    if(request.readyState == 4 && request.status == 200){
+                        let objData = JSON.parse(request.responseText);
+                        if(objData.status){
+                            if(rowTable == ""){
+                                tableClientes.api().ajax.reload();
+                            }else{
+                               rowTable.cells[1].textContent =  strIdentificacion;
+                               rowTable.cells[2].textContent =  strNombre;
+                               rowTable.cells[3].textContent =  strApellido;
+                               rowTable.cells[4].textContent =  strEmail;
+                               rowTable.cells[5].textContent =  intTelefono;
+                               rowTable = "";
+                            }
+                            $('#modalFormCliente').modal("hide");
+                            formCliente.reset();
+                            swal("Usuarios", objData.msg ,"success");
+                        }else{
+                            swal("Error", objData.msg , "error");
+                        }
+                    }
+                    divLoading.style.display = "none";
+                    return false;
+                }
             }
         }
-    }
 
 
 }, false);
 
 function fntViewInfo(idpersona) {
-    var idpersona = idpersona;
-    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-    var ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
     request.open("GET",ajaxUrl,true);
     request.send();
     request.onreadystatechange = function(){
         if(request.readyState == 4 && request.status == 200){
-            var objData = JSON.parse(request.responseText);
+            let objData = JSON.parse(request.responseText);
             if (objData.status) {
                 //Agarra los valores
                 document.querySelector("#celIdentificacion").innerHTML = objData.data.identificacion;
@@ -147,9 +153,9 @@ function fntEditInfo(idpersona) {
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
     document.querySelector('#btnText').innerHTML = "Acatualizar";
 
-    var idpersona = idpersona;
-    var ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
-    var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+
+    let ajaxUrl = base_url+'/Clientes/getCliente/'+idpersona;
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
     request.open("GET",ajaxUrl,true);
     request.send(); 
     request.onreadystatechange = function() {
@@ -194,7 +200,7 @@ function fntDelInfo(idpersona) {
             request.send(strData);
             request.onreadystatechange = function(){
                 if(request.readyState == 4 && request.status == 200){
-                    var objData = JSON.parse(request.responseText);
+                    let objData = JSON.parse(request.responseText);
                     if(objData.status)
                     {
                         swal("Eliminar!", objData.msg , "success");
@@ -211,7 +217,7 @@ function fntDelInfo(idpersona) {
 
 
 function openModal() {
-    rowTable = "";//limpia esta variable
+    rowTable = "";//limpia esta letiable
     //Configuracion de Apariencia
     document.querySelector('#idUsuario').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");

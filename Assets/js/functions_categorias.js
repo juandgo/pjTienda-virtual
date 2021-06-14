@@ -206,17 +206,21 @@ function fntEditInfo(element, idcategoria) {
                 }
                 
                 $('#listStatus').selectpicker('render');
-
-                if (document.querySelector('#img')) {//si existe imagen 
-                    document.querySelector('#img').src = objData.data.url_portada;//url de la portada osea de la imagen //pone imagen 
+                //si existe imagen 
+                if (document.querySelector('#img')) {
+                    //url de la portada osea de la imagen //pone imagen 
+                    document.querySelector('#img').src = objData.data.url_portada;
                 } else {
-                    document.querySelector('.prevPhoto div').innerHTML = "<img id='img' src="+objData.data.url_portada+">";// crea el elemnto y pone imagen por defecto
+                    // crea el elemnto y pone imagen por defecto
+                    document.querySelector('.prevPhoto div').innerHTML = "<img id='img' src="+objData.data.url_portada+">";
                 }
-
-                if (objData.data.portada == 'portada_categoria.png') {//si es igual a la imagen por defecto 
-                    document.querySelector('.delPhoto').classList.add("notBlock");//quita X para borrar foto de categoria
+                //si es igual a la imagen por defecto 
+                if (objData.data.portada == 'portada_categoria.png') {
+                    //quita X para borrar foto de categoria
+                    document.querySelector('.delPhoto').classList.add("notBlock");
                 } else {
-                    document.querySelector('.delPhoto').classList.remove("notBlock");//pone X para borrar foto de categoria
+                    //pone X para borrar foto de categoria
+                    document.querySelector('.delPhoto').classList.remove("notBlock");
                 }
                 $('#modalFormCategorias').modal('show');//muestra por su id en el modal
             }else{

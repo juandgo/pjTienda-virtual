@@ -26,6 +26,9 @@
         }
 
         public function setCliente(){
+            //creo que esto es para que no reporte errores si no esta en un servidor sino en el quipo local
+            //y asi no de problemas cunado se crea un cliente con el correo de confirmación 
+    		error_reporting(0);
             if($_POST){
                 if(empty($_POST['txtIdentificacion']) || empty($_POST['txtNombre']) || empty($_POST['txtApellido']) || empty($_POST['txtTelefono']) || empty($_POST['txtEmail']) || empty($_POST['txtNit']) || empty($_POST['txtNombreFiscal']) || empty($_POST['txtDirFiscal']) ){
                     $arrResponse = array("status" => false, "msg" => 'Datos incorrectos.');
@@ -40,7 +43,8 @@
                     $strNomFiscal = strClean($_POST['txtNombreFiscal']);
                     $strDirFiscal = strClean($_POST['txtDirFiscal']);
                     $intTipoId = 7;
-    
+				    $request_user = "";
+                    
                     if($idUsuario == 0){
                         $option = 1;
                         $strPassword =  empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
