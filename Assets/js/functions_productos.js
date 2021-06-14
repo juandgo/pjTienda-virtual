@@ -211,6 +211,35 @@ tinymce.init({
     toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustifys | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
   });
 
+function fntViewInfo(idproducto) {
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    let ajaxUrl = base_url+'/Productos/getProducto/'+idproducto;
+    request.open("GET",ajaxUrl,true);
+    request.send(); 
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status){// si el status es true
+                console.log(objData);
+                // let estado = objData.data.status == 1 ?// si es 1 es activo
+                // '<span class="badge badge-success">Activo</span>':'<span class="badge badge-danger">Inactivo</span>';     
+
+                // document.querySelector("#celCodigo").innerHTML = objData;.data.codigo;           
+                // document.querySelector("#celNombre").innerHTML = objData.data.nombre;           
+                // document.querySelector("#celPrecio").innerHTML = objData.data.precio;    
+                // document.querySelector("#celStock").innerHTML = objData.data.stock;         
+                // document.querySelector("#celCategoria").innerHTML = objData.data.categoria;     
+                // document.querySelector("#celStatus").innerHTML = estado;   
+                // document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;        
+                // document.querySelector("#celFotos").innerHTML = '<img src="'+objData.data.url_portada+'"></img>'
+                // $('#modalViewProducto').modal('show');
+            }else{
+                swal("Error, objData.msg, error");
+            }
+        }
+    }
+}
+
 function fntInputFile(){
     let inputUploadfile = document.querySelectorAll(".inputUploadfile");
     inputUploadfile.forEach(function(inputUploadfile){

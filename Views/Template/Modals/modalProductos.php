@@ -112,7 +112,7 @@
 
 <!-- modalViewCategoria -->
 <div class="modal fade" id="modalViewProducto" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" >
+  <div class="modal-dialog modal-xl" >
     <div class="modal-content">
       <div class="modal-header header-primary">
         <h5 class="modal-title" id="titleModal">Datos del Producto</h5>
@@ -124,24 +124,36 @@
         <table class="table table-bordered">
           <tbody>
             <tr>
-              <td>ID:</td>
-              <td id="celId">654654654</td>
+              <td>Codigo:</td>
+              <td id="celCodigo">654654654</td>
             </tr>
             <tr>
               <td>Nombres:</td>
               <td id="celNombre"></td>
             </tr>
             <tr>
+              <td>Precio:</td>
+              <td id="celPrecio"></td>
+            </tr>
+            <tr>
+              <td>Stock:</td>
+              <td id="celStock"></td>
+            </tr>
+            <tr>
+              <td>Categoría:</td>
+              <td id="celCategoria"></td>
+            </tr>
+            <tr>
+              <td>Status:</td>
+              <td id="celStatus"></td>
+            </tr>
+            <tr>
               <td>Descripción:</td>
               <td id="celDescripcion"></td>
             </tr>
             <tr>
-              <td>Estado:</td>
-              <td id="celEstado"></td>
-            </tr>
-            <tr>
-              <td>Foto:</td>
-              <td id="imgProducto"></td>
+              <td>Fotos de referencia:</td>
+              <td id="celFotos"></td>
             </tr>
           </tbody>
         </table>

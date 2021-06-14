@@ -73,6 +73,25 @@
             return $return;
         }
 
+        public function selectProducto(int $idproducto){
+            $this->intIdProducto = $idproducto;
+            $sql = "SELECT p.idproducto,
+                           p.codigo,
+                           p.nombre,
+                           p.descripcion,
+                           p.precio,
+                           p.stock,
+                           p.categoriaid,
+                           c.nombre as categoria,
+                           p.status
+                    FROM producto p
+                    INNER JOIN categoria c
+                    ON p.categoriaid = c.idcategoria
+                    WHERE idproducto = $this->intIdProducto";
+            $request = $this->select($sql);
+            return $request;
+        }
+
         public function insertImage(int $idproducto, string $nomImagen){
             $this->intIdProducto = $idproducto;
             $this->strImagen = $nomImagen; 
@@ -82,4 +101,13 @@
             $request_insert = $this->insert($query_insert,$arrData);
             return $request_insert;
         }
+
+        public function selectImages(int $idproducto){
+			$this->intIdProducto = $idproducto;
+			$sql = "SELECT productoid,img
+					FROM imagen
+					WHERE productoid = $this->intIdProducto";
+			$request = $this->select_all($sql);
+			return $request;
+		}
     }    
