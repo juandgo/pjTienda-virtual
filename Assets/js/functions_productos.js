@@ -220,19 +220,33 @@ function fntViewInfo(idproducto) {
         if (request.readyState == 4 && request.status == 200) {
             let objData = JSON.parse(request.responseText);
             if (objData.status){// si el status es true
-                console.log(objData);
-                // let estado = objData.data.status == 1 ?// si es 1 es activo
-                // '<span class="badge badge-success">Activo</span>':'<span class="badge badge-danger">Inactivo</span>';     
+                //Con esto ya no hago uso de objData.data; para acortar codigo
+                let objProducto = objData.data;
+                // console.log(objProducto.nombre);
+                let estadoProducto = objProducto.status == 1 ?// si es 1 es activo
+                '<span class="badge badge-success">Activo</span>':
+                '<span class="badge badge-danger">Inactivo</span>';
+                let htmlImage = "";     
 
-                // document.querySelector("#celCodigo").innerHTML = objData;.data.codigo;           
-                // document.querySelector("#celNombre").innerHTML = objData.data.nombre;           
-                // document.querySelector("#celPrecio").innerHTML = objData.data.precio;    
-                // document.querySelector("#celStock").innerHTML = objData.data.stock;         
-                // document.querySelector("#celCategoria").innerHTML = objData.data.categoria;     
-                // document.querySelector("#celStatus").innerHTML = estado;   
-                // document.querySelector("#celDescripcion").innerHTML = objData.data.descripcion;        
-                // document.querySelector("#celFotos").innerHTML = '<img src="'+objData.data.url_portada+'"></img>'
-                // $('#modalViewProducto').modal('show');
+                document.querySelector("#celCodigo").innerHTML = objProducto.codigo;           
+                document.querySelector("#celNombre").innerHTML = objProducto.nombre;           
+                document.querySelector("#celPrecio").innerHTML = objProducto.precio;    
+                document.querySelector("#celStock").innerHTML = objProducto.stock;         
+                document.querySelector("#celCategoria").innerHTML = objProducto.categoria;     
+                document.querySelector("#celEstado").innerHTML = estadoProducto;   
+                document.querySelector("#celDescripcion").innerHTML = objProducto.descripcion; 
+
+                if (objProducto.images.length > 0) {
+                    //Agarra la posicion de la imagen
+                    let objProductos = objProducto.images;
+                    for (let p = 0; p < objProductos.length; p++){
+                        //Otiene la url de la imagen en el html 
+                        htmlImage += `<img src="${objProductos[p].url_image}"></img>`; 
+                    }
+                }
+                document.querySelector("#celFotos").innerHTML = htmlImage; 
+
+                $('#modalViewProducto').modal('show');
             }else{
                 swal("Error, objData.msg, error");
             }

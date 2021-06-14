@@ -144,8 +144,8 @@
               <td id="celCategoria"></td>
             </tr>
             <tr>
-              <td>Status:</td>
-              <td id="celStatus"></td>
+              <td>Estado:</td>
+              <td id="celEstado"></td>
             </tr>
             <tr>
               <td>Descripción:</td>
