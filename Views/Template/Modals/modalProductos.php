@@ -73,7 +73,7 @@
                 <div class="tile-footer">
                   <div class="form-group col-md-12">
                     <div id="containerGallery">
-                      <span>Galería de fotos</span>
+                      <span>Agregar Foto (440 x 545)</span>
                       <button class="btnAddImage btn btn-info btn-sm" type="button">
                         <i class="fas fa-plus"></i>
                       </button>

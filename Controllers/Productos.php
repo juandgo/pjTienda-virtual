@@ -116,7 +116,21 @@
         public function setImage(){
             // dep($_POST);
             // dep($_FILES);
-            $arrResponse = array('status' => true, 'imgname' => "img_654sd65f4654f.jpg");
+            if ($_POST) {
+                $idProducto = intval($_POST['idProducto']);
+                $idProducto = 1; 
+                $foto = $_FILES['foto'];//esto espara poder acceder a todos los elementos de la imagen
+                $imgNombre = 'pro_'.md5(date('d-m-Y H:m:s')).'.jpg';//pro_ abreviatura de producto, esto se concatena para darle un nombre a la imagen con la fecha de creacion 
+                $request_img = $this->model->insertImage($idProducto,$imgNombre);
+                if ($request_img) {// Si hay imagen 
+                    $uploadImage = uploadImage($foto, $imgNombre);
+                    $arrResponse = array('status' => true, 'imgname' => $imgNombre, 'msg' => 'Archivo cargado');
+                }else{
+                    $arrResponse = array('status' => false, 'msg' => 'Error de carga.');
+                }
+            }
+            // $arrResponse = array('status' => true, 'imgname' => "img_654sd65f4654f.jpg");
+            sleep(3);
             echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
             die();
         }

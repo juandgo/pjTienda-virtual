@@ -135,7 +135,7 @@ window.addEventListener('load',function(){
                 </div>
                 <input type="file" id="img${key}" name="foto" class="inputUploadfile">
                 <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload"></i></label>
-                <button class="btnDeleteImage" type="button" onclick="fntDelItem('#div${key}');">
+                <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')">
                     <i class="fas fa-trash-alt"></i>
                 </button>`;
                 //Agrega el nuevo html con su id 
@@ -255,7 +255,7 @@ function fntInputFile(){
                             // si es verdadero
                             if (objData.status) {
                                 prevImg.innerHTML = `<img src="${objeto_url}">`;
-                                document.querySelector("#"+parentId+".btnDeleteImage").setAttribute("imgname",objData.imgname);
+                                document.querySelector("#"+parentId+" .btnDeleteImage").setAttribute("imgname",objData.imgname);
                                 document.querySelector("#"+parentId+".btnUploadfile").classList.add(notBlock);
                                 document.querySelector("#"+parentId+".btnDeleteImage").classList.remove(notBlock);
                             }else{
