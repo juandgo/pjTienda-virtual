@@ -77,7 +77,7 @@
             $this->intIdProducto = $idproducto;
             $this->strImagen = $nomImagen; 
             $query_insert = "INSERT INTO imagen(productoid,img) VALUES(?,?)";
-            $arrData = array($this->intIdProducto,
+            $arrData = array($this->intIdProducto, 
                             $this->strImagen);          
             $request_insert = $this->insert($query_insert,$arrData);
             return $request_insert;

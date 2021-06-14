@@ -75,11 +75,11 @@
                     <div id="containerGallery">
                       <span>Agregar Foto (440 x 545)</span>
                       <button class="btnAddImage btn btn-info btn-sm" type="button">
-                        <i class="fas fa-plus"></i>
+                          <i class="fas fa-plus"></i>
                       </button>
-                    </div>
-                    <hr>
-                    <div id="containerImages">
+                     </div>
+                     <hr>
+                     <div id="containerImages">
                       <!-- <div id="div24">
                         <div class="prevImage">
                           <img src="<?= media(); ?>/images/uploads/tesla.jpg">

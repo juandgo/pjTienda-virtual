@@ -251,6 +251,7 @@ function fntInputFile(){
                     request.onreadystatechange = function() {
                         if(request.readyState != 4) return; 
                         if (request.status == 200) {
+                            // console.log(request.responseText);
                             let objData = JSON.parse(request.responseText); 
                             // si es verdadero
                             if (objData.status) {
