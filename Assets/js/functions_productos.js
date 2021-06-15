@@ -77,7 +77,7 @@ window.addEventListener('load',function(){
         "iDisplayLength": 10,
         "order": [[0, "desc"]]
        });
-
+       //Nuevo Producto
         if(document.querySelector("#formProducto")){
             let formProductos = document.querySelector("#formProducto");
             formProductos.onsubmit = function(e){
@@ -254,7 +254,7 @@ function fntViewInfo(idproducto) {
     }
 }
 
-function fntEditInfo(element, idproducto){
+function fntEditInfo(idproducto){
     document.querySelector('#titleModal').innerHTML = "Acatualizar Producto";
     document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
@@ -266,12 +266,13 @@ function fntEditInfo(element, idproducto){
     request.send(); 
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
+            console.log(request.responseText);
             let objData = JSON.parse(request.responseText);
             if (objData.status){// si el status es true
                 //Con esto ya no hago uso de objData.data; para acortar codigo
                 let objProducto = objData.data;
                 // console.log(objProducto.nombre);
-
+                document.querySelector("#idProducto").value = objProducto.idproducto;
                 document.querySelector("#txtCodigo").value = objProducto.codigo;           
                 document.querySelector("#txtNombre").value = objProducto.nombre;    
                 document.querySelector("#txtDescripcion").value = objProducto.descripcion; 
@@ -292,13 +293,12 @@ function fntEditInfo(element, idproducto){
                     for (let p = 0; p < objProductos.length; p++){  
                         //Otiene la url de la imagen en el html 
                         let key = Date.now()+p;
-                        htmlImage += `<div id="div${key}">
+                        htmlImage +=`<div id="div${key}">
                             <div class="prevImage">
                             <img src="${objProductos[p].url_image}"></img>
                             </div>
-                            <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].img}"><i class="fas fa-trash-alt"></i>
-                            </button>
-                            </div>`; 
+                            <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].img}">
+                            <i class="fas fa-trash-alt"></i></button></div>`; 
                     }
                 }
                 document.querySelector('#containerImages').innerHTML = htmlImage; 
@@ -313,49 +313,50 @@ function fntEditInfo(element, idproducto){
     }
 }
 
-function fntDelInfo(idproducto) {
-    //Alerta
-    swal({
-        title: "Eliminar Producto",
-        text: "¿Realmente quiere eliminar el producto?",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Si, eliminar!",
-        cancelButtonText: "No, cancelar!",
-        closeOnConfirm: false,
-        closeOnCancel: true
-    }, function(isConfirm) {
+// function fntDelInfo(idproducto) {
+//     //Alerta
+//     swal({
+//         title: "Eliminar Producto",
+//         text: "¿Realmente quiere eliminar el producto?",
+//         type: "warning",
+//         showCancelButton: true,
+//         confirmButtonText: "Si, eliminar!",
+//         cancelButtonText: "No, cancelar!",
+//         closeOnConfirm: false,
+//         closeOnCancel: true
+//     }, function(isConfirm) {
         
-        if (isConfirm){
-            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
-            let ajaxUrl = base_url+'/Productos/delProducto';
-            let strData = "idProducto="+idproducto;
-            request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
-            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            request.send(strData);
-            request.onreadystatechange = function(){
-                if(request.readyState == 4 && request.status == 200){
-                    let objData = JSON.parse(request.responseText);
-                    if(objData.status)
-                    {
-                        swal("Eliminar!", objData.msg , "success");
-                        tableProducto.api().ajax.reload();
-                    }else{
-                        swal("Atención!", objData.msg , "error");
-                    }
-                }
-            }
-        }
+//         if (isConfirm){
+//             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
+//             let ajaxUrl = base_url+'/Productos/delProducto';
+//             let strData = "idProducto="+idproducto;
+//             request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
+//             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+//             request.send(strData);
+//             request.onreadystatechange = function(){
+//                 if(request.readyState == 4 && request.status == 200){
+//                     let objData = JSON.parse(request.responseText);
+//                     if(objData.status)
+//                     {
+//                         swal("Eliminar!", objData.msg , "success");
+//                         tableProducto.api().ajax.reload();
+//                     }else{
+//                         swal("Atención!", objData.msg , "error");
+//                     }
+//                 }
+//             }
+//         }
 
-    });
-}
+//     });
+// }
 
 function fntInputFile(){
     let inputUploadfile = document.querySelectorAll(".inputUploadfile");
     inputUploadfile.forEach(function(inputUploadfile){
         inputUploadfile.addEventListener('change', function(){ 
            //Esta variable correspode a #idProducto de tipo hiden y sirve para saber a que id se le va asignar la imagen 
-            let idProducto = document.querySelector("#idProducto").value;
+           let idProducto = document.querySelector("#idProducto").value;
+            // console.log(idProducto);
             //Esta variabla agarra el valor de elemento padre que es el id="div24" del html
             let parentId = this.parentNode.getAttribute("id");
             //Agrra el id del elemento file 
@@ -381,9 +382,9 @@ function fntInputFile(){
                     prevImg.innerHTML = `<img class="loading" src="${base_url}/Assets/images/loading.svg">`;
                     
                     let request  = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
-                    let ajaxUrl = base_url+'/Productos/setImage';
+                    let ajaxUrl = base_url+'/Productos/setImage'; 
                     let formData = new FormData();
-                    formData.append('idproducto', idProducto);
+                    formData.append('idproducto',idProducto);
                     formData.append("foto", this.files[0]);
                     request.open("POST",ajaxUrl,true);
                     request.send(formData);
@@ -396,8 +397,8 @@ function fntInputFile(){
                             if (objData.status) {
                                 prevImg.innerHTML = `<img src="${objeto_url}">`;
                                 document.querySelector("#"+parentId+" .btnDeleteImage").setAttribute("imgname",objData.imgname);
-                                document.querySelector("#"+parentId+".btnUploadfile").classList.add(notBlock);
-                                document.querySelector("#"+parentId+".btnDeleteImage").classList.remove(notBlock);
+                                document.querySelector("#"+parentId+" .btnUploadfile").classList.add("notBlock");
+                                document.querySelector("#"+parentId+" .btnDeleteImage").classList.remove("notBlock");
                             }else{
                                 swal("Error", objData.msg, "error");
                             }

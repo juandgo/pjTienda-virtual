@@ -99,7 +99,7 @@
                     }
                     if ($_SESSION['permisosMod']['u']) {
                         //con el this ya se que voy a enviar todo el boton 
-                        $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idproducto'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
+                        $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo('.$arrData[$i]['idproducto'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
                     }
                     if ($_SESSION['permisosMod']['d']) {
                         $btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idproducto'].')" title="Eliminar producto"><i class="far fa-trash-alt"></i></button>
@@ -149,9 +149,9 @@
                     $arrResponse = array('status' => false, 'msg' => 'Error de dato.');
                 }else{
                     $idProducto = intval($_POST['idproducto']);
-                    // $idProducto = 1; //Esto lo hice para probar que funcionara 
+                    // $idProducto = 2; //Esto lo hice para probar que funcionara 
                     $foto = $_FILES['foto'];//esto espara poder acceder a todos los elementos de la imagen
-                    $imgNombre = 'pro_'.md5(date('d-m-Y H:i:s')).'.jpg';//pro_ abreviatura de producto, esto se concatena para darle un nombre a la imagen con la fecha de creacion 
+                    $imgNombre = 'pro_'.md5(date('d-m-Y H:m:s')).'.jpg';//pro_ abreviatura de producto, esto se concatena para darle un nombre a la imagen con la fecha de creacion 
                     $request_image = $this->model->insertImage($idProducto,$imgNombre);
                     if($request_image){// si hay imagen 
                         $uploadImage = uploadImage($foto,$imgNombre);
