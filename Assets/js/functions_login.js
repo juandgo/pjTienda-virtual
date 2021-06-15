@@ -26,13 +26,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 request.open("POST",ajaxUrl,true);
                 request.send(formData);
                 // console.log(request);
-
                request.onreadystatechange = function(){
-
-                    if (request.readyState != 4) return;//no hace absolutamente nada si es diferente de 4 
+                   //no hace absolutamente nada si es diferente de 4 
+                    if (request.readyState != 4) return;
                     if (request.status == 200) {
                         var objData = JSON.parse(request.responseText);
-                        if (objData.status){// si el status es true es correcto
+                        if (objData.status){
                             //al iniciar sesión muestra el dashboard
                             window.location = base_url+'/dashboard';
                         }else{
@@ -42,7 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     }else{
                         swal("Atención", "Error en el proceso", "error");
                     }
-                    divLoading.style.display = "none";//oculta la animacion loading cuando termine de cargar 
+                    //oculta la animacion loading cuando termine de cargar 
+                    divLoading.style.display = "none";
                     return false;                   
                 // console.log(request);
                }
@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
-        
     }
     //Sí esxixte el elemento formCambiarPass hacer
     if (document.querySelector('#formCambiarPass')) {
@@ -118,17 +117,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     return false;
                 }
                 divLoading.style.display = "flex";
-                var request = (window.XMLHttpRequest) ? 
-                                new XMLHttpRequest() : 
-                                new ActiveXObject('Microsoft.XMLHTTP');
+                var request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
                 var ajaxUrl = base_url+'/Login/setPassword';
                 //se crea el obejto formData con el parametro formCambiarPass
                 var formData = new FormData(formCambiarPass);
                 request.open("POST",ajaxUrl,true);
                 request.send(formData);
-
                 request.onreadystatechange = function () {
-
                     if(request.readyState != 4) return;
                     if (request.status == 200) {
                         // console.log(request.responseText);

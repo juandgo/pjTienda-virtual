@@ -119,7 +119,7 @@ window.addEventListener('load',function(){
                 }
             }
         }
-
+        //Añadir Imagen 
         if (document.querySelector(".btnAddImage")) {
             let btnAddImage = document.querySelector(".btnAddImage");
             btnAddImage.onclick = function(e){
@@ -252,6 +252,102 @@ function fntViewInfo(idproducto) {
             }
         }
     }
+}
+
+function fntEditInfo(element, idproducto){
+    document.querySelector('#titleModal').innerHTML = "Acatualizar Producto";
+    document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
+    document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");
+    document.querySelector('#btnText').innerHTML = "Acatualizar";
+
+    let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('MicrosofXMLHTTP');
+    let ajaxUrl = base_url+'/Productos/getProducto/'+idproducto;
+    request.open("GET",ajaxUrl,true);
+    request.send(); 
+    request.onreadystatechange = function() {
+        if (request.readyState == 4 && request.status == 200) {
+            let objData = JSON.parse(request.responseText);
+            if (objData.status){// si el status es true
+                //Con esto ya no hago uso de objData.data; para acortar codigo
+                let objProducto = objData.data;
+                // console.log(objProducto.nombre);
+
+                document.querySelector("#txtCodigo").value = objProducto.codigo;           
+                document.querySelector("#txtNombre").value = objProducto.nombre;    
+                document.querySelector("#txtDescripcion").value = objProducto.descripcion; 
+                document.querySelector("#txtPrecio").value = objProducto.precio;    
+                document.querySelector("#txtStock").value = objProducto.stock;         
+                document.querySelector("#listCategoria").value = objProducto.categoriaid;     
+                document.querySelector("#listStatus").value = objProducto.status;
+                //Para que algunas cosas funcionen se hace esto por que dependen de otras librerias
+                tinymce.activeEditor.setContent(objProducto.descripcion);
+                $('#listCategoria').selectpicker('render');
+                $('#listStatus').selectpicker('render');
+                fntBarCode();
+
+                let htmlImage = "";
+                if (objProducto.images.length > 0) {
+                    //Agarra la posicion de la imagen
+                    let objProductos = objProducto.images;
+                    for (let p = 0; p < objProductos.length; p++){  
+                        //Otiene la url de la imagen en el html 
+                        let key = Date.now()+p;
+                        htmlImage += `<div id="div${key}">
+                            <div class="prevImage">
+                            <img src="${objProductos[p].url_image}"></img>
+                            </div>
+                            <button type="button" class="btnDeleteImage" onclick="fntDelItem('#div${key}')" imgname="${objProductos[p].img}"><i class="fas fa-trash-alt"></i>
+                            </button>
+                            </div>`; 
+                    }
+                }
+                document.querySelector('#containerImages').innerHTML = htmlImage; 
+                document.querySelector("#divBarCode").classList.remove("notBlock");
+                document.querySelector("#containerGallery").classList.remove("notBlock");
+                
+                $('#modalFormProductos').modal('show');
+            }else{
+                swal("Error, objData.msg, error");
+            }
+        }
+    }
+}
+
+function fntDelInfo(idproducto) {
+    //Alerta
+    swal({
+        title: "Eliminar Producto",
+        text: "¿Realmente quiere eliminar el producto?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
+        
+        if (isConfirm){
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url+'/Productos/delProducto';
+            let strData = "idProducto="+idproducto;
+            request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
+                    let objData = JSON.parse(request.responseText);
+                    if(objData.status)
+                    {
+                        swal("Eliminar!", objData.msg , "success");
+                        tableProducto.api().ajax.reload();
+                    }else{
+                        swal("Atención!", objData.msg , "error");
+                    }
+                }
+            }
+        }
+
+    });
 }
 
 function fntInputFile(){

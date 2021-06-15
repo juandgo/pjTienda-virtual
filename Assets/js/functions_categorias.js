@@ -189,8 +189,10 @@ function fntEditInfo(element, idcategoria) {
     request.open("GET",ajaxUrl,true);
     request.send(); 
     request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200) {//esto quiere decir que esta devolviendo informacion
-            let objData = JSON.parse(request.responseText);//esto esta agarrando la respuesta del formato jackson de categorias php//ssi tienes problema con esto el problema puede estar en los parametros de esta funcion 
+        //esto quiere decir que esta devolviendo informacion
+        if (request.readyState == 4 && request.status == 200) {
+            //esto esta agarrando la respuesta del formato jackson de categorias php//ssi tienes problema con esto el problema puede estar en los parametros de esta funcion 
+            let objData = JSON.parse(request.responseText);
             if (objData.status) {// si es verdadro  
                 //Agarra los valores y los pone en el modal
                 document.querySelector("#idCategoria").value = objData.data.idcategoria;
@@ -222,7 +224,8 @@ function fntEditInfo(element, idcategoria) {
                     //pone X para borrar foto de categoria
                     document.querySelector('.delPhoto').classList.remove("notBlock");
                 }
-                $('#modalFormCategorias').modal('show');//muestra por su id en el modal
+                //muestra por su id en el modal
+                $('#modalFormCategorias').modal('show');
             }else{
                 swal("Error, objData.msg, error");
             }
