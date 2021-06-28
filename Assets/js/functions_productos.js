@@ -112,10 +112,11 @@ window.addEventListener('load',function(){
                             document.querySelector("#idProducto").value = objData.idproducto;// Uso el id que me da el ajax para las imagenes
                             tableProductos.api().ajax.reload();//El dataTable es un api :D
                         }else{
-                            swal("Error", objData.msg, "success");
+                            swal("Error", objData.msg, "error");
                         }
                     }
                 divLoading.style.display = "none";
+                return false; 
                 }
             }
         }
@@ -266,7 +267,7 @@ function fntEditInfo(idproducto){
     request.send(); 
     request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText);
+            // console.log(request.responseText);
             let objData = JSON.parse(request.responseText);
             if (objData.status){// si el status es true
                 //Con esto ya no hago uso de objData.data; para acortar codigo

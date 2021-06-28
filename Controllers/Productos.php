@@ -29,9 +29,9 @@
             if($_POST){
                 //Atencion el dep(); exit(); solo imprime e interrumpe el proceso de la funcion, esto lo ago para ver que informacion se esta enviando por ajax
                 // dep($_POST);
+                // die();
                 // dep($_FILES);
                 // exit();
-                // die();
                 if (empty($_POST['txtNombre']) || empty($_POST['txtCodigo']) || empty($_POST['listCategoria']) || empty($_POST['txtPrecio']) || empty($_POST['listStatus'])) {
                     $arrResponse = array("status" => false, "msg" => "Datos incorrectos.");
                 }else{
@@ -39,9 +39,9 @@
                     $strNombre = strClean($_POST['txtNombre']);
                     $strDescripcion = strClean($_POST['txtDescripcion']);
                     $strCodigo = strClean($_POST['txtCodigo']);
-                    $intCategoriaId = intval(strClean($_POST['listCategoria']));
+                    $intCategoriaId = intval($_POST['listCategoria']);
                     $strPrecio= strClean($_POST['txtPrecio']);
-                    $intStock= intval(strClean($_POST['txtStock']));
+                    $intStock= intval($_POST['txtStock']);
                     $intStatus = intVal($_POST['listStatus']);//intVal convierte a entero 
                     //Se envia la informacion al modelo 
                     
@@ -56,14 +56,26 @@
                                                                         $intStatus);
                     }else{
                         $option = 2;
+                        $request_producto = $this->model->updateProducto($idProducto,
+                                                                        $strNombre,
+                                                                        $strDescripcion,
+                                                                        $strCodigo,
+                                                                        $intCategoriaId,
+                                                                        $strPrecio,
+                                                                        $intStock,
+                                                                        $intStatus);
                     }
 
                     if($request_producto > 0){//Si es mayor que cero quiere decir que si se almaceno o actualizo.
                         if ($option == 1) {//Si se almacena muestra mensaje.
                             $arrResponse = array('status' => true, 'idproducto' => $request_producto, 'msg' => 'Datos guardados correctamente.');
+                        }else{
+                            $arrResponse = array('status' => true, 'idproducto' => $idProducto, 'msg' => 'Datos Actualizados correcatamente.');
                         }
                     }else if($request_producto == 'exist'){
-                        $arrResponse = array('status' => false, 'msg' => '¡Atención! ya existe un producto con el Codigo de Barras Ingresado.');
+                        $arrResponse = array('status' => false, 'msg' => '¡Atención! ya existe un producto con el Código de Barras Ingresado.');
+                    }else{
+                        $arrResponse = array('status' => false, 'msg' => 'No es posible almacenar datos.');
                     }
                     
                 }

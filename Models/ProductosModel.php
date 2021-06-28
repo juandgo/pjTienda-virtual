@@ -2,6 +2,7 @@
     
     class ProductosModel extends Mysql{
 
+        public $intIdProducto;
         public $intCategoriaId;
         public $strNombre;
         public $strDescripcion;
@@ -67,6 +68,49 @@
 
                 $request_insert = $this->insert($query_insert,$arrData);
                 $return = $request_insert;
+            }else{
+                $return = "exist";
+            }
+            return $return;
+        }
+
+        public function updateProducto(int $idProducto,string $nomProducto, string $descripcion, string $codigo, int $categoriaid, string $precio, 
+        int $stock, int $status){
+            
+            $this->intIdProducto = $idProducto;
+            $this->strNombre = $nomProducto;
+            $this->strDescripcion = $descripcion;
+            $this->intCodigo = $codigo;
+            $this->intCategoriaId = $categoriaid;
+            $this->strPrecio = $precio;
+            $this->intStock = $stock;
+            $this->intStatus = $status;
+            //Busca que se encuentre en la tabla
+            //las '{}' indica que es un dato varchar
+            $sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}' AND idproducto != $this->intIdProducto";
+            $request = $this->select_all($sql);
+            //Sí la consulta no exite  se puede insertar 
+            if (empty($request)) {//Si no existe el producto lo crea
+                $$sql = "UPDATE producto
+                        SET categoriaid = ?,
+                            codigo = ?,
+                            nombre = ?, 
+                            descripcion = ?, 
+                            precio = ?, 
+                            stock = ?, 
+                            status = ?
+                        WHERE idproducto = $this->intIdProducto)";
+                                //Nota: esto siempre tiene que estar en el orden del query
+                $arrData = array($this->intCategoriaId,
+                                $this->intCodigo,
+                                $this->strNombre,
+                                $this->strDescripcion,
+                                $this->strPrecio,
+                                $this->intStock,
+                                $this->intStatus);
+
+                $request = $this->update($sql,$arrData);
+                $return = $request;
             }else{
                 $return = "exist";
             }
