@@ -86,8 +86,8 @@
             $this->intStock = $stock;
             $this->intStatus = $status;
             //Busca que se encuentre en la tabla
-            //las '{}' indica que es un dato varchar
-            $sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}' AND idproducto != $this->intIdProducto";
+            //las '{}' indica que es un dato varchar, hasta ahora me funciona el query sin colocar el dato asi '{$this->intCodigo}' 
+            $sql = "SELECT * FROM producto WHERE codigo = $this->intCodigo AND idproducto != $this->intIdProducto";
             // echo $sql; exit;
             $request = $this->select_all($sql);
             //Sí la consulta no exite  se puede insertar 
