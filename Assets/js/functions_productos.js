@@ -1,6 +1,7 @@
 //Esto es para incluir el plugin de codigo de barras, las comillas invertidas me ayudan para que siva el ${base_url}.
 document.write(`<script src="${base_url}/Assets/js/plugins/JsBarcode.all.min.js"></script>`);
 let tableProductos;
+let rowTable = "";
 //Con esto soluciono  el funcionamiento del tinymce
 $(document).on('focusin', function(e) {
     if ($(e.target).closest(".tox-dialog").length) {
@@ -74,7 +75,7 @@ window.addEventListener('load',function(){
         ],
         "responsieve":"true",
         "bDestroy": true,
-        "iDisplayLength": 10,
+        "iDisplayLength": 2,
         "order": [[0, "desc"]]
        });
        //Nuevo Producto
@@ -85,8 +86,10 @@ window.addEventListener('load',function(){
                 let strNombre = document.querySelector('#txtNombre').value; 
                 let intCodigo = document.querySelector('#txtCodigo').value;
                 let strPrecio = document.querySelector('#txtPrecio').value;
-                let strStock = document.querySelector('#txtStock').value;
-                if (strNombre == '' || intCodigo == '' || strPrecio == '' || strStock == '') {
+                let intStock = document.querySelector('#txtStock').value;
+                let intStatus = document.querySelector('#listStatus').value;
+
+                if (strNombre == '' || intCodigo == '' || strPrecio == '' || intStock == '') {
                     swal("Atención", "Todos los campos son obligatorios.", "error");
                     return false;
                 }
@@ -110,7 +113,20 @@ window.addEventListener('load',function(){
                         if (objData.status) { // si el status = true en el objeto ajax hace
                             swal("", objData.msg, "success");
                             document.querySelector("#idProducto").value = objData.idproducto;// Uso el id que me da el ajax para las imagenes
-                            tableProductos.api().ajax.reload();//El dataTable es un api :D
+                            if (rowTable == "") {
+                                tableProductos.api().ajax.reload();//El dataTable es un api :D
+                            }else{
+                                 //Con esto no retrocede a la primer pagina al cargar sino que se queda en la misma que esta el registro 
+                                htmlStatus = intStatus == 1 ? //Velida si esta activo 
+                                '<span class="badge badge-success">Activo</span>' : 
+                                '<span class="badge badge-danger">Inactivo</span>';
+                                rowTable.cells[1].textContent = intCodigo;
+                                rowTable.cells[2].textContent = strNombre;
+                                rowTable.cells[3].textContent = intStock;
+                                rowTable.cells[4].textContent = smoney+strPrecio;
+                                rowTable.cells[5].innerHTML = htmlStatus;//se coloca innerHTML porque lo que se integra el la celda es html 
+                                rowTable = "";//Limpia la variable
+                            }
                         }else{
                             swal("Error", objData.msg, "error");
                         }
@@ -255,7 +271,9 @@ function fntViewInfo(idproducto) {
     }
 }
 
-function fntEditInfo(idproducto){
+function fntEditInfo(element, idproducto){
+    rowTable = element.parentNode.parentNode.parentNode;//agarrato todo el elemento padre que contiene el boton 
+    console.log(rowTable);
     document.querySelector('#titleModal').innerHTML = "Acatualizar Producto";
     document.querySelector('.modal-header').classList.replace("headerRegister","headerUpdate" );
     document.querySelector('#btnActionForm').classList.replace("btn-primary", "btn-info");

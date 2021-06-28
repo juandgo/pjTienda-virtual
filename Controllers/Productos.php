@@ -110,8 +110,8 @@
                         $btnView = '<button class="btn btn-info btn-sm" onClick="fntViewInfo('.$arrData[$i]['idproducto'].')" title="Ver producto"><i class="fas fa-eye"></i></button>'; 
                     }
                     if ($_SESSION['permisosMod']['u']) {
-                        //con el this ya se que voy a enviar todo el boton 
-                        $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo('.$arrData[$i]['idproducto'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
+                        //con el this ya sé que voy a enviar todo el boton 
+                        $btnEdit =  '<button class="btn btn-primary btn-sm" onClick="fntEditInfo(this,'.$arrData[$i]['idproducto'].')" title="Editar producto"><i class="fas fa-pencil-alt"></i></button>';
                     }
                     if ($_SESSION['permisosMod']['d']) {
                         $btnDelete = '<button class="btn btn-danger btn-sm" onClick="fntDelInfo('.$arrData[$i]['idproducto'].')" title="Eliminar producto"><i class="far fa-trash-alt"></i></button>
