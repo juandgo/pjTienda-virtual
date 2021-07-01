@@ -75,7 +75,7 @@ window.addEventListener('load',function(){
         ],
         "responsieve":"true",
         "bDestroy": true,
-        "iDisplayLength": 2,
+        "iDisplayLength": 10,
         "order": [[0, "desc"]]
        });
        //Nuevo Producto
@@ -427,7 +427,34 @@ function fntInputFile(){
             }
         }); 
     });
-    
+}
+
+function fntDelItem(element){
+    let nameImg = document.querySelector(element+' .btnDeleteImange').getAttribute("imgname");
+    let request  = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    let ajaxUrl = base_url+'/Productos/delFile';
+    let idProducto = document.querySelector("#idProducto").value;
+
+    let formData = new FormData();
+    formData.append('idproducto', idProducto);
+    formData.append('file', nameImg);
+    request.open('POST', ajaxUrl, true);
+    request.send(formData);
+
+    request.onreadystatechange = function() {
+        if(request.readyState != 4) return; 
+        if (request.status == 200) {
+            // console.log(request.responseText);
+            let objData = JSON.parse(request.responseText); 
+            // si es verdadero
+            if (objData.status) {
+                let itemRemove = document.querySelector(element);
+                itemRemove.parentNode.removeChild(itemRemove);
+            }else{
+                swal("", objData.msg, "error");
+            }
+        }
+    }
 }
 
 function openModal() {
