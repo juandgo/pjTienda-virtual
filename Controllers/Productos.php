@@ -178,5 +178,29 @@
             }
             die();
         }
+
+        public function delFile(){
+           
+            if ($_POST) {
+                if (empty($_POST['idproducto']) || empty($_POST['file'])) {
+                    $arrResponse = array('status' => false, 'msg' => 'Datos incorrectos.');
+                }else{
+                    //Eliminar de la DB
+                    $idProducto = intval($_POST['idproducto']);
+                    $imgNombre = strClean($_POST['file']);//pro_ abreviatura de producto, esto se concatena para darle un nombre a la imagen con la fecha de creacion 
+                    $request_image = $this->model->deleteImage($idProducto,$imgNombre);
+                    if($request_image){// si hay imagen 
+                        $deleteFile = deleteFile($imgNombre);
+                        $arrResponse = array('status' => true, 'msg' => 'Archivo eliminado.');
+                    }else{
+                        $arrResponse = array('status' => false, 'msg' => 'Error al eliminar.');
+                    }
+                }
+                // $arrResponse = array('status' => true, 'imgname' => "img_654sd65f4654f.jpg");
+                // sleep(3);
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
+            }
+            die();
+        }
             
     }

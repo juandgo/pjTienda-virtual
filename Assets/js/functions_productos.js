@@ -430,10 +430,10 @@ function fntInputFile(){
 }
 
 function fntDelItem(element){
-    let nameImg = document.querySelector(element+' .btnDeleteImange').getAttribute("imgname");
+    let nameImg = document.querySelector(element+' .btnDeleteImage').getAttribute("imgname");
+    let idProducto = document.querySelector("#idProducto").value;
     let request  = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
     let ajaxUrl = base_url+'/Productos/delFile';
-    let idProducto = document.querySelector("#idProducto").value;
 
     let formData = new FormData();
     formData.append('idproducto', idProducto);
