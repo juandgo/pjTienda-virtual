@@ -162,7 +162,7 @@
             $this->strImagen = $imagen;
             $query = "DELETE FROM imagen 
                         WHERE productoid = $this->intIdProducto
-                        AND img = $this->strImagen";
+                        AND img = '{$this->strImagen}'";//En este caso si funciono lo del '{}' que es para datos varchar
             $request_delete = $this->delete($query);
             return $request_delete;
         }
