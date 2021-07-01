@@ -332,42 +332,42 @@ function fntEditInfo(element, idproducto){
     }
 }
 
-// function fntDelInfo(idproducto) {
-//     //Alerta
-//     swal({
-//         title: "Eliminar Producto",
-//         text: "¿Realmente quiere eliminar el producto?",
-//         type: "warning",
-//         showCancelButton: true,
-//         confirmButtonText: "Si, eliminar!",
-//         cancelButtonText: "No, cancelar!",
-//         closeOnConfirm: false,
-//         closeOnCancel: true
-//     }, function(isConfirm) {
+function fntDelInfo(idproducto) {
+    //Alerta
+    swal({
+        title: "Eliminar Producto",
+        text: "¿Realmente quiere eliminar el producto?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, eliminar!",
+        cancelButtonText: "No, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: true
+    }, function(isConfirm) {
         
-//         if (isConfirm){
-//             let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
-//             let ajaxUrl = base_url+'/Productos/delProducto';
-//             let strData = "idProducto="+idproducto;
-//             request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
-//             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-//             request.send(strData);
-//             request.onreadystatechange = function(){
-//                 if(request.readyState == 4 && request.status == 200){
-//                     let objData = JSON.parse(request.responseText);
-//                     if(objData.status)
-//                     {
-//                         swal("Eliminar!", objData.msg , "success");
-//                         tableProducto.api().ajax.reload();
-//                     }else{
-//                         swal("Atención!", objData.msg , "error");
-//                     }
-//                 }
-//             }
-//         }
+        if (isConfirm){
+            let request = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObje('Microsoft.XMLHTTP');
+            let ajaxUrl = base_url+'/Productos/delProducto';
+            let strData = "idProducto="+idproducto;
+            request.open("POST",ajaxUrl,true);//Envia la operacion por medio de ajax
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(strData);
+            request.onreadystatechange = function(){
+                if(request.readyState == 4 && request.status == 200){
+                    let objData = JSON.parse(request.responseText);
+                    if(objData.status)
+                    {
+                        swal("Eliminar!", objData.msg , "success");
+                        tableProductos.api().ajax.reload();
+                    }else{
+                        swal("Atención!", objData.msg , "error");
+                    }
+                }
+            }
+        }
 
-//     });
-// }
+    });
+}
 
 function fntInputFile(){
     let inputUploadfile = document.querySelectorAll(".inputUploadfile");

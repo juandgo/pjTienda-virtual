@@ -200,5 +200,19 @@
             }
             die();
         }
+
+        public function delProducto(){
+            if ($_POST) {
+                $intIdProducto = intval($_POST['idProducto']);
+                $requestDelete = $this->model->deleteProducto($intIdProducto);
+                if ($requestDelete) {//Si solicita emilmnar producto
+                    $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto.');
+                }else{
+                    $arrResponse = array('status' => false, 'msg' => 'Error al eliminar el producto.');
+                }
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
+            }
+            die();
+        }
             
     }
