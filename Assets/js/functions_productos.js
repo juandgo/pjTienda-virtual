@@ -109,10 +109,12 @@ window.addEventListener('load',function(){
                 request.onreadystatechange = function(){
                     if (request.readyState == 4 && request.status == 200) {
                         // console.log(request.responseText);
-                        let objData = JSON.parse(request.responseText); 
+                        let objData = JSON.parse(request.responseText);
+                        console.log("hola");
                         if (objData.status) { // si el status = true en el objeto ajax hace
                             swal("", objData.msg, "success");
                             document.querySelector("#idProducto").value = objData.idproducto;// Uso el id que me da el ajax para las imagenes
+                            document.querySelector("#containerGallery").classList.remove("notBlock");
                             if (rowTable == "") {
                                 tableProductos.api().ajax.reload();//El dataTable es un api :D
                             }else{
@@ -152,7 +154,7 @@ window.addEventListener('load',function(){
                 </div>
                 <input type="file" id="img${key}" name="foto" class="inputUploadfile">
                 <label for="img${key}" class="btnUploadfile"><i class="fas fa-upload"></i></label>
-                <button class="btnDeleteImage notblock" type="button" onclick="fntDelItem('#div${key}')">
+                <button class="btnDeleteImage notBlock" type="button" onclick="fntDelItem('#div${key}')">
                     <i class="fas fa-trash-alt"></i>
                 </button>`;
                 //Agrega el nuevo html con su id 
@@ -459,11 +461,16 @@ function fntDelItem(element){
 
 function openModal() {
     //Configuracion de Apariencia
+    rowTable = "";
     document.querySelector('#idProducto').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");
     document.querySelector('#btnText').innerHTML ="Guardar";
     document.querySelector('#titleModal').innerHTML = "Nuevo Producto";
     document.querySelector("#formProducto").reset();
+
+    document.querySelector("#divBarCode").classList.add("notBlock");
+    document.querySelector("#containerGallery").classList.add("notBlock");
+    document.querySelector("#containerImages").innerHTML = "";
     $('#modalFormProductos').modal('show');
 }

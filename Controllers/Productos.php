@@ -22,7 +22,6 @@
             $data['page_name'] = 'productos';
             $data['page_functions_js'] = 'functions_productos.js';
             $this->views->getView($this,'productos',$data);
-    
         }
 
         public function setProducto(){
