@@ -46,23 +46,27 @@
                     
                     if ($idProducto == 0 ) {
                         $option = 1;
-                        $request_producto = $this->model->insertProducto($strNombre,
-                                                                        $strDescripcion,
-                                                                        $strCodigo,
-                                                                        $intCategoriaId,
-                                                                        $strPrecio,
-                                                                        $intStock,
-                                                                        $intStatus);
+                        if ($_SESSION['permisosMod']['w']) {
+                            $request_producto = $this->model->insertProducto($strNombre,
+                                                                            $strDescripcion,
+                                                                            $strCodigo,
+                                                                            $intCategoriaId,
+                                                                            $strPrecio,
+                                                                            $intStock,
+                                                                            $intStatus);
+                        }
                     }else{
                         $option = 2;
-                        $request_producto = $this->model->updateProducto($idProducto,
-                                                                        $strNombre,
-                                                                        $strDescripcion,
-                                                                        $strCodigo,
-                                                                        $intCategoriaId,
-                                                                        $strPrecio,
-                                                                        $intStock,
-                                                                        $intStatus);
+                        if ($_SESSION['permisosMod']['u']) {
+                            $request_producto = $this->model->updateProducto($idProducto,
+                                                                            $strNombre,
+                                                                            $strDescripcion,
+                                                                            $strCodigo,
+                                                                            $intCategoriaId,
+                                                                            $strPrecio,
+                                                                            $intStock,
+                                                                            $intStatus);
+                        }
                     }
 
                     if($request_producto > 0){//Si es mayor que cero quiere decir que si se almaceno o actualizo.
@@ -204,14 +208,16 @@
 
         public function delProducto(){
             if ($_POST) {
-                $intIdProducto = intval($_POST['idProducto']);
-                $requestDelete = $this->model->deleteProducto($intIdProducto);
-                if ($requestDelete) {//Si solicita emilmnar producto
-                    $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto.');
-                }else{
-                    $arrResponse = array('status' => false, 'msg' => 'Error al eliminar el producto.');
+                if ($_SESSION['permisosMod']['r']) {{}
+                    $intIdProducto = intval($_POST['idProducto']);
+                    $requestDelete = $this->model->deleteProducto($intIdProducto);
+                    if ($requestDelete) {//Si solicita emilmnar producto
+                        $arrResponse = array('status' => true, 'msg' => 'Se ha eliminado el producto.');
+                    }else{
+                        $arrResponse = array('status' => false, 'msg' => 'Error al eliminar el producto.');
+                    }
+                    echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
                 }
-                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
             }
             die();
         }
