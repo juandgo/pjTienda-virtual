@@ -208,7 +208,7 @@
 
         public function delProducto(){
             if ($_POST) {
-                if ($_SESSION['permisosMod']['r']) {{}
+                if ($_SESSION['permisosMod']['d']) {{}
                     $intIdProducto = intval($_POST['idProducto']);
                     $requestDelete = $this->model->deleteProducto($intIdProducto);
                     if ($requestDelete) {//Si solicita emilmnar producto

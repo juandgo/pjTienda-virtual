@@ -51,16 +51,16 @@
                     if ($intIdCategoria == 0) {
                         //Crear
                         //si la variable de session tiene valor 1 en w (write) realiza el proceso para crear las categorias, esto por consola con el script $('#modalFormCategorias').modal("show"); que muestra el modal 
+                        $option = 1;
                         if ($_SESSION['permisosMod']['w']) { 
                             $request_categoria = $this->model->insertCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
-                            $option = 1;
                         }
                     }else {
                         //Acrtualizar
                         //si la variable de session tiene valor 1 en u (udate) realiza el proceso para Actualizar las categorias, esto por consola con el script $('#modalFormCategorias').modal("show"); que muestra el modal 
-                        if ($_SESSION['permisosMod']['u']) {
-                        $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$intStatus);
 						$option = 2;
+                        if ($_SESSION['permisosMod']['u']) {
+                            $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$intStatus);
                             if ($nombre_foto == '') {
                                 if ($_POST['foto_actual'] != 'portada_categoria.png'  && $_POST['foto_remove'] == 0) {
                                     $imgPortada = $_POST['foto_actual'];

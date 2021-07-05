@@ -47,20 +47,23 @@
                     
                     if($idUsuario == 0){
                         $option = 1;
-                        $strPassword =  empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
-                        $strPasswordEncript = hash("SHA256",$strPassword);
-                        $request_user = $this->model->insertCliente($strIdentificacion,
-                                                                            $strNombre, 
-                                                                            $strApellido, 
-                                                                            $intTelefono, 
-                                                                            $strEmail,
-                                                                            $strPasswordEncript,
-                                                                            $intTipoId, 
-                                                                            $strNit,
-                                                                            $strNomFiscal,
-                                                                            $strDirFiscal );
+                        if ($_SESSION['permisosMod']['w']) {
+                            $strPassword =  empty($_POST['txtPassword']) ? passGenerator() : $_POST['txtPassword'];
+                            $strPasswordEncript = hash("SHA256",$strPassword);
+                            $request_user = $this->model->insertCliente($strIdentificacion,
+                                                                                $strNombre, 
+                                                                                $strApellido, 
+                                                                                $intTelefono, 
+                                                                                $strEmail,
+                                                                                $strPasswordEncript,
+                                                                                $intTipoId, 
+                                                                                $strNit,
+                                                                                $strNomFiscal,
+                                                                                $strDirFiscal );
+                        }                                                        
                     }else{
                         $option = 2;
+                        if ($_SESSION['permisosMod']['u']) {
                         $strPassword =  empty($_POST['txtPassword']) ? "" : hash("SHA256",$_POST['txtPassword']);
                         $request_user = $this->model->updateCliente($idUsuario,
                                                                     $strIdentificacion, 
@@ -72,6 +75,7 @@
                                                                     $strNit,
                                                                     $strNomFiscal, 
                                                                     $strDirFiscal);
+                        }                                            
                     }
     
                     if($request_user > 0 ){
@@ -145,7 +149,7 @@
         }
         public function delCliente(){
             if ($_POST) {
-                // if (empty($_SESSION['permisosMod']['d'])) {
+                if ($_SESSION['permisosMod']['d']) {
                     $intIdUsuario = intval($_POST['idUsuario']);
                     $requestDelete = $this->model->deleteCliente($intIdUsuario);
                     if ($requestDelete) {
@@ -154,7 +158,7 @@
                         $arrResponse = array('status' => false, 'data' => 'Error al eliminar el cliente.');
                     }
                     echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
-                // }
+                }
             }    
 			die();
         }

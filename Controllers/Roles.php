@@ -94,12 +94,16 @@
 
             if ($intIdRol == 0) {
                 //Crear
-                $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
                 $option = 1;
+                if ($_SESSION['permisosMod']['w']) {
+                    $request_rol = $this->model->insertRol($strRol, $strDescripcion, $intStatus);
+                }
             }else {
                 //Acrtualizar
-                $request_rol = $this->model->updateRol($intIdRol, $strRol, $strDescripcion, $intStatus);
                 $option = 2;
+                if ($_SESSION['permisosMod']['w']) {
+                    $request_rol = $this->model->updateRol($intIdRol, $strRol, $strDescripcion, $intStatus);
+                }
             }
             //Si la respuesta anterior es igual a 1 o 2 quiere decir que si se inserto el query 
             if ($request_rol > 0) {
@@ -121,16 +125,18 @@
         public function delRol(){
 
             if ($_POST) {
-                $intIdRol = intval($_POST['idrol']);//Este es el idrol del dato
-                $requestDelete = $this->model->deleteRol($intIdRol);
-                if ($requestDelete == 'ok'){
-                    $arrResponse = array('status'=> true, 'msg'=>'Se ha eliminado el Rol.');
-                }else if($requestDelete == 'exist'){
-                    $arrResponse = array('status'=> false, 'msg'=>'No es posible eliminar un Rol asociado a usuarios.');
-                }else {
-                    $arrResponse = array('status'=> false, 'msg'=>'Error al elimnar el Rol.');
+                if ($_SESSION['permisosMod']['d']) {
+                    $intIdRol = intval($_POST['idrol']);//Este es el idrol del dato
+                    $requestDelete = $this->model->deleteRol($intIdRol);
+                    if ($requestDelete == 'ok'){
+                        $arrResponse = array('status'=> true, 'msg'=>'Se ha eliminado el Rol.');
+                    }else if($requestDelete == 'exist'){
+                        $arrResponse = array('status'=> false, 'msg'=>'No es posible eliminar un Rol asociado a usuarios.');
+                    }else {
+                        $arrResponse = array('status'=> false, 'msg'=>'Error al elimnar el Rol.');
+                    }
+                    echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
                 }
-                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
             }
             die();//Se detiene el proceso.
         }
