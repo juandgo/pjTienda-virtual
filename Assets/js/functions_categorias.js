@@ -280,7 +280,7 @@ function fntDelInfo(idcategoria) {
 
 function openModal() {
     //Configuracion de Apariencia
-    rowTable = "";//Limpia la variable
+    rowTable = "";//Limpia la variables de los campos 
     document.querySelector('#idCategoria').value ="";
     document.querySelector('.modal-header').classList.replace("headerUpdate", "headerRegister");
     document.querySelector('#btnActionForm').classList.replace("btn-info", "btn-primary");

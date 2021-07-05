@@ -125,31 +125,33 @@
         }
 
         public function getProducto($idproducto){
-            $idProducto = intval($idproducto);
-            // echo $idProducto;
-            // exit;
-            if($idProducto > 0){
-                $arrData = $this->model->selectProducto($idProducto);
-                if (empty($arrData)) {
-                    $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
-                }else{
-                    $arrImg = $this->model->selectImages($idproducto);
-                    // dep($arrImg);
-                    if (count($arrImg) > 0) {
-                        for ($i=0; $i < count($arrImg); $i++) { 
-                            //tomo la ruta de la imagen 
-                            $arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
+            if ($_SESSION['permisosMod']['r']) {
+                $idProducto = intval($idproducto);
+                // echo $idProducto;
+                // exit;
+                if($idProducto > 0){
+                    $arrData = $this->model->selectProducto($idProducto);
+                    if (empty($arrData)) {
+                        $arrResponse = array('status' => false, 'msg' => 'Datos no encontrados.');
+                    }else{
+                        $arrImg = $this->model->selectImages($idproducto);
+                        // dep($arrImg);
+                        if (count($arrImg) > 0) {
+                            for ($i=0; $i < count($arrImg); $i++) { 
+                                //tomo la ruta de la imagen 
+                                $arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
+                            }
                         }
+                        //El arrData agarra el arrImg
+                        $arrData['images'] = $arrImg;
+                        $arrResponse = array('status' => true, 'data' => $arrData);
                     }
-                    //El arrData agarra el arrImg
-                    $arrData['images'] = $arrImg;
-                    $arrResponse = array('status' => true, 'data' => $arrData);
+                    // dep($arrData);
+                    // dep($arrResponse);
+                    echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
                 }
-                // dep($arrData);
-                // dep($arrResponse);
-                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);//Devuelve un formato JSON
-                die();
             }
+            die();
         }
 
         public function setImage(){
