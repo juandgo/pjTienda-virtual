@@ -73,7 +73,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="#" class="logo">
-						<img src="images/icons/logo-01.png" alt="IMG-LOGO">
+						<img src="<?= media(); ?>/tienda/images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
 					<!-- Menu desktop -->
