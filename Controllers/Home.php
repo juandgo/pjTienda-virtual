@@ -5,11 +5,9 @@
         }
 
         public function home(){
-            $data['page_id'] = 1;
-            $data['page_tag'] = "Home";
-            $data['page_title'] = "Página principal";
-            $data['page_name'] = "home";
-            $data['page_content'] = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eveniet, laudantium pariatur ducimus recusandae nulla impedit nisi iste, veritatis cum earum minima minus iusto doloremque dolorem quas sint eum voluptate. Saepe.  ";
+            $data['page_tag'] = NOMBRE_EMPRESA;
+            $data['page_title'] = NOMBRE_EMPRESA;
+            $data['page_name'] = "tienda_virtual";
             $this->views->getView($this,"home",$data);
     
         }
