@@ -1,10 +1,21 @@
 <?php 
-    
+    // require_once("CategoriasModel.php");
     class HomeModel extends Mysql{
 
+        private $objCategoria;
         public function __construct(){
             parent::__construct();
+            $this->objCategoria = new CategoriasModel();
         }
+
+        //Utilizo metodo que esta en CategoriasModel.php
+        public function getCategorias(){
+            // return $this->objCategoria->selectCategorias();
+        }
+
+
+
+        //Esto fue un ejercio que hice al comenzar el curso 
         
         // public function setUser(string $nombre, int $edad){
         //     $query_insert = "INSERT INTO usuario(nombre,edad) VALUES(?,?)";

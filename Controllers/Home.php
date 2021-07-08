@@ -5,6 +5,9 @@
         }
 
         public function home(){
+
+            dep($this->model->getCategorias());
+
             $data['page_tag'] = NOMBRE_EMPRESA;
             $data['page_title'] = NOMBRE_EMPRESA;
             $data['page_name'] = "tienda_virtual";
