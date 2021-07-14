@@ -1,16 +1,22 @@
 <?php 
+    require_once("Models/TCategoria.php");
     class Home extends Controllers{
+        use TCategoria;
         public function __construct(){
             parent::__construct();//ejecuta el metodo constructor de la clase Controllers
         }
 
         public function home(){
 
-            dep($this->model->getCategorias());
-
+            // dep($this->getCategoriasT(CAT_SLIDER));
+            // exit;
             $data['page_tag'] = NOMBRE_EMPRESA;
             $data['page_title'] = NOMBRE_EMPRESA;
             $data['page_name'] = "tienda_virtual";
+            $data['slider'] = $this->getCategoriasT(CAT_SLIDER);
+            $data['banner'] = $this->getCategoriasT(CAT_BANNER);
+            dep($data);
+            // exit;
             $this->views->getView($this,"home",$data);
     
         }

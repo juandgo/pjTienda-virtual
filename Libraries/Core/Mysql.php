@@ -1,5 +1,5 @@
 <?php  
-    
+    //Metodos CRUD
     class Mysql extends Conexion{
         private $conexion;
         private $strquery;

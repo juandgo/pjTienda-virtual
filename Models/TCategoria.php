@@ -1,14 +1,15 @@
 <?php
 
-require_once("Libraries/Core/Mysql.php");
+require_once("Libraries/Core/Mysql.php");//Acedo a Libraries 
 trait TCategoria{
     public $con;
 
-    public function selectCategoriasT(string $categorias){
+    public function getCategoriasT(string $categorias){
         $this->con = new Mysql();//Instacio Mysql.php
         $sql = "SELECT idcategoria, nombre, descripcion, portada 
                  FROM categoria WHERE status != 0 AND idcategoria IN ($categorias)";
-        $request = $this->con->select_all($sql);
+                 //el and es para hacer una consulta de las categorias que se van a mostrar en el slider
+                 $request = $this->con->select_all($sql);
         if (count($request) > 0) {
             for ($c=0; $c < count($request); $c++) { 
                 $request[$c]['portada'] = BASE_URL.'/Asets/images/uploads/'.$request[$c]['portada'];
