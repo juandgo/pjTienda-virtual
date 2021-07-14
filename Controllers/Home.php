@@ -15,7 +15,7 @@
             $data['page_name'] = "tienda_virtual";
             $data['slider'] = $this->getCategoriasT(CAT_SLIDER);
             $data['banner'] = $this->getCategoriasT(CAT_BANNER);
-            dep($data);
+            // dep($data);
             // exit;
             $this->views->getView($this,"home",$data);
     
