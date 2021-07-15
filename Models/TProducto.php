@@ -20,18 +20,18 @@ trait TProducto{
                 $request = $this->con->select_all($sql);
 
                 if(count($request) > 0){
-                    for($i = 0; $i < count($request) ; $i++){
-                        $intIdProducto = $request[$i]['idproducto'];
+                    for($c = 0; $c < count($request) ; $c++){
+                        $intIdProducto = $request[$c]['idproducto'];
                         $sqlImg = "SELECT img
                                 FROM imagen
                                 WHERE productoid = $intIdProducto";
                         $arrImg = $this->con->select_all($sqlImg);
                         if(count($arrImg) > 0){
-                            for($j = 0; $j < count($arrImg) ; $j++){
-                                $arrImg[$j]['url_image'] = media().'/images/uploads/'.$arrImg[$j]['img'];
+                            for($i = 0; $i < count($arrImg) ; $i++){
+                                $arrImg[$i]['url_image'] = media().'/images/uploads/'.$arrImg[$i]['img'];
                             }
                         }
-                        $request[$i]['images'] = $arrImg;
+                        $request[$c]['images'] = $arrImg;
                     }
                 }
         return $request;
