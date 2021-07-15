@@ -2,7 +2,7 @@
 
 require_once("Libraries/Core/Mysql.php");//Acedo a Libraries 
 trait TCategoria{
-    public $con;
+    private $con;
 
     public function getCategoriasT(string $categorias){
         $this->con = new Mysql();//Instacio Mysql.php
