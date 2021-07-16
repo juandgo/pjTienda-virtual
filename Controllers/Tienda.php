@@ -22,6 +22,7 @@
                 header("Location:".base_url());
             }else{
                 $categoria = strClean($params);
+                dep($this->getProductosCategoriaT($categoria));
                 $data['page_tag'] = $categoria;
                 $data['page_title'] = $categoria;
                 $data['page_name'] = "categoria";
