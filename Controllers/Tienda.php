@@ -13,7 +13,7 @@
             $data['page_title'] = NOMBRE_EMPRESA;
             $data['page_name'] = "tienda";
             $data['productos'] = $this->getProductosT();
-            $this->views->getView($this,"home",$data);
+            $this->views->getView($this,"tienda",$data);
     
         }
 
