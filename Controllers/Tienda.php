@@ -22,11 +22,11 @@
                 header("Location:".base_url());
             }else{
                 $categoria = strClean($params);
-                dep($this->getProductosCategoriaT($categoria));
-                $data['page_tag'] = $categoria;
+                // dep($this->getProductosCategoriaT($categoria));
+                $data['page_tag'] = NOMBRE_EMPRESA." | ".$categoria;
                 $data['page_title'] = $categoria;
                 $data['page_name'] = "categoria";
-                // $data['productos'] = $this->getProductosT();
+                $data['productos'] = $this->getProductosCategoriaT($categoria);
                 $this->views->getView($this,"categoria",$data);
             }
         }
