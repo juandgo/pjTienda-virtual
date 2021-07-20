@@ -3,6 +3,7 @@
 	getModal('modalCarrito',$data);
 	$arrProductos = $data['productos'];
 	// dep($arrProductos);
+	dep($data)
 ?>
 <br><br><br>
 <hr>

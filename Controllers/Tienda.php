@@ -36,12 +36,15 @@
                 header("Location:".base_url());
             }else{
                 $producto = strClean($params);
-                // dep($this->getProductosCategoriaT($categoria));
+                $arrProducto = $this->getProductoT($producto);
+                // dep($this->getProductoT($producto));
+                // dep($data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r'));
                 $data['page_tag'] = NOMBRE_EMPRESA." | ".$producto;
                 $data['page_title'] = $producto;
                 $data['page_name'] = "producto";
-                $data['productos'] =  "";
-                $data['productos'] = $this->getProductosCategoriaT($producto);
+                $data['productos'] =  $arrProducto;
+                //muestra 8 prodducto es random (r)
+                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r');
                 $this->views->getView($this,"producto",$data);
             }
         }
