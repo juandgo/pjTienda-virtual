@@ -67,7 +67,7 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
+					<a href="<?= base_url(); ?>" class="logo">
 						<img src="<?= media(); ?>/tienda/images/icons/logo-01.png" alt="Tienda Virutal JD">
 					</a>
 

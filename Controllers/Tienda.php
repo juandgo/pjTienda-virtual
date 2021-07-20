@@ -30,6 +30,21 @@
                 $this->views->getView($this,"categoria",$data);
             }
         }
+
+        public function producto($params){
+            if(empty($params)){
+                header("Location:".base_url());
+            }else{
+                $producto = strClean($params);
+                // dep($this->getProductosCategoriaT($categoria));
+                $data['page_tag'] = NOMBRE_EMPRESA." | ".$producto;
+                $data['page_title'] = $producto;
+                $data['page_name'] = "producto";
+                $data['productos'] =  "";
+                $data['productos'] = $this->getProductosCategoriaT($producto);
+                $this->views->getView($this,"producto",$data);
+            }
+        }
     }   
 
 ?>
