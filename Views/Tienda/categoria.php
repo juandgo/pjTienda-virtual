@@ -215,12 +215,13 @@
 
 			<div class="row isotope-grid">
 			<?php 
-			for ($p=0; $p < count($arrProductos) ; $p++) { 
-				if(count($arrProductos[$p]['images']) > 0){
-					$portada = $arrProductos[$p]['images'][0]['url_image'];
-				}else{
-					$portada = media().'/images/uploads/product.png';//Imagen por defecto 
-				}
+			if(!empty($arrProductos)){
+				for ($p=0; $p < count($arrProductos) ; $p++) { 
+					if(count($arrProductos[$p]['images']) > 0){
+						$portada = $arrProductos[$p]['images'][0]['url_image'];
+					}else{
+						$portada = media().'/images/uploads/product.png';//Imagen por defecto 
+					}
 			?>	
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
@@ -254,6 +255,9 @@
 					</div>
 				</div>
 			<?php
+				}
+			}else{
+				echo "No hay productos para mostrar.";
 			}
 			?>
 			</div>

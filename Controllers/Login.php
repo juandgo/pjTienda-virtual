@@ -23,7 +23,7 @@
             if ($_POST) {
                 if (empty($_POST['txtEmail']) || empty($_POST['txtPassword'])) {
                     $arrResponse = array('status' => false, 'msg' => 'Error de datos');
-                }else{
+                }else{                    
                     $strUsuario = strtolower(strClean($_POST['txtEmail']));
                     $strPassword = hash("SHA256",$_POST['txtPassword']);
                     $requestUser = $this->model->loginUser($strUsuario,$strPassword);//Devuelve el id del usuario
