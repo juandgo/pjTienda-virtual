@@ -42,7 +42,7 @@
                 $data['page_tag'] = NOMBRE_EMPRESA." | ".$producto;
                 $data['page_title'] = $producto;
                 $data['page_name'] = "producto";
-                $data['productos'] =  $arrProducto;
+                $data['producto'] =  $arrProducto;
                 //muestra 8 prodducto es random (r)
                 $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r');
                 $this->views->getView($this,"producto",$data);

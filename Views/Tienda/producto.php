@@ -1,7 +1,9 @@
 <?php
 	headerTienda($data);
 	getModal('modalCarrito',$data);
+	$arrProducto = $data['producto'];
 	$arrProductos = $data['productos'];
+	$arrImages = $arrProducto['images'];
 	// dep($arrProductos);
 	dep($data)
 ?>
@@ -10,18 +12,18 @@
 <!-- breadcrumb -->
 <div class="container">
 		<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-			<a href="index.html" class="stext-109 cl8 hov-cl1 trans-04">
-				Home
+			<a href="<?= base_url(); ?>" class="stext-109 cl8 hov-cl1 trans-04">
+				Inicio
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 
-			<a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-				Men
+			<a href="<?= base_url().'/tienda/categoria/'.$arrProducto['categoria']; ?>" class="stext-109 cl8 hov-cl1 trans-04">
+				<?= $arrProducto['categoria']; ?>
 				<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
 			</a>
 
 			<span class="stext-109 cl4">
-				Lightweight Jacket
+				<?= $arrProducto['nombre']; ?>
 			</span>
 		</div>
 	</div>
