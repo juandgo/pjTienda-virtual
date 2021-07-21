@@ -2,15 +2,16 @@
     
     class ProductosModel extends Mysql{
 
-        public $intIdProducto;
-        public $intCategoriaId;
-        public $strNombre;
-        public $strDescripcion;
-        public $strCodigo;
-        public $intPrecio;
-        public $intStock;
-        public $intStatus;
-        public $strImagen;
+        private $intIdProducto;
+        private $intCategoriaId;
+        private $strNombre;
+        private $strDescripcion;
+        private $strCodigo;
+        private $intPrecio;
+        private $intStock;
+        private $intStatus;
+        private $strRuta;
+        private $strImagen;
         
         public function __construct(){
             parent::__construct();
@@ -36,7 +37,7 @@
         }
 
         public function insertProducto(string $nomProducto, string $descripcion, string $codigo, int $categoriaid, string $precio, 
-        int $stock, int $status){
+        int $stock, string $ruta,int $status){
             $return = 0;
             $this->strNombre = $nomProducto;
             $this->strDescripcion = $descripcion;
@@ -44,6 +45,7 @@
             $this->intCategoriaId = $categoriaid;
             $this->strPrecio = $precio;
             $this->intStock = $stock;
+            $this->strRuta = $ruta;
             $this->intStatus = $status;
 
             $sql = "SELECT * FROM producto WHERE codigo = '{$this->intCodigo}'";
@@ -55,15 +57,17 @@
                                                         nombre, 
                                                         descripcion, 
                                                         precio, 
-                                                        stock, 
+                                                        stock,
+                                                        ruta, 
                                                         status) 
-                                VALUES(?,?,?,?,?,?,?)";
+                                VALUES(?,?,?,?,?,?,?,?)";
                 $arrData = array($this->intCategoriaId,
                                 $this->intCodigo,
                                 $this->strNombre,
                                 $this->strDescripcion,
                                 $this->strPrecio,
                                 $this->intStock,
+                                $this->strRuta, 
                                 $this->intStatus);
 
                 $request_insert = $this->insert($query_insert,$arrData);
@@ -75,7 +79,7 @@
         }
 
         public function updateProducto(int $idProducto,string $nomProducto, string $descripcion, string $codigo, int $categoriaid, string $precio, 
-        int $stock, int $status){
+        int $stock, string $ruta, int $status){
             
             $this->intIdProducto = $idProducto;
             $this->strNombre = $nomProducto;
@@ -84,6 +88,7 @@
             $this->intCategoriaId = $categoriaid;
             $this->strPrecio = $precio;
             $this->intStock = $stock;
+            $this->strRuta = $ruta;
             $this->intStatus = $status;
             //Busca que se encuentre en la tabla
             //las '{}' indica que es un dato varchar, hasta ahora me funciona el query sin colocar el dato asi '{$this->intCodigo}' 

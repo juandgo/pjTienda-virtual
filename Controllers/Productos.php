@@ -42,8 +42,10 @@
                     $strPrecio= strClean($_POST['txtPrecio']);
                     $intStock= intval($_POST['txtStock']);
                     $intStatus = intVal($_POST['listStatus']);//intVal convierte a entero 
+
+                    $ruta = strtolower(clear_cadena($strNombre));//transforma a minuscula y quita caracteres raros como una ñ o tilde, clear_cadena esta creada en herlpers.
+                    $ruta = str_replace(" ","-",$ruta);//Remplaza espacios por guiones
                     //Se envia la informacion al modelo 
-                    
                     if ($idProducto == 0 ) {
                         $option = 1;
                         if ($_SESSION['permisosMod']['w']) {
@@ -53,6 +55,7 @@
                                                                             $intCategoriaId,
                                                                             $strPrecio,
                                                                             $intStock,
+                                                                            $ruta,
                                                                             $intStatus);
                         }
                     }else{
@@ -65,6 +68,7 @@
                                                                             $intCategoriaId,
                                                                             $strPrecio,
                                                                             $intStock,
+                                                                            $ruta,
                                                                             $intStatus);
                         }
                     }
