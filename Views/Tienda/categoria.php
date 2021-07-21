@@ -11,7 +11,7 @@
 		<div class="container">
 			<div class="flex-w flex-sb-m p-b-52">
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                    <h3>Nombre categoria</h3>
+					<h3><?= $data['page_title']; ?></h3>
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">

@@ -20,7 +20,7 @@ trait TProducto{
                 FROM producto p
                 INNER JOIN categoria c
                 ON p.categoriaid = c.idcategoria
-                WHERE p.status != 0";
+                WHERE p.status != 0 ORDER BY p.idproducto DESC";
                 $request = $this->con->select_all($sql);
 
                 if(count($request) > 0){

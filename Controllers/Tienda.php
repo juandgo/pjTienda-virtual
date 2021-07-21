@@ -44,7 +44,7 @@
                 $data['page_name'] = "producto";
                 $data['producto'] =  $arrProducto;
                 //muestra 8 prodducto es random (r)
-                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r');
+                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,"r");
                 $this->views->getView($this,"producto",$data);
             }
         }

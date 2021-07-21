@@ -1,5 +1,5 @@
 <?php 
-    class Usuarios   extends Controllers{
+    class Usuarios extends Controllers{
         public function __construct(){
             parent::__construct();//ejecuta el metodo constructor de la clase Controllers
             session_start();//Solo con esto se podran crear variables de sesión
