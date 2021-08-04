@@ -56,6 +56,7 @@ trait TProducto{
                             p.categoriaid,
                             c.nombre as categoria,
                             p.precio,
+                            p.ruta,
                             p.stock,
                             p.status
                     FROM producto p

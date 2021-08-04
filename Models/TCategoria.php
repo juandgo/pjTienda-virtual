@@ -6,7 +6,7 @@ trait TCategoria{
 
     public function getCategoriasT(string $categorias){
         $this->con = new Mysql();//Instacio Mysql.php
-        $sql = "SELECT idcategoria, nombre, descripcion, portada 
+        $sql = "SELECT idcategoria, nombre, descripcion, portada, ruta 
                  FROM categoria WHERE status != 0 AND idcategoria IN ($categorias)";
                  //el and es para hacer una consulta de las categorias que se van a mostrar en el slider
                  $request = $this->con->select_all($sql);
