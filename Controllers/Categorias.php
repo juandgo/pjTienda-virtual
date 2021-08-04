@@ -37,6 +37,11 @@
                     $strCategoria = strClean($_POST['txtNombre']);
                     $strDescripcion = strClean($_POST['txtDescripcion']);
                     $intStatus = intVal($_POST['listStatus']);//intVal convierte a entero 
+
+                    $ruta = strtolower(clear_cadena($strCategoria));//transforma a minuscula y quita caracteres raros como una ñ o tilde, clear_cadena esta creada en herlpers.
+                    $ruta = str_replace(" ","-",$ruta);//Remplaza espacios por guiones
+                    //Se envia la informacion al modelo 
+
                     //Se envia la informacion al modelo 
                     $foto              = $_FILES['foto'];
                     $nombre_foto       = $foto['name'];
@@ -53,14 +58,14 @@
                         //si la variable de session tiene valor 1 en w (write) realiza el proceso para crear las categorias, esto por consola con el script $('#modalFormCategorias').modal("show"); que muestra el modal 
                         $option = 1;
                         if ($_SESSION['permisosMod']['w']) { 
-                            $request_categoria = $this->model->insertCategoria($strCategoria, $strDescripcion,$imgPortada,$intStatus);
+                            $request_categoria = $this->model->insertCategoria($strCategoria, $strDescripcion,$imgPortada,$ruta,$intStatus);
                         }
                     }else {
                         //Acrtualizar
                         //si la variable de session tiene valor 1 en u (udate) realiza el proceso para Actualizar las categorias, esto por consola con el script $('#modalFormCategorias').modal("show"); que muestra el modal 
 						$option = 2;
                         if ($_SESSION['permisosMod']['u']) {
-                            $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$intStatus);
+                            $request_categoria = $this->model->updateCategoria($intIdCategoria,$strCategoria, $strDescripcion,$imgPortada,$ruta,$intStatus);
                             if ($nombre_foto == '') {
                                 if ($_POST['foto_actual'] != 'portada_categoria.png'  && $_POST['foto_remove'] == 0) {
                                     $imgPortada = $_POST['foto_actual'];

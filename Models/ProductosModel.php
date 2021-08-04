@@ -104,6 +104,7 @@
                             descripcion = ?, 
                             precio = ?, 
                             stock = ?, 
+                            ruta = ?,
                             status = ?
                         WHERE idproducto = $this->intIdProducto";
                                 //Nota: esto siempre tiene que estar en el orden del query
@@ -113,6 +114,7 @@
                                 $this->strDescripcion,
                                 $this->strPrecio,
                                 $this->intStock,
+                                $this->strRuta,
                                 $this->intStatus);
                
 
