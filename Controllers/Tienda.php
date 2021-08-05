@@ -21,6 +21,8 @@
             if(empty($params)){
                 header("Location:".base_url());
             }else{
+                echo $params;
+                exit();
                 $categoria = strClean($params);
                 // dep($this->getProductosCategoriaT($categoria));
                 $data['page_tag'] = NOMBRE_EMPRESA." | ".$categoria;

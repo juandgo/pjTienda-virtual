@@ -4,7 +4,11 @@ trait TProducto{
 
     private $con;
     private $strCategoria;
+    private $intIdCategoria;
     private $strProducto;
+    private $cat;
+    private $option;
+    private $strRuta;
 
     public function getProductosT(){
         $this->con = new Mysql();//Instacio Mysql.php    
@@ -15,6 +19,7 @@ trait TProducto{
                         p.categoriaid,
                         c.nombre as categoria,
                         p.precio,
+                        p.ruta,
                         p.stock,
                         p.status
                 FROM producto p
@@ -41,10 +46,11 @@ trait TProducto{
         return $request;
     }
 
-    public function getProductosCategoriaT(string $categoria){
-        $this->strCategoria = $categoria;
+    public function getProductosCategoriaT(int $idcategoria, string $ruta){
+        $this->intIdCategoria = $idcategoria;
+        $this->strRuta = $ruta;
         $this->con = new Mysql();//Instacio Mysql.php    
-        $sql_cat = "SELECT idcategoria FROM categoria WHERE nombre = '{$this->strCategoria}'";
+        $sql_cat = "SELECT idcategoria, nombre FROM categoria WHERE idcategoria = '{$this->intIdCategoria}'";
         $request = $this->con->select($sql_cat);
 
         if (!empty($request)) {
