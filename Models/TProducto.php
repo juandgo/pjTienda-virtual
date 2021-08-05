@@ -54,7 +54,7 @@ trait TProducto{
         $request = $this->con->select($sql_cat);
 
         if (!empty($request)) {
-            $this->intIdCategoria = $request['idcategoria'];
+            $this->strCategoria = $request['nombre'];
             $sql = "SELECT p.idproducto,
                             p.codigo,
                             p.nombre,
@@ -63,12 +63,11 @@ trait TProducto{
                             c.nombre as categoria,
                             p.precio,
                             p.ruta,
-                            p.stock,
-                            p.status
+                            p.stock 
                     FROM producto p
                     INNER JOIN categoria c
                     ON p.categoriaid = c.idcategoria
-                    WHERE p.status != 0 AND p.categoriaid = $this->intIdCategoria";
+                    WHERE p.status != 0 AND p.categoriaid = $this->intIdCategoria AND c.ruta = '{$this->strRuta}'";
                     $request = $this->con->select_all($sql);
     
                     if(count($request) > 0){
