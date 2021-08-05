@@ -21,8 +21,14 @@
             if(empty($params)){
                 header("Location:".base_url());
             }else{
-                echo $params;
-                exit();
+                // echo $params;
+                // exit;
+                $arrParams = explode(",",$params);//Busca el caracter coma "," y convierte a array
+                $idcategoria = intval($arrParams[0]);
+                $ruta = strclean($arrParams[1]);
+                $infoCategoria = $this->getProductosCategoriaT($idcategoria,$ruta);
+                dep($infoCategoria);
+                exit;
                 $categoria = strClean($params);
                 // dep($this->getProductosCategoriaT($categoria));
                 $data['page_tag'] = NOMBRE_EMPRESA." | ".$categoria;
