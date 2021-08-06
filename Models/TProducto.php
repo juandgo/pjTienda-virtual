@@ -6,7 +6,7 @@ trait TProducto{
     private $strCategoria;
     private $intIdCategoria;
     private $strProducto;
-    private $cat;
+    private $cant;
     private $option;
     private $strRuta;
 
@@ -85,6 +85,9 @@ trait TProducto{
                             $request[$c]['images'] = $arrImg;
                         }
                     }
+                $request = array('idcategoria' => $this->intIdCategoria,
+                                    'categoria' =>  $this->strCategoria,
+                                    'productos' => $this->request);
         }
         return $request;
     }

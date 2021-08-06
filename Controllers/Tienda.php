@@ -31,7 +31,7 @@
                 exit;
                 $categoria = strClean($params);
                 // dep($this->getProductosCategoriaT($categoria));
-                $data['page_tag'] = NOMBRE_EMPRESA." | ".$categoria;
+                $data['page_tag'] = NOMBRE_EMPRESA." - ".$categoria;
                 $data['page_title'] = $categoria;
                 $data['page_name'] = "categoria";
                 $data['productos'] = $this->getProductosCategoriaT($categoria);
@@ -52,7 +52,7 @@
                 $data['page_name'] = "producto";
                 $data['producto'] =  $arrProducto;
                 //muestra 8 prodducto es random (r)
-                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,"r");
+                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r');
                 $this->views->getView($this,"producto",$data);
             }
         }
