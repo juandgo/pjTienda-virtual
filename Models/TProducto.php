@@ -5,6 +5,7 @@ trait TProducto{
     private $con;
     private $strCategoria;
     private $intIdCategoria;
+    private $intIdProducto;
     private $strProducto;
     private $cant;
     private $option;
@@ -87,7 +88,7 @@ trait TProducto{
                     }
                 $request = array('idcategoria' => $this->intIdCategoria,
                                     'categoria' =>  $this->strCategoria,
-                                    'productos' => $this->request);
+                                    'productos' => $request);
         }
         return $request;
     }
@@ -130,7 +131,6 @@ trait TProducto{
         $this->intIdCategoria = $idcategoria;
         $this->cant = $cant;
         $this->option = $option;
-        $this->con = new Mysql();//Instacio Mysql.php    
 
         if ($option == 'r') {
             $this->option = 'RAND()';
@@ -140,6 +140,7 @@ trait TProducto{
             $this->option = 'idproducto DESC';
         }    
 
+        $this->con = new Mysql();//Instacio Mysql.php    
         $sql = "SELECT p.idproducto,
                         p.codigo,
                         p.nombre,
@@ -147,8 +148,8 @@ trait TProducto{
                         p.categoriaid,
                         c.nombre as categoria,
                         p.precio,
-                        p.stock,
-                        p.status
+                        p.ruta,
+                        p.stock
                 FROM producto p
                 INNER JOIN categoria c
                 ON p.categoriaid = c.idcategoria

@@ -23,36 +23,38 @@
             }else{
                 // echo $params;
                 // exit;
-                $arrParams = explode(",",$params);//Busca el caracter coma "," y convierte a array
-                $idcategoria = intval($arrParams[0]);
-                $ruta = strclean($arrParams[1]);
-                $infoCategoria = $this->getProductosCategoriaT($idcategoria,$ruta);
-                dep($infoCategoria);
-                exit;
+                $arrParams = explode(",",$params);
+				$idcategoria = intval($arrParams[0]);
+				$ruta = strClean($arrParams[1]);
+                $infoCategoria = $this->getProductosCategoriaT($idcategoria, $ruta);
+                // dep($infoCategoria);
+                // exit;
                 $categoria = strClean($params);
                 // dep($this->getProductosCategoriaT($categoria));
                 $data['page_tag'] = NOMBRE_EMPRESA." - ".$categoria;
                 $data['page_title'] = $categoria;
                 $data['page_name'] = "categoria";
-                $data['productos'] = $this->getProductosCategoriaT($categoria);
+                $data['productos'] = $infoCategoria['productos'];
                 $this->views->getView($this,"categoria",$data);
             }
         }
 
         public function producto($params){
+            // echo $params; exit; 
             if(empty($params)){
                 header("Location:".base_url());
             }else{
                 $producto = strClean($params);
+                // echo $producto; exit; 
                 $arrProducto = $this->getProductoT($producto);
                 // dep($this->getProductoT($producto));
                 // dep($data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r'));
-                $data['page_tag'] = NOMBRE_EMPRESA." | ".$producto;
+                $data['page_tag'] = NOMBRE_EMPRESA." - ".$producto;
                 $data['page_title'] = $producto;
                 $data['page_name'] = "producto";
                 $data['producto'] =  $arrProducto;
                 //muestra 8 prodducto es random (r)
-                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r');
+                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,"r");
                 $this->views->getView($this,"producto",$data);
             }
         }

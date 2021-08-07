@@ -1,5 +1,6 @@
 <?php 
     // require_once("CategoriasModel.php"); // Es una instacia 
+    
     class HomeModel extends Mysql{
 
         private $objCategoria;

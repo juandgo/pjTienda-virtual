@@ -78,8 +78,7 @@
             return $return;
         }
 
-        public function updateProducto(int $idProducto,string $nomProducto, string $descripcion, string $codigo, int $categoriaid, string $precio, 
-        int $stock, string $ruta, int $status){
+        public function updateProducto(int $idProducto,string $nomProducto, string $descripcion, string $codigo, int $categoriaid, string $precio, int $stock, string $ruta, int $status){
             
             $this->intIdProducto = $idProducto;
             $this->strNombre = $nomProducto;
