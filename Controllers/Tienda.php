@@ -31,8 +31,8 @@
                 // exit;
                 $categoria = strClean($params);
                 // dep($this->getProductosCategoriaT($categoria));
-                $data['page_tag'] = NOMBRE_EMPRESA." - ".$categoria;
-                $data['page_title'] = $categoria;
+                $data['page_tag'] = NOMBRE_EMPRESA." - ".$infoCategoria['categoria'];
+                $data['page_title'] = $infoCategoria['categoria'];
                 $data['page_name'] = "categoria";
                 $data['productos'] = $infoCategoria['productos'];
                 $this->views->getView($this,"categoria",$data);
@@ -44,17 +44,19 @@
             if(empty($params)){
                 header("Location:".base_url());
             }else{
-                $producto = strClean($params);
-                // echo $producto; exit; 
-                $arrProducto = $this->getProductoT($producto);
-                // dep($this->getProductoT($producto));
-                // dep($data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,'r'));
-                $data['page_tag'] = NOMBRE_EMPRESA." - ".$producto;
-                $data['page_title'] = $producto;
+                $arrParams = explode(",",$params);
+                $idproducto = intval($arrParams[0]);
+				$ruta = strClean($arrParams[1]);
+                $infoProducto = $this->getProductoT($idproducto,$ruta);
+                if(empty($infoProducto)){
+                    header("Location:".base_url());
+                }
+                $data['page_tag'] = NOMBRE_EMPRESA." - ".$infoProducto['nombre'];
+                $data['page_title'] = $infoProducto['nombre'];
                 $data['page_name'] = "producto";
-                $data['producto'] =  $arrProducto;
+                $data['producto'] =  $infoProducto;
                 //muestra 8 prodducto es random (r)
-                $data['productos'] = $this->getProductosRandom($arrProducto['categoriaid'],8,"r");
+                $data['productos'] = $this->getProductosRandom($infoProducto['categoriaid'],8,"r");
                 $this->views->getView($this,"producto",$data);
             }
         }

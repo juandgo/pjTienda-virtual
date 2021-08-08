@@ -93,9 +93,10 @@ trait TProducto{
         return $request;
     }
 
-    public function getProductoT(string $producto){
-        $this->con = new Mysql();//Instacio Mysql.php    
-        $this->strProducto = $producto;
+    public function getProductoT(int $idproducto, string $ruta){
+        $this->con = new Mysql();//Instacio Mysql.php  
+        $this->intIdProducto = $idproducto;
+        $this->strRuta = $ruta;
         $sql = "SELECT p.idproducto,
                         p.codigo,
                         p.nombre,
@@ -103,12 +104,12 @@ trait TProducto{
                         p.categoriaid,
                         c.nombre as categoria,
                         p.precio,
-                        p.stock,
-                        p.status
+                        p.ruta,
+                        p.stock
                 FROM producto p
                 INNER JOIN categoria c
                 ON p.categoriaid = c.idcategoria
-                WHERE p.status != 0 AND p.nombre = '{$this->strProducto}'";
+                WHERE p.status != 0 AND p.idproducto = '{$this->intIdProducto}' AND p.ruta ='{$this->strRuta}'";
                 $request = $this->con->select($sql);
 
                 if(!empty($request)){
