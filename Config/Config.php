@@ -1,7 +1,7 @@
 <?php
 
     // define("BASE_URL","http://localhost:8082/www/tienda_virtual");
-    const BASE_URL = "http://localhost:8082 -,m./www/pjTienda-virtual";//variable constante
+    const BASE_URL = "http://localhost:8082/www/pjTienda-virtual";//variable constante
     //Zona horaria 
     date_default_timezone_set("America/Bogota");
     //Variables Globales 
