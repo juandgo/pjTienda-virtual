@@ -2,6 +2,7 @@
     class Login extends Controllers{
         public function __construct(){
             session_start();//con esto se puenden crear varibles de sesión
+            session_regenerate_id(true);//crea un id "PHPSESSID" difente cada que recarga la pagina 
             //valida si la sesión existe  redirecciona a dashboard, si no te devuelve al form login 
             if (isset($_SESSION['login'])) {
                 header("Location:".base_url()."/dashboard");

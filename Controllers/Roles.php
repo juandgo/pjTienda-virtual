@@ -3,6 +3,7 @@
         public function __construct(){
             parent::__construct();//ejecuta el metodo constructor de la clase Controllers
             session_start();
+            session_regenerate_id(true);//crea un id "PHPSESSID" difente cada que recarga la pagina 
             //valida si la sesión existe, si no te regresa al formulario login 
             if (empty($_SESSION['login'])) {
                 header("Location:".base_url()."/login");
