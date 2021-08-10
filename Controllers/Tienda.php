@@ -5,6 +5,7 @@
         use TCategoria, TProducto;
         public function __construct(){
             parent::__construct();//ejecuta el metodo constructor de la clase Controllers
+            session_start();//con esto puedo usar variables de session
         }
 
         public function tienda(){
@@ -64,6 +65,7 @@
         public function addCarrito(){
                 // dep($_POST);
             if($_POST){
+                $arrCarrito = array();
                 // Desencripto el id
                 $idproducto = openssl_decrypt($_POST['id'], METHODENCRYPT, KEY);
                 $cantidad = $_POST['cant'];
@@ -75,9 +77,14 @@
                                             'producto' => $arrInfoProducto['nombre'],
                                             'cantidad' => $cantidad,
                                             'precio' => $arrInfoProducto['precio'],
-                                            'imagen' => $arrInfoProducto['images'][0]['url_image']//agarra array de imagenes
+                                            'imagen' => $arrInfoProducto['images'][0]['url_image']//agarra array de imagenes en la posicion 0
                                             );
+                        if(isset($_SESSION['addCarrito'])){
 
+                        }else{
+                            array_push($arrCarrito, $arrProducto);
+                            $_SESSION[] = $arrCarrito;
+                        }
                     }else{
                         $arrResponse = array("status"=>false, "msg" => 'Producto no existente.');
                     }
