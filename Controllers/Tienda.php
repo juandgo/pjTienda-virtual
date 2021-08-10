@@ -23,7 +23,7 @@
             }else{
                 // echo $params;
                 // exit;
-                $arrParams = explode(",",$params);
+                $arrParams = explode(",",$params);//explode es una funcion propia de php para crear un array cuando encuentra una jota ","
 				$idcategoria = intval($arrParams[0]);
 				$ruta = strClean($arrParams[1]);
                 $infoCategoria = $this->getProductosCategoriaT($idcategoria, $ruta);
