@@ -28,5 +28,10 @@
 
     const CAT_SLIDER = "1,2,3,4";
     const CAT_BANNER = "4,5,6";
+
+    //Datos para Encriptar / Desencriptar    
+    CONST KEY = "juandago97";
+    CONST METHODENCRYPT = "AES-128-ECB";
+    
     
 ?>

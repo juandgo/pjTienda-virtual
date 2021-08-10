@@ -60,6 +60,16 @@
                 $this->views->getView($this,"producto",$data);
             }
         }
+
+        public function addCarrito(){
+            if($_POST){
+                // Desencripto el id
+                $idproducto = openssl_decrypt($_POST['id'], METHODENCRYPT, KEY);
+                echo $idproducto.' - '.$_POST['cant'];
+                // dep($_POST);
+            }
+            die();
+        }
     }   
 
 ?>
