@@ -62,11 +62,29 @@
         }
 
         public function addCarrito(){
+                // dep($_POST);
             if($_POST){
                 // Desencripto el id
                 $idproducto = openssl_decrypt($_POST['id'], METHODENCRYPT, KEY);
-                echo $idproducto.' - '.$_POST['cant'];
-                // dep($_POST);
+                $cantidad = $_POST['cant'];
+                if(is_numeric($idproducto) and is_numeric($cantidad)){
+                    $arrInfoProducto = $this->getProductoIDT($idproducto);
+                    // dep($arrInfoProducto);
+                    if(!empty($arrInfoProducto)){
+                        $arrProducto = array('idproducto' => $idproducto,
+                                            'producto' => $arrInfoProducto['nombre'],
+                                            'cantidad' => $cantidad,
+                                            'precio' => $arrInfoProducto['precio'],
+                                            'imagen' => $arrInfoProducto['images'][0]['url_image']//agarra array de imagenes
+                                            );
+
+                    }else{
+                        $arrResponse = array("status"=>false, "msg" => 'Producto no existente.');
+                    }
+                }else{
+                    $arrResponse = array("status"=>false, "msg" => 'Dato incorrecto.');
+                }
+                echo json_encode($arrResponse,JSON_UNESCAPED_UNICODE);
             }
             die();
         }
