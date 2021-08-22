@@ -107,7 +107,7 @@
                         $htmlCarrito = getFile('Template/Modals/modalCarrito',$_SESSION['arrCarrito']);
                         $arrResponse = array("status" =>true,
                                                 "msg" =>'¡Se agrego al carrito!',
-                                                "cant" => $cantCarrito,
+                                                "cantCarrito" => $cantCarrito,
                                                 "htmlCarrito" => $htmlCarrito
                                             );
                     }else{

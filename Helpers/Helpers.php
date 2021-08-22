@@ -40,7 +40,7 @@
 
     function getFile(string $url, $data){
         require_once("Views/{$url}.php");
-        $file = ob_get_clean();//Levanta el archivo {$url} para tenerlo en buffer y de esta forma se pueden usar variables que se esta pasndo por parametro
+        $file = ob_get_clean();//Levanta el archivo {$url} para tenerlo en buffer y de esta forma se pueden usar variables que se esta pasando por parametro
         return $file; 
     }
 
