@@ -94,7 +94,7 @@
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
 							<i class="zmdi zmdi-search"></i>
 						</div>
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+						<div id="cantCarrito" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="0">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 					</div>
@@ -205,7 +205,7 @@
 				</div>
 			</div>
 			
-			<div class="header-cart-content flex-w js-pscroll">
+			<div id="productosCarrito" class="header-cart-content flex-w js-pscroll">
 				
 			</div>
 		</div>
